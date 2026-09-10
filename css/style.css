@@ -1,0 +1,481 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Tajawal', sans-serif;
+}
+
+body {
+    background-color: #08080a;
+    color: #f0f2f5;
+    direction: rtl;
+    line-height: 1.6;
+}
+
+/* محاذاة النصوص التلقائية عند التحويل للإنجليزية */
+html[dir="ltr"] body {
+    direction: ltr;
+    text-align: left;
+}
+
+html[dir="ltr"] .hero-block,
+html[dir="ltr"] .solutions-container .block-title,
+html[dir="ltr"] .solutions-container .block-subtitle,
+html[dir="ltr"] .grid-section .block-title,
+html[dir="ltr"] .grid-section .block-subtitle {
+    text-align: center;
+}
+
+html[dir="ltr"] .feature-card-row,
+html[dir="ltr"] .timeline-step,
+html[dir="ltr"] .grid-card,
+html[dir="ltr"] .steps-sidebar {
+    text-align: left;
+}
+
+html[dir="ltr"] .step-info ul li {
+    padding-right: 0;
+    padding-left: 18px;
+}
+
+html[dir="ltr"] .step-info ul li::before {
+    right: auto;
+    left: 0;
+}
+
+/* الهيدر العلوي وحوافه السوداء */
+.navbar-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 6%;
+    background-color: #0d0e12;
+    border-bottom: 3px solid #000000;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.brand-logo-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand-img {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #000000;
+}
+
+.brand-title {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #ffffff;
+}
+
+/* كبسولة التنقل */
+.nav-pill {
+    display: flex;
+    background-color: #ffffff;
+    padding: 6px 8px;
+    border-radius: 50px;
+    gap: 4px;
+    border: 3px solid #000000;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+}
+
+.pill-link {
+    color: #111111;
+    text-decoration: none;
+    padding: 8px 24px;
+    border-radius: 40px;
+    font-size: 0.98rem;
+    font-weight: 800;
+    transition: all 0.3s ease;
+}
+
+.pill-link.active, .pill-link:hover {
+    background-color: #0d0e12;
+    color: #ffffff;
+}
+
+.btn-lang {
+    background-color: #1c202d;
+    color: #ffffff;
+    border: 2px solid #000000;
+    padding: 8px 22px;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
+}
+
+.btn-lang:hover {
+    background-color: #2a3044;
+    color: #fff;
+}
+
+/* 1. قسم الهيرو المطور */
+.hero-block {
+    text-align: center;
+    padding: 90px 20px 60px;
+    background: radial-gradient(circle at top, #181d2b 0%, #08080a 80%);
+}
+
+.pill-badge {
+    display: inline-block;
+    background-color: #222736;
+    color: #ffffff;
+    padding: 8px 28px;
+    border-radius: 50px;
+    font-size: 0.92rem;
+    font-weight: 700;
+    border: 2px solid #000000;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.hero-headline {
+    font-size: 2.85rem;
+    font-weight: 800;
+    color: #ffffff;
+    max-width: 850px;
+    margin: 0 auto 22px;
+    line-height: 1.35;
+}
+
+.hero-subtext {
+    color: #cbd2e1;
+    max-width: 720px;
+    margin: 0 auto 50px;
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+.trusted-partners p {
+    font-size: 0.95rem;
+    color: #9aa3b6;
+    margin-bottom: 18px;
+    font-weight: 700;
+}
+
+.partners-list {
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+    flex-wrap: wrap;
+}
+
+.partners-list span {
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 1.18rem;
+    letter-spacing: 1.2px;
+    transition: opacity 0.3s ease;
+}
+
+/* 2. قسم الكروت */
+.solutions-container {
+    padding: 70px 8% 30px 8%;
+}
+
+.block-title {
+    text-align: center;
+    font-size: 2.2rem;
+    color: #ffffff;
+    margin-bottom: 10px;
+    font-weight: 800;
+}
+
+.block-subtitle {
+    text-align: center;
+    color: #9aa3b6;
+    max-width: 650px;
+    margin: 0 auto 55px;
+}
+
+.feature-card-row {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    background-color: #12151f;
+    border: 3px solid #000000;
+    border-radius: 28px;
+    padding: 35px;
+    margin-bottom: 35px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+}
+
+.feature-card-row.row-reverse {
+    flex-direction: row-reverse;
+}
+
+.card-media {
+    flex: 1;
+}
+
+.editor-window {
+    background-color: #1a1e2b;
+    border: 2px solid #000000;
+    border-radius: 20px;
+    min-height: 200px;
+    padding: 15px;
+}
+
+.window-bar span {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background-color: #434c62;
+    margin-left: 5px;
+}
+
+.window-content code {
+    color: #c5cedf;
+    font-family: monospace;
+    font-size: 0.95rem;
+}
+
+.card-details {
+    flex: 1;
+}
+
+.tag-pill {
+    background-color: #1f2434;
+    color: #ffffff;
+    padding: 6px 18px;
+    border-radius: 30px;
+    font-size: 0.82rem;
+    border: 2px solid #000000;
+    font-weight: 700;
+}
+
+.card-details h3 {
+    color: #ffffff;
+    font-size: 1.8rem;
+    margin: 15px 0 10px;
+    font-weight: 700;
+}
+
+.card-details p {
+    color: #b8c1d3;
+    font-size: 0.98rem;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.visual-icon {
+    font-size: 3.5rem;
+    color: #5d6780;
+}
+
+.med-large-chart-box {
+    width: 100%;
+    max-width: 400px;
+    height: 230px;
+    background-color: #1a1e2b;
+    border: 2px solid #000000;
+    border-radius: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.med-large-arrow-svg {
+    width: 90%;
+    max-width: 360px;
+    height: auto;
+    filter: drop-shadow(0px 3px 12px rgba(255, 255, 255, 0.35));
+}
+
+/* 3. قسم الخطوات المتسلسلة */
+.steps-container {
+    background-color: #0b0c10;
+    padding: 50px 8% 70px 8%;
+    border-top: 3px solid #000000;
+    border-bottom: 3px solid #000000;
+}
+
+.steps-grid {
+    display: flex;
+    gap: 50px;
+}
+
+.steps-sidebar {
+    flex: 1;
+}
+
+.steps-sidebar h2 {
+    font-size: 2.2rem;
+    color: #ffffff;
+    margin-bottom: 15px;
+    font-weight: 800;
+}
+
+.steps-sidebar p {
+    color: #b8c1d3;
+    margin-bottom: 20px;
+}
+
+.flow-tags {
+    color: #ffffff;
+    font-weight: 800;
+    margin-bottom: 30px;
+}
+
+.btn-start {
+    display: inline-block;
+    background-color: #ffffff;
+    color: #000000;
+    padding: 12px 35px;
+    border-radius: 40px;
+    border: 2px solid #000000;
+    text-decoration: none;
+    font-weight: 800;
+    transition: 0.3s;
+}
+
+.btn-start:hover {
+    background-color: #dddddd;
+}
+
+.steps-timeline {
+    flex: 1.4;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.timeline-step {
+    display: flex;
+    gap: 20px;
+    background-color: #12151f;
+    padding: 25px;
+    border-radius: 24px;
+    border: 2px solid #000000;
+}
+
+.step-badge-num {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #616e8a;
+}
+
+.step-label {
+    background-color: #1f2434;
+    color: #ffffff;
+    padding: 3px 12px;
+    border-radius: 30px;
+    font-size: 0.78rem;
+    border: 1px solid #000000;
+}
+
+.step-info h3 {
+    color: #ffffff;
+    margin: 8px 0;
+    font-size: 1.2rem;
+}
+
+.step-info p, .step-info ul {
+    color: #b8c1d3;
+    font-size: 0.92rem;
+}
+
+.step-info ul {
+    list-style: none;
+    margin-top: 10px;
+}
+
+.step-info ul li {
+    margin-bottom: 6px;
+    position: relative;
+    padding-right: 18px;
+}
+
+.step-info ul li::before {
+    content: "•";
+    position: absolute;
+    right: 0;
+    color: #ffffff;
+}
+
+/* 4. قسم الكروت والشرائح */
+.grid-section {
+    padding: 70px 8%;
+}
+
+.three-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-bottom: 45px;
+}
+
+.grid-card {
+    background-color: #12151f;
+    border: 2px solid #000000;
+    padding: 35px 25px;
+    border-radius: 24px;
+    transition: 0.3s ease;
+}
+
+.grid-card:hover {
+    border-color: #ffffff;
+    transform: translateY(-5px);
+}
+
+.card-ico {
+    font-size: 2.2rem;
+    color: #ffffff;
+    margin-bottom: 18px;
+}
+
+.grid-card h3 {
+    color: #ffffff;
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+}
+
+.grid-card p {
+    color: #b8c1d3;
+    font-size: 0.93rem;
+}
+
+.chips-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.chip-item {
+    background-color: #1c202d;
+    color: #ffffff;
+    padding: 9px 22px;
+    border-radius: 40px;
+    border: 2px solid #000000;
+    font-size: 0.88rem;
+    font-weight: 700;
+}
+
+@media (max-width: 850px) {
+    .navbar-wrapper, .feature-card-row, .feature-card-row.row-reverse, .steps-grid {
+        flex-direction: column;
+        gap: 25px;
+    }
+}

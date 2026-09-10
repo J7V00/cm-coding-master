@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coding Master | الصفحة الرئيسية</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- الهيدر العلوي -->
+    <header class="navbar-wrapper">
+        <div class="lang-container">
+            <button class="btn-lang" id="langSwitch" onclick="toggleLanguage()">English <i class="fa-solid fa-globe"></i></button>
+        </div>
+
+        <nav class="nav-pill">
+            <a href="index.html" class="pill-link active" id="navHome">الرئيسية</a>
+            <a href="about.html" class="pill-link" id="navAbout">من نحن</a>
+            <a href="contact.html" class="pill-link" id="navContact">تواصل معنا</a>
+        </nav>
+
+        <div class="brand-logo-group">
+            <span class="brand-title">Coding Master</span>
+            <img src="../assets/logo.png" alt="Coding Master Logo" class="brand-img">
+        </div>
+    </header>
+
+    <!-- 1. واجهة الهيرو المعدلة بالنص الجديد -->
+    <section class="hero-block">
+        <h1 class="hero-headline" id="heroHeadline">السلام عليكم ورحمة الله وبركاته، ومرحبًا بكم في Coding Master</h1>
+        <p class="hero-subtext" id="heroSubtext">
+            هنا تبدأ الفكرة، ويبدأ معها عالم من الإبداع والبرمجة.<br>
+            نتعلم، نجرب، ونحوّل أفكارنا إلى مشاريع جميلة بطريقة بسيطة وواضحة.<br>
+            خذ خطوتك الأولى، وافتح بابًا جديدًا لعالم الكود.
+        </p>
+
+        <div class="trusted-partners">
+            <p id="trustedText">أكثر من +50 مجتمع ومؤسسة تقنية تثق بنا</p>
+            <div class="partners-list">
+                <span>VS CODE</span>
+                <span>GITHUB</span>
+                <span>PYTHON</span>
+                <span>DOCKER</span>
+                <span>JAVASCRIPT</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. قسم الحلول والمميزات -->
+    <section class="solutions-container">
+        <h2 class="block-title" id="solutionsTitle">الحلول التي تأخذ عملك إلى المستوى التالي</h2>
+        <p class="block-subtitle" id="solutionsSub">نقوم بتصميم وتطوير أدوات البيئة البرمجية التي تساعدك على العمل بشكل أكثر ذكاءً وبجهد أقل</p>
+
+        <!-- كارت 1 -->
+        <div class="feature-card-row">
+            <div class="card-media">
+                <div class="editor-window">
+                    <div class="window-bar"><span></span><span></span><span></span></div>
+                    <div class="window-content">
+                        <code>// Coding Master Automated Engine</code>
+                        <code>const app = new CodingMaster();</code>
+                        <code>app.compile();</code>
+                    </div>
+                </div>
+            </div>
+            <div class="card-details">
+                <span class="tag-pill" id="card1Tag">أتمتة سير العمل</span>
+                <h3 id="card1Title">بناء أنظمة أكثر ذكاءً</h3>
+                <p id="card1Desc">نساعدك على تبسيط العمليات الداخلية من خلال أتمتة سير العمل اليدوي مثل إدخال البيانات وإعداد التقارير وسلاسل الموافقة لتوفير الوقت وتقليل الأخطاء.</p>
+            </div>
+        </div>
+
+        <!-- كارت 2 -->
+        <div class="feature-card-row row-reverse">
+            <div class="card-media">
+                <div class="editor-window flex-center">
+                    <i class="fa-solid fa-laptop-code visual-icon"></i>
+                </div>
+            </div>
+            <div class="card-details">
+                <span class="tag-pill" id="card2Tag">أنظمة متكيفة</span>
+                <h3 id="card2Title">تكامل التصميم والبيئة</h3>
+                <p id="card2Desc">أنظمة متوافقة مع كافة أجهزة سطح المكتب والأجهزة المحمولة لضمان تجربة أسرع في الوصول وواجهات سهلة الاستخدام لجميع التطبيقات.</p>
+            </div>
+        </div>
+
+        <!-- كارت 3 -->
+        <div class="feature-card-row">
+            <div class="card-media">
+                <div class="med-large-chart-box">
+                    <svg class="med-large-arrow-svg" viewBox="0 0 100 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="12" y="36" width="11" height="20" rx="2" fill="#ffffff" opacity="0.18" />
+                        <rect x="32" y="26" width="11" height="30" rx="2" fill="#ffffff" opacity="0.30" />
+                        <rect x="52" y="16" width="11" height="40" rx="2" fill="#ffffff" opacity="0.45" />
+                        <rect x="72" y="6"  width="11" height="50" rx="2" fill="#ffffff" opacity="0.70" />
+                        
+                        <path d="M 6 46 C 28 38, 48 22, 84 8" stroke="#ffffff" stroke-width="3.8" stroke-linecap="round" fill="none"/>
+                        <path d="M 70 8 H 84 V 22" stroke="#ffffff" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="card-details">
+                <span class="tag-pill" id="card3Tag">هيكلة قوية</span>
+                <h3 id="card3Title">تسريع نمو مهاراتك البرمجية</h3>
+                <p id="card3Desc">أدوات الذكاء الاصطناعي لتحليل الكود وتوفير التوجيه المباشر، مما يوسع فرصك لبناء معرض أعمال قوي ودخول سوق العمل بثقة.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. قسم الخطوات المتسلسلة -->
+    <section class="steps-container">
+        <div class="steps-grid">
+            <div class="steps-sidebar">
+                <h2 id="stepsTitle">ماذا يقدم لك Coding Master؟</h2>
+                <p id="stepsSub">نظام عملي يضمن لكل مطور تجربة حقيقية ومستقرة، من خلال مسار واضح ومتدرج عبر الأنظمة التالية:</p>
+
+                <div class="flow-tags" id="flowTags">تنفيذ ← توثيق ← تسليم ← اعتماد ← احتراف</div>
+                <a href="download.html" class="btn-start" id="btnStart">ابدأ الآن</a>
+            </div>
+
+            <div class="steps-timeline">
+                <div class="timeline-step">
+                    <div class="step-badge-num">01</div>
+                    <div class="step-info">
+                        <span class="step-label" id="step1Label">الخطوة الأولى</span>
+                        <h3 id="step1Title">بناء تجربة المستخدم مع التطبيق نفسه</h3>
+                        <p id="step1Desc">بعد الإطلاق المباشر لأي ميزة برمجية، نعمل بالتعاون المباشر مع المطورين عبر نظام تقييم يلتقط الملاحظات ويحولها إلى تحسينات فورية ومُدارة.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-step">
+                    <div class="step-badge-num">02</div>
+                    <div class="step-info">
+                        <span class="step-label" id="step2Label">الخطوة الثانية</span>
+                        <h3 id="step2Title">ضمان جودة المشاريع ودخول سوق العمل</h3>
+                        <p id="step2Desc">نضمن الممارسة الحقيقية بداخل البيئة عبر استلام البرمجيات بصيغة منظمة ودخول السوق بمنتج واضح المعالم.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-step">
+                    <div class="step-badge-num">03</div>
+                    <div class="step-info">
+                        <span class="step-label" id="step3Label">الخطوة الثالثة</span>
+                        <h3 id="step3Title">متابعة الأداء وبناء ملف المطور (Portfolio)</h3>
+                        <p id="step3Desc">توثيق العمل المنجز والمشاريع، وربط الإنجاز الفعلي بملفك البرمجي وتصحيح الأخطاء فوراً.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. قسم الكروت والشرائح -->
+    <section class="grid-section">
+        <h2 class="block-title" id="gridTitle">ما الذي يميز Coding Master؟</h2>
+        <p class="block-subtitle" id="gridSub">أدوات مبتكرة ورؤى قوية مصممة لرفع مستوى عملك وكودك البرمجي</p>
+
+        <div class="three-cards-grid">
+            <div class="grid-card">
+                <i class="fa-solid fa-sliders card-ico"></i>
+                <h3 id="grid1Title">أنظمة تكيفية</h3>
+                <p id="grid1Desc">استفد من الأنظمة القائمة على الذكاء الاصطناعي التي تتطور مع كودك، مما يضمن الكفاءة والابتكار في كل خطوة.</p>
+            </div>
+            <div class="grid-card">
+                <i class="fa-solid fa-shield-halved card-ico"></i>
+                <h3 id="grid2Title">بيئة آمنة ومستقرة</h3>
+                <p id="grid2Desc">إعطاء الأولوية للسلامة باستخدام التشفير المتقدم وميزات الأمان القوية لكل تفاعل برمجية.</p>
+            </div>
+            <div class="grid-card">
+                <i class="fa-solid fa-headset card-ico"></i>
+                <h3 id="grid3Title">دعم مخصص</h3>
+                <p id="grid3Desc">يمكنك الوصول إلى مساعدة الخبراء على مدار الساعة لضمان عدم وجودك وحدك في رحلة النمو البرمجي.</p>
+            </div>
+        </div>
+
+        <div class="chips-wrapper">
+            <span class="chip-item">أتمتة سير العمل</span>
+            <span class="chip-item">خطط الذكاء الاصطناعي المخصصة</span>
+            <span class="chip-item">تقارير في الوقت الفعلي</span>
+            <span class="chip-item">رؤى ذكية</span>
+            <span class="chip-item">دعم VS Code</span>
+            <span class="chip-item">مزامنة سحابية</span>
+        </div>
+    </section>
+
+    <!-- الجافاسكريبت المدمج ببيانات الترجمة الجديدة -->
+    <script>
+        let currentLang = 'ar';
+
+        const translations = {
+            ar: {
+                direction: 'rtl',
+                langBtnText: 'English <i class="fa-solid fa-globe"></i>',
+                navHome: 'الرئيسية',
+                navAbout: 'من نحن',
+                navContact: 'تواصل معنا',
+                heroBadge: 'Coding Master — تعلّم، أبدع، واصنع فكرتك 💻✨',
+                heroHeadline: 'السلام عليكم ورحمة الله وبركاته، ومرحبًا بكم في Coding Master',
+                heroSubtext: 'هنا تبدأ الفكرة، ويبدأ معها عالم من الإبداع والبرمجة.<br>نتعلم، نجرب، ونحوّل أفكارنا إلى مشاريع جميلة بطريقة بسيطة وواضحة.<br>خذ خطوتك الأولى، وافتح بابًا جديدًا لعالم الكود.',
+                trustedText: 'أكثر من +50 مجتمع ومؤسسة تقنية تثق بنا',
+                solutionsTitle: 'الحلول التي تأخذ عملك إلى المستوى التالي',
+                solutionsSub: 'نقوم بتصميم وتطوير أدوات البيئة البرمجية التي تساعدك على العمل بشكل أكثر ذكاءً وبجهد أقل',
+                card1Tag: 'أتمتة سير العمل',
+                card1Title: 'بناء أنظمة أكثر ذكاءً',
+                card1Desc: 'نساعدك على تبسيط العمليات الداخلية من خلال أتمتة سير العمل اليدوي مثل إدخال البيانات وإعداد التقارير وسلاسل الموافقة لتوفير الوقت وتقليل الأخطاء.',
+                card2Tag: 'أنظمة متكيفة',
+                card2Title: 'تكامل التصميم والبيئة',
+                card2Desc: 'أنظمة متوافقة مع كافة أجهزة سطح المكتب والأجهزة المحمولة لضمان تجربة أسرع في الوصول وواجهات سهلة الاستخدام لجميع التطبيقات.',
+                card3Tag: 'هيكلة قوية',
+                card3Title: 'تسريع نمو مهاراتك البرمجية',
+                card3Desc: 'أدوات الذكاء الاصطناعي لتحليل الكود وتوفير التوجيه المباشر، مما يوسع فرصك لبناء معرض أعمال قوي ودخول سوق العمل بثقة.',
+                stepsTitle: 'ماذا يقدم لك Coding Master؟',
+                stepsSub: 'نظام عملي يضمن لكل مطور تجربة حقيقية ومستقرة، من خلال مسار واضح ومتدرج عبر الأنظمة التالية:',
+                flowTags: 'تنفيذ ← توثيق ← تسليم ← اعتماد ← احتراف',
+                btnStart: 'ابدأ الآن',
+                step1Label: 'الخطوة الأولى',
+                step1Title: 'بناء تجربة المستخدم مع التطبيق نفسه',
+                step1Desc: 'بعد الإطلاق المباشر لأي ميزة برمجية، نعمل بالتعاون المباشر مع المطورين عبر نظام تقييم يلتقط الملاحظات ويحولها إلى تحسينات فورية ومُدارة.',
+                step2Label: 'الخطوة الثانية',
+                step2Title: 'ضمان جودة المشاريع ودخول سوق العمل',
+                step2Desc: 'نضمن الممارسة الحقيقية بداخل البيئة عبر استلام البرمجيات بصيغة منظمة ودخول السوق بمنتج واضح المعالم.',
+                step3Label: 'الخطوة الثالثة',
+                step3Title: 'متابعة الأداء وبناء ملف المطور (Portfolio)',
+                step3Desc: 'توثيق العمل المنجز والمشاريع، وربط الإنجاز الفعلي بملفك البرمجي وتصحيح الأخطاء فوراً.',
+                gridTitle: 'ما الذي يميز Coding Master؟',
+                gridSub: 'أدوات مبتكرة ورؤى قوية مصممة لرفع مستوى عملك وكودك البرمجي',
+                grid1Title: 'أنظمة تكيفية',
+                grid1Desc: 'استفد من الأنظمة القائمة على الذكاء الاصطناعي التي تتطور مع كودك، مما يضمن الكفاءة والابتكار في كل خطوة.',
+                grid2Title: 'بيئة آمنة ومستقرة',
+                grid2Desc: 'إعطاء الأولوية للسلامة باستخدام التشفير المتقدم وميزات الأمان القوية لكل تفاعل برمجية.',
+                grid3Title: 'دعم مخصص',
+                grid3Desc: 'يمكنك الوصول إلى مساعدة الخبراء على مدار الساعة لضمان عدم وجودك وحدك في رحلة النمو البرمجي.'
+            },
+            en: {
+                direction: 'ltr',
+                langBtnText: 'العربية <i class="fa-solid fa-globe"></i>',
+                navHome: 'Home',
+                navAbout: 'About Us',
+                navContact: 'Contact Us',
+                heroBadge: 'Coding Master — Learn, Innovate & Build Your Idea 💻✨',
+                heroHeadline: 'Welcome to Coding Master',
+                heroSubtext: 'Where ideas begin and a world of innovation and programming unfolds.<br>We learn, experiment, and turn ideas into beautiful projects simply and clearly.<br>Take your first step and open a new doorway into coding.',
+                trustedText: 'Trusted by over +50 technical & software communities',
+                solutionsTitle: 'Solutions That Elevate Your Coding Skills',
+                solutionsSub: 'We design & build development tools that help you work smarter with less effort',
+                card1Tag: 'Workflow Automation',
+                card1Title: 'Building Smarter Systems',
+                card1Desc: 'We streamline internal processes by automating manual workflows, code execution, and reporting to save time and prevent errors.',
+                card2Tag: 'Adaptive Systems',
+                card2Title: 'Design & IDE Integration',
+                card2Desc: 'Fully responsive systems for desktop and mobile devices ensuring fast access and seamless developer user experience.',
+                card3Tag: 'Solid Architecture',
+                card3Title: 'Accelerating Skill Growth',
+                card3Desc: 'AI-driven code analysis and real-time guidance to expand your potential, build a stellar portfolio, and enter the job market with confidence.',
+                stepsTitle: 'What Does Coding Master Offer?',
+                stepsSub: 'A practical framework guaranteeing a real and stable environment through clear milestones:',
+                flowTags: 'Execute → Document → Deliver → Certify → Master',
+                btnStart: 'Start Now',
+                step1Label: 'Step 1',
+                step1Title: 'Building User Experience with Direct Practice',
+                step1Desc: 'Upon releasing any coding feature, we collaborate directly with developers through a feedback system to refine and upgrade instantly.',
+                step2Label: 'Step 2',
+                step2Title: 'Ensuring Project Quality & Career Readiness',
+                step2Desc: 'We guarantee hands-on practice within the environment by delivering structured software and entering the market with a clear product.',
+                step3Label: 'Step 3',
+                step3Title: 'Performance Tracking & Portfolio Building',
+                step3Desc: 'Documenting completed work and projects, linking actual achievements to your developer profile, and fixing bugs instantly.',
+                gridTitle: 'Why Choose Coding Master?',
+                gridSub: 'Innovative tools & actionable insights crafted to level up your code',
+                grid1Title: 'Adaptive Systems',
+                grid1Desc: 'Leverage AI systems that evolve alongside your codebase, ensuring high efficiency at every step.',
+                grid2Title: 'Secure & Stable Environment',
+                grid2Desc: 'Prioritizing safety with advanced encryption and robust security features for every interaction.',
+                grid3Title: 'Dedicated Support',
+                grid3Desc: 'Access expert support 24/7 to ensure you never walk your coding journey alone.'
+            }
+        };
+
+        function toggleLanguage() {
+            const langBtn = document.getElementById('langSwitch');
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            const langData = translations[currentLang];
+
+            document.documentElement.setAttribute('dir', langData.direction);
+
+            if (langBtn) {
+                langBtn.innerHTML = langData.langBtnText;
+            }
+
+            for (let key in langData) {
+                if (key !== 'direction' && key !== 'langBtnText') {
+                    const el = document.getElementById(key);
+                    if (el) {
+                        el.innerHTML = langData[key];
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
