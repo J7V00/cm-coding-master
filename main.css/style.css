@@ -1,0 +1,414 @@
+:root {
+    --bg-main: #060709;
+    --bg-card: #14151c;
+    --text-white: #ffffff;
+    --text-gray: #9ea3ac;
+    --border-light: rgba(255, 255, 255, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Tajawal', sans-serif;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-white);
+    line-height: 1.8;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 5%;
+}
+
+/* ================== الهيدر ================== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    background: var(--bg-main);
+    border-bottom: 1px solid var(--border-light);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 800;
+    font-size: 1.2rem;
+    color: #ffffff;
+}
+
+.logo img {
+    width: 35px !important;
+    height: 35px !important;
+    border-radius: 8px;
+}
+
+.nav-pill {
+    display: flex;
+    background: #ffffff !important;
+    padding: 5px;
+    border-radius: 40px;
+    border: none;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #000000 !important;
+    padding: 8px 25px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: 0.3s;
+}
+
+.nav-link.active {
+    background: #000000 !important;
+    color: #ffffff !important;
+}
+
+.nav-left-icons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.en-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: #ffffff !important;
+    padding: 8px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
+}
+
+.en-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #ffffff;
+}
+
+.mobile-dots-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 1.8rem;
+    cursor: pointer;
+    padding: 5px;
+}
+
+@media (max-width: 1024px) {
+
+    .desktop-nav,
+    .desktop-lang {
+        display: none !important;
+    }
+
+    .mobile-dots-btn {
+        display: block !important;
+    }
+
+    .navbar {
+        flex-direction: row-reverse;
+    }
+}
+
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--bg-main);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(-100%);
+    transition: transform 0.4s ease-in-out;
+}
+
+.mobile-menu-overlay.active {
+    transform: translateY(0);
+}
+
+.close-menu-btn {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 2.5rem;
+    cursor: pointer;
+}
+
+.mobile-nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    text-align: center;
+}
+
+.mobile-nav-links a {
+    color: var(--text-gray);
+    text-decoration: none;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.mobile-nav-links a.active {
+    color: #ffffff !important;
+    font-size: 2.3rem !important;
+    font-weight: 900 !important;
+}
+
+/* ================== الهيرو (الرئيسية) + الخط الـ HR ================== */
+.hero-block {
+    text-align: center;
+    padding: 100px 5% 60px;
+}
+
+.hero-headline {
+    font-size: 3rem;
+    font-weight: 900;
+    margin-bottom: 20px;
+}
+
+.hero-highlight {
+    display: inline-block;
+    border-bottom: 3px solid #ffffff;
+    padding-bottom: 5px;
+}
+
+.hero-subtext {
+    font-size: 1.2rem;
+    color: var(--text-gray);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* تصميم الخط HR عشان يطلع فخم */
+.hero-divider {
+    width: 60%;
+    max-width: 300px;
+    margin: 40px auto 0;
+    border: none;
+    border-top: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+/* ================== قسم الحلول (تكبير الصور 20 بكسل) ================== */
+.solutions-container {
+    padding: 80px 5%;
+    text-align: center;
+}
+
+.block-title {
+    font-size: 2.2rem;
+    font-weight: 900;
+    margin-bottom: 80px;
+}
+
+.feature-card-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+    margin-bottom: 80px;
+    text-align: right;
+    max-width: 1100px;
+    margin: 0 auto 80px;
+}
+
+.feature-card-row.row-reverse {
+    flex-direction: row-reverse;
+}
+
+/* هنا تم تكبير الصور 20 بكسل */
+.card-media {
+    flex: 0 0 410px;
+    /* كبرناها من 390 إلى 410 */
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid var(--border-light);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.card-media img {
+    width: 100%;
+    height: 290px;
+    /* كبرناها من 270 إلى 290 */
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s;
+}
+
+.card-media:hover img {
+    transform: scale(1.05);
+}
+
+.card-details {
+    flex: 1;
+    text-align: right;
+}
+
+.tag-pill {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: var(--text-gray);
+    margin-bottom: 15px;
+    display: inline-block;
+}
+
+.card-details h3 {
+    font-size: 1.8rem;
+    margin: 15px 0 10px;
+    color: #fff;
+}
+
+.card-details p {
+    color: var(--text-gray);
+    line-height: 1.8;
+}
+
+[dir="ltr"] .card-details {
+    text-align: left;
+}
+
+/* ================== الفوتر الموحد ================== */
+.modern-footer {
+    background-color: #060709;
+    padding: 60px 0 20px;
+    border-top: 1px solid var(--border-light);
+}
+
+.footer-top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.footer-about {
+    max-width: 400px;
+    text-align: right;
+}
+
+.footer-links {
+    text-align: right;
+}
+
+.modern-footer h3 {
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.modern-footer p {
+    color: var(--text-gray);
+    font-size: 0.95rem;
+    line-height: 1.8;
+}
+
+.footer-links ul {
+    list-style: none;
+}
+
+.footer-links ul li {
+    margin-bottom: 12px;
+}
+
+.footer-links ul li a {
+    color: var(--text-gray);
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 0.95rem;
+}
+
+.footer-links ul li a:hover {
+    color: #ffffff;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 20px;
+    text-align: center;
+}
+
+.footer-bottom p {
+    font-size: 0.9rem;
+    color: var(--text-gray);
+}
+
+[dir="ltr"] .footer-about,
+[dir="ltr"] .footer-links {
+    text-align: left;
+}
+
+@media (max-width: 900px) {
+
+    .feature-card-row,
+    .feature-card-row.row-reverse {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+    }
+
+    .card-media {
+        flex: auto;
+        width: 100%;
+        height: auto;
+    }
+
+    .card-details {
+        text-align: center;
+    }
+
+    [dir="ltr"] .card-details {
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer-top {
+        flex-direction: column;
+        gap: 40px;
+        text-align: center;
+    }
+
+    .footer-about {
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .footer-links {
+        text-align: center;
+    }
+
+    [dir="ltr"] .footer-about,
+    [dir="ltr"] .footer-links {
+        text-align: center;
+    }
+}

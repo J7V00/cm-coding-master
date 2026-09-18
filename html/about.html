@@ -1,1 +1,241 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coding Master - من نحن</title>
+    <link rel="stylesheet" href="../main.css/about.css">
+    <link rel="icon" href="../assets/logo.png" type="image/png">
+    <link rel="manifest" href="../manifest.json">
+    <link rel="apple-touch-icon" href="../assets/logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="logo">
+            <img src="../assets/logo.png" alt="Coding Master Logo">
+            <span>Coding Master</span>
+        </div>
+
+        <nav class="nav-pill desktop-nav">
+            <a href="index.html" class="nav-link">الرئيسية</a>
+            <a href="about.html" class="nav-link active">من نحن</a>
+            <a href="contact.html" class="nav-link">تواصل معنا</a>
+            <a href="download.html" class="nav-link">التنزيلات</a>
+        </nav>
+
+        <div class="nav-left-icons">
+            <button class="en-btn desktop-lang" onclick="toggleLanguage()">
+                <span id="btnLangText">English</span> <i class="fa-solid fa-globe"></i>
+            </button>
+            <button class="mobile-dots-btn" onclick="openMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <div id="mobileMenuOverlay" class="mobile-menu-overlay">
+        <button class="close-menu-btn" onclick="closeMobileMenu()"><i class="fas fa-times"></i></button>
+        <nav class="mobile-nav-links">
+            <a href="index.html">الرئيسية</a>
+            <a href="about.html" class="active">من نحن</a>
+            <a href="contact.html">تواصل معنا</a>
+            <a href="download.html">التنزيلات</a>
+
+            <!-- تم توسيط الزر هنا -->
+            <button class="en-btn mobile-lang-btn" onclick="toggleLanguage()"
+                style="margin: 0 auto; justify-content: center; display: flex;">
+                <span class="lang-text">English</span> <i class="fa-solid fa-globe"></i>
+            </button>
+        </nav>
+    </div>
+
+    <section class="about-hero">
+        <div class="container">
+            <h1>نحن لا نكتب الكود فقط بل نحول الأفكار إلى واقع</h1>
+            <p>
+                لا نكتفي بالتعلم بل نصنع ونطور ونبتكر. لا نرى البرمجة مجرد أكواد بل نراها وسيلة لصناعة المستقبل.<br><br>
+                نعطيك الأدوات التي تساعدك على بناء أفكارك وتطوير مهاراتك، ومن أول سطر كود تبدأ رحلة صناعة شيء
+                مميز.<br><br>
+                <span class="hero-highlight">Coding Master حيث يتحول التعلم إلى إبداع</span>
+            </p>
+        </div>
+    </section>
+
+    <section class="about-content">
+        <div class="container">
+            <div class="about-row">
+                <div class="about-image-box"><img
+                        src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80"
+                        alt="قصتنا"></div>
+                <div class="about-text-box">
+                    <span class="badge">قصتنا</span>
+                    <h2>كيف بدأنا الفكرة؟</h2>
+                    <p>بدأت رحلة Coding Master من شغف حقيقي لبناء بيئة برمجية سريعة، خفيفة، وتلبي تطلعات المطورين بدون
+                        تعقيد أو بطء.</p>
+                </div>
+            </div>
+
+            <div class="about-row row-reverse">
+                <div class="about-image-box"><img
+                        src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80"
+                        alt="رؤيتنا"></div>
+                <div class="about-text-box">
+                    <span class="badge">رؤيتنا</span>
+                    <h2>تمكين العقول لصناعة المستقبل</h2>
+                    <p>نسعى لتوفير بيئة متكاملة تمنح كل مبرمج القدرة على تحويل أفكاره إلى برمجيات حقيقية بكل سهولة
+                        واحترافية.</p>
+                </div>
+            </div>
+
+            <div class="about-row">
+                <div class="about-image-box"><img
+                        src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=600&q=80"
+                        alt="فلسفتنا"></div>
+                <div class="about-text-box">
+                    <span class="badge">فلسفتنا</span>
+                    <h2>تبسيط التعقيد وتسهيل التعلم</h2>
+                    <p>نؤمن بأن الكود المعقد يمكن كتابته بطرق ذكية وبسيطة، ولذلك نبتكر أدوات تسرع وتيرة العمل وتختصر
+                        الوقت.</p>
+                </div>
+            </div>
+
+            <div class="about-row row-reverse">
+                <div class="about-image-box"><img
+                        src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=600&q=80"
+                        alt="مجتمعنا"></div>
+                <div class="about-text-box">
+                    <span class="badge">مجتمعنا</span>
+                    <h2>دعم مستمر وشغف لا ينتهي</h2>
+                    <p>نحن نعمل كعائلة واحدة تبادل الخبرات، وتساعد كل مبرمج على تجاوز العقبات وبناء معارض أعمال قوية.
+                    </p>
+                </div>
+            </div>
+
+            <div class="about-row">
+                <div class="about-image-box"><img
+                        src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80"
+                        alt="هدفنا"></div>
+                <div class="about-text-box">
+                    <span class="badge">هدفنا</span>
+                    <h2>إطلاق مشاريع ناجحة للجميع</h2>
+                    <p>هدفنا النهائي هو إيصالك لخط النهاية؛ من أول سطر كود تكتبه وحتى إطلاق مشروعك النهائي أمام العالم
+                        بثقة.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="faq-title">الأسئلة الشائعة</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3>ما الذي يجعل Coding Master مختلفاً؟</h3>
+                    <p>الجمع بين السرعة الخارقة، التصميم العصري الداكن، والدعم الذكي لكافة أنظمة التشغيل بدون تعقيدات.
+                    </p>
+                </div>
+                <div class="faq-item">
+                    <h3>هل التطبيق مناسب للمبتدئين؟</h3>
+                    <p>نعم، صممت البيئة لتكون واضحة وسهلة الاستخدام للمبتدئين وقوية بما يكفي للمحترفين.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>كيف يمكنني بدء استخدام المحرر؟</h3>
+                    <p>كل ما عليك هو الانتقال لصفحة التنزيلات، واختيار النسخة المخصصة لنظام تشغيلك والبدء فوراً.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="modern-footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-about">
+                    <h3>عن Coding Master</h3>
+                    <p>نحن نصمم بيئات برمجية وأدوات حديثة لمساعدة مشاريعك وأفكارك على التميز والنجاح.</p>
+                </div>
+                <div class="footer-links">
+                    <h3>تصفح</h3>
+                    <ul>
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="about.html">من نحن</a></li>
+                        <li><a href="download.html">التنزيلات</a></li>
+                        <li><a href="contact.html">تواصل معنا</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Coding Master. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function openMobileMenu() { document.getElementById('mobileMenuOverlay').classList.add('active'); }
+        function closeMobileMenu() { document.getElementById('mobileMenuOverlay').classList.remove('active'); }
+
+        const translationDict = [
+            { ar: 'الرئيسية', en: 'Home' }, { ar: 'من نحن', en: 'About Us' }, { ar: 'تواصل معنا', en: 'Contact Us' }, { ar: 'التنزيلات', en: 'Downloads' },
+            { ar: 'عن Coding Master', en: 'About Coding Master' }, { ar: 'تصفح', en: 'Navigate' },
+            { ar: 'نحن لا نكتب الكود فقط بل نحول الأفكار إلى واقع', en: 'We don\'t just write code, we turn ideas into reality' },
+            { ar: 'لا نكتفي بالتعلم بل نصنع ونطور ونبتكر. لا نرى البرمجة مجرد أكواد بل نراها وسيلة لصناعة المستقبل.', en: 'We do not just learn; we create, develop, and innovate. Programming is not just code, it\'s a tool to build the future.' },
+            { ar: 'نعطيك الأدوات التي تساعدك على بناء أفكارك وتطوير مهاراتك، ومن أول سطر كود تبدأ رحلة صناعة شيء مميز.', en: 'We give you the tools to build your ideas and develop your skills. From the first line of code, your journey begins.' },
+            { ar: 'Coding Master حيث يتحول التعلم إلى إبداع', en: 'Coding Master where learning turns into creativity' },
+            { ar: 'قصتنا', en: 'Our Story' }, { ar: 'كيف بدأنا الفكرة؟', en: 'How did it start?' },
+            { ar: 'بدأت رحلة Coding Master من شغف حقيقي لبناء بيئة برمجية سريعة، خفيفة، وتلبي تطلعات المطورين بدون تعقيد أو بطء.', en: 'Coding Master started from a real passion to build a fast, lightweight coding environment that meets developers\' aspirations.' },
+            { ar: 'رؤيتنا', en: 'Our Vision' }, { ar: 'تمكين العقول لصناعة المستقبل', en: 'Empowering Minds' },
+            { ar: 'نسعى لتوفير بيئة متكاملة تمنح كل مبرمج القدرة على تحويل أفكاره إلى برمجيات حقيقية بكل سهولة واحترافية.', en: 'We strive to provide an integrated environment that gives every programmer the ability to turn their ideas into real software.' },
+            { ar: 'فلسفتنا', en: 'Our Philosophy' }, { ar: 'تبسيط التعقيد وتسهيل التعلم', en: 'Simplifying Complexity' },
+            { ar: 'نؤمن بأن الكود المعقد يمكن كتابته بطرق ذكية وبسيطة، ولذلك نبتكر أدوات تسرع وتيرة العمل وتختصر الوقت.', en: 'We believe complex code can be written smartly and simply, so we invent tools that speed up work and save time.' },
+            { ar: 'مجتمعنا', en: 'Our Community' }, { ar: 'دعم مستمر وشغف لا ينتهي', en: 'Continuous Support' },
+            { ar: 'نحن نعمل كعائلة واحدة تبادل الخبرات، وتساعد كل مبرمج على تجاوز العقبات وبناء معارض أعمال قوية.', en: 'We work as one family sharing experiences, helping every programmer overcome obstacles and build strong portfolios.' },
+            { ar: 'هدفنا', en: 'Our Goal' }, { ar: 'إطلاق مشاريع ناجحة للجميع', en: 'Launching Successful Projects' },
+            { ar: 'هدفنا النهائي هو إيصالك لخط النهاية؛ من أول سطر كود تكتبه وحتى إطلاق مشروعك النهائي أمام العالم بثقة.', en: 'Our ultimate goal is to get you to the finish line; from your first line of code until you launch your project.' },
+            { ar: 'الأسئلة الشائعة', en: 'Frequently Asked Questions' },
+            { ar: 'ما الذي يجعل Coding Master مختلفاً؟', en: 'What makes Coding Master different?' },
+            { ar: 'الجمع بين السرعة الخارقة، التصميم العصري الداكن، والدعم الذكي لكافة أنظمة التشغيل بدون تعقيدات.', en: 'The combination of lightning speed, dark modern design, and smart cross-platform support without complexity.' },
+            { ar: 'هل التطبيق مناسب للمبتدئين؟', en: 'Is the app beginner-friendly?' },
+            { ar: 'نعم، صممت البيئة لتكون واضحة وسهلة الاستخدام للمبتدئين وقوية بما يكفي للمحترفين.', en: 'Yes, the environment is designed to be clear for beginners while powerful enough for professionals.' },
+            { ar: 'كيف يمكنني بدء استخدام المحرر؟', en: 'How do I start using the editor?' },
+            { ar: 'كل ما عليك هو الانتقال لصفحة التنزيلات، واختيار النسخة المخصصة لنظام تشغيلك والبدء فوراً.', en: 'Just go to the Downloads page, choose your OS version, and start immediately.' },
+            { ar: 'نحن نصمم بيئات برمجية وأدوات حديثة لمساعدة مشاريعك وأفكارك على التميز والنجاح.', en: 'We create beautiful, modern coding environments to help your projects stand out.' },
+            { ar: 'جميع الحقوق محفوظة.', en: 'All Rights Reserved.' }
+        ];
+
+        function walkTextNodes(node, lang) {
+            if (node.nodeType === 3) {
+                let text = node.nodeValue; let changed = false;
+                translationDict.forEach(dict => {
+                    if (lang === 'en' && text.includes(dict.ar)) { text = text.replace(dict.ar, dict.en); changed = true; }
+                    else if (lang === 'ar' && text.includes(dict.en)) { text = text.replace(dict.en, dict.ar); changed = true; }
+                });
+                if (changed) node.nodeValue = text;
+            } else { node.childNodes.forEach(child => walkTextNodes(child, lang)); }
+        }
+
+        function applyLanguage(lang) {
+            document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+            document.querySelectorAll('.lang-text, #btnLangText').forEach(btn => {
+                btn.innerHTML = lang === 'ar' ? 'English' : 'العربية';
+            });
+            walkTextNodes(document.body, lang);
+            localStorage.setItem('CMLang', lang);
+        }
+
+        function toggleLanguage() {
+            let newLang = (localStorage.getItem('CMLang') || 'ar') === 'ar' ? 'en' : 'ar';
+            applyLanguage(newLang);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            if (localStorage.getItem('CMLang') === 'en') applyLanguage('en');
+        });
+    </script>
+</body>
+
+</html>

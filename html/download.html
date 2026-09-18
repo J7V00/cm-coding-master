@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Coding Master - التنزيلات</title>
+
+    <link rel="stylesheet" href="../main.css/download.css">
+    <link rel="icon" href="../assets/logo.png" type="image/png">
+    <link rel="manifest" href="../manifest.json">
+    <link rel="apple-touch-icon" href="../assets/logo.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- =========================
+         Navigation
+    ========================= -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            <img src="../assets/logo.png" alt="Coding Master Logo">
+
+            <span>Coding Master</span>
+        </div>
+
+
+        <nav class="nav-pill desktop-nav">
+
+            <a href="index.html" class="nav-link">
+                الرئيسية
+            </a>
+
+            <a href="about.html" class="nav-link">
+                من نحن
+            </a>
+
+            <a href="contact.html" class="nav-link">
+                تواصل معنا
+            </a>
+
+            <a href="download.html" class="nav-link active">
+                التنزيلات
+            </a>
+
+        </nav>
+
+
+        <div class="nav-left-icons">
+
+            <button class="en-btn desktop-lang" onclick="toggleLanguage()">
+                <span id="btnLangText">
+                    English
+                </span>
+
+                <i class="fa-solid fa-globe"></i>
+            </button>
+
+
+            <button class="mobile-dots-btn" onclick="openMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         Mobile Menu
+    ========================= -->
+
+    <div id="mobileMenuOverlay" class="mobile-menu-overlay">
+
+        <button class="close-menu-btn" onclick="closeMobileMenu()">
+            <i class="fas fa-times"></i>
+        </button>
+
+
+        <nav class="mobile-nav-links">
+
+            <a href="index.html">
+                الرئيسية
+            </a>
+
+            <a href="about.html">
+                من نحن
+            </a>
+
+            <a href="contact.html">
+                تواصل معنا
+            </a>
+
+            <a href="download.html" class="active">
+                التنزيلات
+            </a>
+
+
+            <button class="en-btn mobile-lang-btn" onclick="toggleLanguage()"
+                style="margin: 0 auto; justify-content: center; display: flex;">
+                <span class="lang-text">
+                    English
+                </span>
+
+                <i class="fa-solid fa-globe"></i>
+            </button>
+
+        </nav>
+
+    </div>
+
+
+    <!-- =========================
+         Hero
+    ========================= -->
+
+    <section class="dl-hero-section">
+
+        <div class="container dl-hero-flex">
+
+            <div class="dl-hero-text">
+
+                <div class="title-with-icon">
+
+                    <div class="title-icon-box">
+                        <i class="fas fa-download"></i>
+                    </div>
+
+                    <h1>
+                        التنزيلات
+                    </h1>
+
+                </div>
+
+
+                <p>
+                    قم بتحميل تطبيق Coding Master
+                    الآن وابدأ رحلتك في عالم البرمجة
+                    والكتابة بأبسط طريقة.
+                </p>
+
+            </div>
+
+
+            <div class="dl-hero-image">
+
+                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80"
+                    alt="Coding Master Laptop">
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         Downloads
+    ========================= -->
+
+    <section class="dl-cards-section">
+
+        <div class="container">
+
+            <div id="deviceMessage" style="
+                    display:none;
+                    text-align:center;
+                    margin-bottom:25px;
+                    color:#a8a8a8;
+                    font-weight:700;
+                "></div>
+
+
+            <div class="dl-grid">
+
+
+                <!-- Windows -->
+
+                <div class="os-card device-card" id="windowsCard" data-device="Windows">
+
+                    <i class="fab fa-windows os-icon"></i>
+
+                    <h3>
+                        Windows
+                    </h3>
+
+                    <p>
+                        لأجهزة الكمبيوتر بنظام ويندوز
+                    </p>
+
+                    <button class="os-dl-btn" id="btnWin">
+                        تحميل الآن
+                    </button>
+
+                </div>
+
+
+                <!-- macOS -->
+
+                <div class="os-card device-card" id="macCard" data-device="Mac">
+
+                    <i class="fab fa-apple os-icon"></i>
+
+                    <h3>
+                        macOS
+                    </h3>
+
+                    <p>
+                        لأجهزة الكمبيوتر بنظام الماك
+                    </p>
+
+                    <button class="os-dl-btn" id="btnMac">
+                        تحميل الآن
+                    </button>
+
+                </div>
+
+
+                <!-- Linux -->
+
+                <div class="os-card device-card" id="linuxCard" data-device="Linux">
+
+                    <i class="fab fa-linux os-icon"></i>
+
+                    <h3>
+                        Linux
+                    </h3>
+
+                    <p>
+                        لأجهزة الكمبيوتر بنظام لينكس
+                    </p>
+
+                    <button class="os-dl-btn" id="btnLin">
+                        تحميل الآن
+                    </button>
+
+                </div>
+
+
+                <!-- Android -->
+
+                <div class="os-card device-card" id="androidCard" data-device="Android">
+
+                    <i class="fab fa-android os-icon"></i>
+
+                    <h3>
+                        Android
+                    </h3>
+
+                    <p>
+                        لأجهزة الجوال والأجهزة اللوحية بنظام Android
+                    </p>
+
+                    <button class="os-dl-btn" id="btnAndroid">
+                        تحميل الآن
+                    </button>
+
+                </div>
+
+
+                <!-- iPhone / iPad -->
+
+                <div class="os-card device-card" id="iosCard" data-device="iOS">
+
+                    <i class="fab fa-apple os-icon"></i>
+
+                    <h3>
+                        iPhone / iPad
+                    </h3>
+
+                    <p>
+                        لأجهزة iPhone و iPad بنظام iOS
+                    </p>
+
+                    <button class="os-dl-btn" id="btnIOS">
+                        تحميل الآن
+                    </button>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         Footer
+    ========================= -->
+
+    <footer class="modern-footer">
+
+        <div class="container">
+
+            <div class="footer-top">
+
+                <div class="footer-about">
+
+                    <h3>
+                        عن Coding Master
+                    </h3>
+
+                    <p>
+                        نحن نصمم بيئات برمجية وأدوات حديثة
+                        لمساعدة مشاريعك وأفكارك على التميز والنجاح.
+                    </p>
+
+                </div>
+
+
+                <div class="footer-links">
+
+                    <h3>
+                        تصفح
+                    </h3>
+
+                    <ul>
+
+                        <li>
+                            <a href="index.html">
+                                الرئيسية
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="about.html">
+                                من نحن
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="download.html">
+                                التنزيلات
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="contact.html">
+                                تواصل معنا
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+
+            <div class="footer-bottom">
+
+                <p>
+                    &copy; 2026 Coding Master.
+                    جميع الحقوق محفوظة.
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <script>
+
+        /* =========================
+           Mobile Menu
+        ========================= */
+
+        function openMobileMenu() {
+
+            document
+                .getElementById("mobileMenuOverlay")
+                .classList
+                .add("active");
+
+        }
+
+
+        function closeMobileMenu() {
+
+            document
+                .getElementById("mobileMenuOverlay")
+                .classList
+                .remove("active");
+
+        }
+
+
+        /* =========================
+           Translation
+        ========================= */
+
+        const translationDict = [
+
+            {
+                ar: "الرئيسية",
+                en: "Home"
+            },
+
+            {
+                ar: "من نحن",
+                en: "About Us"
+            },
+
+            {
+                ar: "تواصل معنا",
+                en: "Contact Us"
+            },
+
+            {
+                ar: "التنزيلات",
+                en: "Downloads"
+            },
+
+            {
+                ar: "عن Coding Master",
+                en: "About Coding Master"
+            },
+
+            {
+                ar: "تصفح",
+                en: "Navigate"
+            },
+
+            {
+                ar: "قم بتحميل تطبيق Coding Master الآن وابدأ رحلتك في عالم البرمجة والكتابة بأبسط طريقة.",
+                en: "Download Coding Master now and start your coding journey in the simplest way."
+            },
+
+            {
+                ar: "لأجهزة الكمبيوتر بنظام ويندوز",
+                en: "For Windows computers"
+            },
+
+            {
+                ar: "لأجهزة الكمبيوتر بنظام الماك",
+                en: "For macOS computers"
+            },
+
+            {
+                ar: "لأجهزة الكمبيوتر بنظام لينكس",
+                en: "For Linux computers"
+            },
+
+            {
+                ar: "لأجهزة الجوال والأجهزة اللوحية بنظام Android",
+                en: "For Android phones and tablets"
+            },
+
+            {
+                ar: "لأجهزة iPhone و iPad بنظام iOS",
+                en: "For iPhone and iPad devices"
+            },
+
+            {
+                ar: "تحميل الآن",
+                en: "Download Now"
+            },
+
+            {
+                ar: "نحن نصمم بيئات برمجية وأدوات حديثة لمساعدة مشاريعك وأفكارك على التميز والنجاح.",
+                en: "We create beautiful, modern coding environments to help your projects stand out."
+            },
+
+            {
+                ar: "جميع الحقوق محفوظة.",
+                en: "All Rights Reserved."
+            }
+
+        ];
+
+
+        function walkTextNodes(node, lang) {
+
+            if (node.nodeType === 3) {
+
+                let text =
+                    node.nodeValue;
+
+                let changed = false;
+
+
+                translationDict.forEach(dict => {
+
+                    if (
+                        lang === "en" &&
+                        text.includes(dict.ar)
+                    ) {
+
+                        text =
+                            text.replace(
+                                dict.ar,
+                                dict.en
+                            );
+
+                        changed = true;
+
+                    }
+
+                    else if (
+                        lang === "ar" &&
+                        text.includes(dict.en)
+                    ) {
+
+                        text =
+                            text.replace(
+                                dict.en,
+                                dict.ar
+                            );
+
+                        changed = true;
+
+                    }
+
+                });
+
+
+                if (changed) {
+
+                    node.nodeValue =
+                        text;
+
+                }
+
+            }
+
+            else {
+
+                node.childNodes.forEach(
+                    child =>
+                        walkTextNodes(
+                            child,
+                            lang
+                        )
+                );
+
+            }
+
+        }
+
+
+        function applyLanguage(lang) {
+
+            document.documentElement.setAttribute(
+                "dir",
+                lang === "ar"
+                    ? "rtl"
+                    : "ltr"
+            );
+
+
+            document
+                .querySelectorAll(
+                    ".lang-text, #btnLangText"
+                )
+                .forEach(btn => {
+
+                    btn.innerHTML =
+                        lang === "ar"
+                            ? "English"
+                            : "العربية";
+
+                });
+
+
+            walkTextNodes(
+                document.body,
+                lang
+            );
+
+
+            localStorage.setItem(
+                "CMLang",
+                lang
+            );
+
+        }
+
+
+        function toggleLanguage() {
+
+            const currentLanguage =
+                localStorage.getItem(
+                    "CMLang"
+                ) || "ar";
+
+
+            const newLanguage =
+                currentLanguage === "ar"
+                    ? "en"
+                    : "ar";
+
+
+            applyLanguage(
+                newLanguage
+            );
+
+        }
+
+
+        /* =========================
+           Detect Device
+        ========================= */
+
+        function detectDevice() {
+
+            const userAgent =
+                navigator.userAgent.toLowerCase();
+
+            const platform =
+                navigator.platform.toLowerCase();
+
+            const maxTouchPoints =
+                navigator.maxTouchPoints || 0;
+
+
+            /* Android */
+
+            if (
+                userAgent.includes("android")
+            ) {
+
+                return "Android";
+
+            }
+
+
+            /* iPhone / iPod */
+
+            if (
+                /iphone|ipod/.test(
+                    userAgent
+                )
+            ) {
+
+                return "iOS";
+
+            }
+
+
+            /*
+             * iPad الجديد قد يظهر كسأنه Mac
+             * لذلك نستخدم اللمس أيضًا.
+             */
+
+            if (
+                userAgent.includes("ipad") ||
+                (
+                    platform === "macintel" &&
+                    maxTouchPoints > 1
+                )
+            ) {
+
+                return "iOS";
+
+            }
+
+
+            /* Mac */
+
+            if (
+                platform.includes("mac")
+            ) {
+
+                return "Mac";
+
+            }
+
+
+            /* Windows */
+
+            if (
+                platform.includes("win")
+            ) {
+
+                return "Windows";
+
+            }
+
+
+            /* Linux */
+
+            if (
+                platform.includes("linux")
+            ) {
+
+                return "Linux";
+
+            }
+
+
+            return "Unknown";
+
+        }
+
+
+        /* =========================
+           Download Placeholder
+        ========================= */
+
+        function triggerNativeDownload(
+            fileName
+        ) {
+
+            const blob =
+                new Blob(
+                    [
+                        "Coding Master App"
+                    ],
+                    {
+                        type:
+                            "application/octet-stream"
+                    }
+                );
+
+
+            const url =
+                window.URL.createObjectURL(
+                    blob
+                );
+
+
+            const link =
+                document.createElement(
+                    "a"
+                );
+
+
+            link.href =
+                url;
+
+            link.download =
+                fileName;
+
+
+            document.body.appendChild(
+                link
+            );
+
+
+            link.click();
+
+
+            document.body.removeChild(
+                link
+            );
+
+
+            window.URL.revokeObjectURL(
+                url
+            );
+
+        }
+
+
+        /* =========================
+           Device Cards
+        ========================= */
+
+        function showOnlyCorrectCard() {
+
+            const currentDevice =
+                detectDevice();
+
+
+            const cards =
+                document.querySelectorAll(
+                    ".device-card"
+                );
+
+
+            const deviceMessage =
+                document.getElementById(
+                    "deviceMessage"
+                );
+
+
+            cards.forEach(card => {
+
+                card.style.display =
+                    "none";
+
+            });
+
+
+            const matchingCard =
+                document.querySelector(
+                    `[data-device="${currentDevice}"]`
+                );
+
+
+            if (matchingCard) {
+
+                matchingCard.style.display =
+                    "block";
+
+                deviceMessage.style.display =
+                    "none";
+
+                return;
+
+            }
+
+
+            /* Unknown device */
+
+            deviceMessage.style.display =
+                "block";
+
+            deviceMessage.textContent =
+                localStorage.getItem(
+                    "CMLang"
+                ) === "en"
+
+                    ? "We couldn't detect your device. Please choose your platform."
+
+                    : "لم نتمكن من التعرف على جهازك. يرجى اختيار النظام المناسب.";
+
+        }
+
+
+        /* =========================
+           Buttons
+        ========================= */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            () => {
+
+                const savedLang =
+                    localStorage.getItem(
+                        "CMLang"
+                    ) || "ar";
+
+
+                if (
+                    savedLang === "en"
+                ) {
+
+                    applyLanguage(
+                        "en"
+                    );
+
+                }
+
+
+                showOnlyCorrectCard();
+
+
+                /* Windows */
+
+                const btnWin =
+                    document.getElementById(
+                        "btnWin"
+                    );
+
+
+                btnWin.addEventListener(
+                    "click",
+                    () => {
+
+                        triggerNativeDownload(
+                            "CodingMaster-Windows.exe"
+                        );
+
+                    }
+                );
+
+
+                /* Mac */
+
+                const btnMac =
+                    document.getElementById(
+                        "btnMac"
+                    );
+
+
+                btnMac.addEventListener(
+                    "click",
+                    () => {
+
+                        triggerNativeDownload(
+                            "CodingMaster-Mac.dmg"
+                        );
+
+                    }
+                );
+
+
+                /* Linux */
+
+                const btnLin =
+                    document.getElementById(
+                        "btnLin"
+                    );
+
+
+                btnLin.addEventListener(
+                    "click",
+                    () => {
+
+                        triggerNativeDownload(
+                            "CodingMaster-Linux.tar.gz"
+                        );
+
+                    }
+                );
+
+
+                /* Android */
+
+                const btnAndroid =
+                    document.getElementById(
+                        "btnAndroid"
+                    );
+
+
+                btnAndroid.addEventListener(
+                    "click",
+                    () => {
+
+                        triggerNativeDownload(
+                            "CodingMaster-Android.apk"
+                        );
+
+                    }
+                );
+
+
+                /* iOS */
+
+                const btnIOS =
+                    document.getElementById(
+                        "btnIOS"
+                    );
+
+
+                btnIOS.addEventListener(
+                    "click",
+                    () => {
+
+                        triggerNativeDownload(
+                            "CodingMaster-iOS.ipa"
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Coding Master - تواصل معنا</title>
+
+    <link rel="stylesheet" href="../main.css/contact.css">
+    <link rel="icon" href="../assets/logo.png" type="image/png">
+    <link rel="manifest" href="../manifest.json">
+    <link rel="apple-touch-icon" href="../assets/logo.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .form-response {
+            display: none;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .form-response.success {
+            background-color: rgba(16, 185, 129, 0.2);
+            border: 1px solid #10b981;
+            color: #10b981;
+        }
+
+        .form-response.error {
+            background-color: rgba(239, 68, 68, 0.2);
+            border: 1px solid #ef4444;
+            color: #ef4444;
+        }
+
+        .password-container {
+            position: relative;
+            width: 100%;
+        }
+
+        [dir="rtl"] .password-container input {
+            padding-left: 45px !important;
+            padding-right: 16px !important;
+        }
+
+        [dir="ltr"] .password-container input {
+            padding-right: 45px !important;
+            padding-left: 16px !important;
+        }
+
+        .toggle-icon {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #a1a6b0;
+            font-size: 1.2rem;
+            transition: 0.3s;
+        }
+
+        .toggle-icon:hover {
+            color: #ffffff;
+        }
+
+        [dir="rtl"] .toggle-icon {
+            left: 15px;
+            right: auto;
+        }
+
+        [dir="ltr"] .toggle-icon {
+            right: 15px;
+            left: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+
+        <div class="logo">
+            <img src="../assets/logo.png" alt="Coding Master Logo">
+            <span>Coding Master</span>
+        </div>
+
+        <nav class="nav-pill desktop-nav">
+            <a href="index.html" class="nav-link">الرئيسية</a>
+            <a href="about.html" class="nav-link">من نحن</a>
+            <a href="contact.html" class="nav-link active">تواصل معنا</a>
+            <a href="download.html" class="nav-link">التنزيلات</a>
+        </nav>
+
+        <div class="nav-left-icons">
+
+            <button class="en-btn desktop-lang" onclick="toggleLanguage()">
+                <span id="btnLangText">English</span>
+                <i class="fa-solid fa-globe"></i>
+            </button>
+
+            <button class="mobile-dots-btn" onclick="openMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <div id="mobileMenuOverlay" class="mobile-menu-overlay">
+
+        <button class="close-menu-btn" onclick="closeMobileMenu()">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <nav class="mobile-nav-links">
+
+            <a href="index.html">الرئيسية</a>
+            <a href="about.html">من نحن</a>
+            <a href="contact.html" class="active">تواصل معنا</a>
+            <a href="download.html">التنزيلات</a>
+
+            <button class="en-btn mobile-lang-btn" onclick="toggleLanguage()"
+                style="margin: 0 auto; justify-content: center; display: flex;">
+                <span class="lang-text">English</span>
+                <i class="fa-solid fa-globe"></i>
+            </button>
+
+        </nav>
+
+    </div>
+
+
+    <section class="contact-section">
+
+        <div class="container">
+
+            <div class="contact-header">
+
+                <h1>كيف يمكننا مساعدتك؟</h1>
+
+                <p>
+                    فريقنا متواجد دائماً للرد على استفساراتك البرمجية والدعم الفني.
+                </p>
+
+            </div>
+
+
+            <div class="centered-form-container">
+
+                <div class="contact-form-wrapper">
+
+                    <h3>أرسل لنا رسالة</h3>
+
+                    <div id="formResponse" class="form-response"></div>
+
+
+                    <form class="contact-form" onsubmit="sendEmail(event)">
+
+                        <div class="input-group">
+
+                            <label>الاسم الكامل</label>
+
+                            <input type="text" name="name" required placeholder="أدخل اسمك هنا...">
+
+                        </div>
+
+
+                        <div class="input-group">
+
+                            <label>البريد الإلكتروني</label>
+
+                            <input type="email" name="email" required placeholder="أدخل بريدك الإلكتروني...">
+
+                        </div>
+
+
+                        <div class="input-group">
+
+                            <label>رمز الحساب</label>
+
+                            <div class="password-container">
+
+                                <input type="password" id="accountCodeInput" name="account_code" required
+                                    placeholder="أدخل رمز الحساب...">
+
+                                <i class="fas fa-eye toggle-icon" id="toggleCodeBtn"
+                                    onclick="toggleCodeVisibility()"></i>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="input-group">
+
+                            <label>رقم الهاتف</label>
+
+                            <input type="tel" name="phone" required placeholder="أدخل رقم هاتفك هنا...">
+
+                        </div>
+
+
+                        <div class="input-group">
+
+                            <label>الرسالة (إلزامي)</label>
+
+                            <textarea name="message" rows="4" required placeholder="اكتب رسالتك هنا..."></textarea>
+
+                        </div>
+
+
+                        <button type="submit" class="submit-btn" id="btnSubmit">
+                            إرسال الرسالة
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <script>
+
+        /* =========================
+           القائمة
+        ========================= */
+
+        function openMobileMenu() {
+
+            document
+                .getElementById("mobileMenuOverlay")
+                .classList
+                .add("active");
+
+        }
+
+
+        function closeMobileMenu() {
+
+            document
+                .getElementById("mobileMenuOverlay")
+                .classList
+                .remove("active");
+
+        }
+
+
+        /* =========================
+           الترجمة
+        ========================= */
+
+        const translationDict = [
+
+            { ar: "الرئيسية", en: "Home" },
+            { ar: "من نحن", en: "About Us" },
+            { ar: "تواصل معنا", en: "Contact Us" },
+            { ar: "التنزيلات", en: "Downloads" },
+
+            {
+                ar: "كيف يمكننا مساعدتك؟",
+                en: "How can we help you?"
+            },
+
+            {
+                ar: "فريقنا متواجد دائماً للرد على استفساراتك البرمجية والدعم الفني.",
+                en: "Our team is always available for your coding inquiries and technical support."
+            },
+
+            {
+                ar: "أرسل لنا رسالة",
+                en: "Send us a message"
+            },
+
+            {
+                ar: "الاسم الكامل",
+                en: "Full Name"
+            },
+
+            {
+                ar: "البريد الإلكتروني",
+                en: "Email Address"
+            },
+
+            {
+                ar: "رمز الحساب",
+                en: "Account Code"
+            },
+
+            {
+                ar: "رقم الهاتف",
+                en: "Phone Number"
+            },
+
+            {
+                ar: "الرسالة (إلزامي)",
+                en: "Message (Required)"
+            },
+
+            {
+                ar: "إرسال الرسالة",
+                en: "Send Message"
+            },
+
+            {
+                ar: "أدخل اسمك هنا...",
+                en: "Enter your name here..."
+            },
+
+            {
+                ar: "أدخل بريدك الإلكتروني...",
+                en: "Enter your email..."
+            },
+
+            {
+                ar: "أدخل رمز الحساب...",
+                en: "Enter Account Code..."
+            },
+
+            {
+                ar: "أدخل رقم هاتفك هنا...",
+                en: "Enter your phone number..."
+            },
+
+            {
+                ar: "اكتب رسالتك هنا...",
+                en: "Write your message here..."
+            }
+
+        ];
+
+
+        function walkTextNodes(node, lang) {
+
+            if (node.nodeType === 3) {
+
+                let text = node.nodeValue;
+                let changed = false;
+
+                translationDict.forEach(dict => {
+
+                    if (
+                        lang === "en" &&
+                        text.includes(dict.ar)
+                    ) {
+
+                        text = text.replace(
+                            dict.ar,
+                            dict.en
+                        );
+
+                        changed = true;
+
+                    }
+
+                    else if (
+                        lang === "ar" &&
+                        text.includes(dict.en)
+                    ) {
+
+                        text = text.replace(
+                            dict.en,
+                            dict.ar
+                        );
+
+                        changed = true;
+
+                    }
+
+                });
+
+
+                if (changed) {
+                    node.nodeValue = text;
+                }
+
+            }
+
+            else {
+
+                node.childNodes.forEach(
+                    child => walkTextNodes(child, lang)
+                );
+
+            }
+
+        }
+
+
+        function translatePlaceholders(lang) {
+
+            document
+                .querySelectorAll("input, textarea")
+                .forEach(input => {
+
+                    translationDict.forEach(dict => {
+
+                        if (
+                            lang === "en" &&
+                            input.placeholder &&
+                            input.placeholder.includes(dict.ar)
+                        ) {
+
+                            input.placeholder =
+                                input.placeholder.replace(
+                                    dict.ar,
+                                    dict.en
+                                );
+
+                        }
+
+                        else if (
+                            lang === "ar" &&
+                            input.placeholder &&
+                            input.placeholder.includes(dict.en)
+                        ) {
+
+                            input.placeholder =
+                                input.placeholder.replace(
+                                    dict.en,
+                                    dict.ar
+                                );
+
+                        }
+
+                    });
+
+                });
+
+        }
+
+
+        function applyLanguage(lang) {
+
+            document.documentElement.setAttribute(
+                "dir",
+                lang === "ar" ? "rtl" : "ltr"
+            );
+
+
+            document
+                .querySelectorAll(".lang-text, #btnLangText")
+                .forEach(btn => {
+
+                    btn.innerHTML =
+                        lang === "ar"
+                            ? "English"
+                            : "العربية";
+
+                });
+
+
+            walkTextNodes(
+                document.body,
+                lang
+            );
+
+
+            translatePlaceholders(lang);
+
+
+            localStorage.setItem(
+                "CMLang",
+                lang
+            );
+
+        }
+
+
+        function toggleLanguage() {
+
+            const newLang =
+                (
+                    localStorage.getItem("CMLang") || "ar"
+                ) === "ar"
+                    ? "en"
+                    : "ar";
+
+
+            applyLanguage(newLang);
+
+        }
+
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            () => {
+
+                if (
+                    localStorage.getItem("CMLang") === "en"
+                ) {
+
+                    applyLanguage("en");
+
+                }
+
+            }
+        );
+
+
+        /* =========================
+           رمز الحساب
+        ========================= */
+
+        function toggleCodeVisibility() {
+
+            const input =
+                document.getElementById(
+                    "accountCodeInput"
+                );
+
+
+            const icon =
+                document.getElementById(
+                    "toggleCodeBtn"
+                );
+
+
+            if (input.type === "password") {
+
+                input.type = "text";
+
+                icon.classList.remove(
+                    "fa-eye"
+                );
+
+                icon.classList.add(
+                    "fa-eye-slash"
+                );
+
+            }
+
+            else {
+
+                input.type = "password";
+
+                icon.classList.remove(
+                    "fa-eye-slash"
+                );
+
+                icon.classList.add(
+                    "fa-eye"
+                );
+
+            }
+
+        }
+
+
+        /* =========================
+           SUPABASE
+        ========================= */
+
+        /*
+         * هنا يوجد مكانان فقط يحتاجان منك التعديل.
+         *
+         * 1) API URL
+         * 2) Publishable Key
+         *
+         * ضع القيم التي نسختها من Supabase.
+         */
+
+        const SUPABASE_URL =
+            "https://wkoyeiydytlgtoknypkd.supabase.co";
+
+
+        const SUPABASE_KEY =
+            "sb_publishable_r3BxLBSCV85_7qR6WvYBdw_Bf9qCZe0";
+
+
+        /* =========================
+           إرسال الرسالة
+        ========================= */
+
+        async function sendEmail(event) {
+
+            event.preventDefault();
+
+
+            const form =
+                event.target;
+
+
+            const btn =
+                document.getElementById(
+                    "btnSubmit"
+                );
+
+
+            const responseDiv =
+                document.getElementById(
+                    "formResponse"
+                );
+
+
+            const currentLang =
+                localStorage.getItem(
+                    "CMLang"
+                ) || "ar";
+
+
+            btn.disabled = true;
+
+
+            btn.innerHTML =
+                currentLang === "ar"
+                    ? "جاري الإرسال..."
+                    : "Sending...";
+
+
+            responseDiv.style.display =
+                "none";
+
+
+            const formData =
+                new FormData(form);
+
+
+            /*
+             * نحن نحفظ:
+             * الاسم
+             * البريد
+             * الهاتف
+             * الرسالة
+             *
+             * ولا نحفظ رمز الحساب.
+             */
+
+            const data = {
+
+                name:
+                    formData.get("name"),
+
+                email:
+                    formData.get("email"),
+
+                phone:
+                    formData.get("phone"),
+
+                message:
+                    formData.get("message")
+
+            };
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${SUPABASE_URL}/rest/v1/messages`,
+                        {
+                            method: "POST",
+
+                            headers: {
+
+                                "Content-Type":
+                                    "application/json",
+
+                                "apikey":
+                                    SUPABASE_KEY,
+
+                                "Authorization":
+                                    `Bearer ${SUPABASE_KEY}`,
+
+                                "Prefer":
+                                    "return=minimal"
+
+                            },
+
+                            body:
+                                JSON.stringify(data)
+
+                        }
+                    );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "فشل إرسال الرسالة"
+                    );
+
+                }
+
+
+                form.reset();
+
+
+                responseDiv.className =
+                    "form-response success";
+
+
+                responseDiv.innerHTML =
+                    currentLang === "ar"
+
+                        ? "✓ تم إرسال رسالتك بنجاح! شكرًا لتواصلك معنا."
+
+                        : "✓ Message sent successfully!";
+
+
+                responseDiv.style.display =
+                    "block";
+
+
+                const successSound =
+                    new Audio(
+                        "https://assets.mixkit.co/sfx/preview/mixkit-software-interface-start-2574.mp3"
+                    );
+
+
+                successSound
+                    .play()
+                    .catch(() => { });
+
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Supabase Error:",
+                    error
+                );
+
+
+                responseDiv.className =
+                    "form-response error";
+
+
+                responseDiv.innerHTML =
+                    currentLang === "ar"
+
+                        ? "✕ حدث خطأ أثناء الإرسال! يرجى المحاولة مرة أخرى."
+
+                        : "✕ An error occurred. Please try again.";
+
+
+                responseDiv.style.display =
+                    "block";
+
+
+                const errorSound =
+                    new Audio(
+                        "https://assets.mixkit.co/sfx/preview/mixkit-software-interface-back-2575.mp3"
+                    );
+
+
+                errorSound
+                    .play()
+                    .catch(() => { });
+
+            }
+
+            finally {
+
+                btn.disabled = false;
+
+
+                btn.innerHTML =
+                    currentLang === "ar"
+                        ? "إرسال الرسالة"
+                        : "Send Message";
+
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>
