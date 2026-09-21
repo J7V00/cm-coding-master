@@ -22,14 +22,18 @@
 
     <!-- =========================
          Navigation
-    ========================= -->
+    ========================== -->
 
     <header class="navbar">
 
         <div class="logo">
-            <img src="../assets/logo.png" alt="Coding Master Logo">
 
-            <span>Coding Master</span>
+            <img src="../assets/logo.png" alt="شعار Coding Master">
+
+            <span>
+                Coding Master
+            </span>
+
         </div>
 
 
@@ -57,16 +61,20 @@
         <div class="nav-left-icons">
 
             <button class="en-btn desktop-lang" onclick="toggleLanguage()">
+
                 <span id="btnLangText">
                     English
                 </span>
 
                 <i class="fa-solid fa-globe"></i>
+
             </button>
 
 
             <button class="mobile-dots-btn" onclick="openMobileMenu()">
+
                 <i class="fas fa-bars"></i>
+
             </button>
 
         </div>
@@ -76,12 +84,14 @@
 
     <!-- =========================
          Mobile Menu
-    ========================= -->
+    ========================== -->
 
     <div id="mobileMenuOverlay" class="mobile-menu-overlay">
 
         <button class="close-menu-btn" onclick="closeMobileMenu()">
+
             <i class="fas fa-times"></i>
+
         </button>
 
 
@@ -106,11 +116,13 @@
 
             <button class="en-btn mobile-lang-btn" onclick="toggleLanguage()"
                 style="margin: 0 auto; justify-content: center; display: flex;">
+
                 <span class="lang-text">
                     English
                 </span>
 
                 <i class="fa-solid fa-globe"></i>
+
             </button>
 
         </nav>
@@ -120,7 +132,7 @@
 
     <!-- =========================
          Hero
-    ========================= -->
+    ========================== -->
 
     <section class="dl-hero-section">
 
@@ -142,9 +154,7 @@
 
 
                 <p>
-                    قم بتحميل تطبيق Coding Master
-                    الآن وابدأ رحلتك في عالم البرمجة
-                    والكتابة بأبسط طريقة.
+                    قم بتحميل تطبيق Coding Master الآن وابدأ رحلتك في عالم البرمجة والكتابة بأبسط طريقة.
                 </p>
 
             </div>
@@ -164,7 +174,7 @@
 
     <!-- =========================
          Downloads
-    ========================= -->
+    ========================== -->
 
     <section class="dl-cards-section">
 
@@ -286,7 +296,6 @@
 
                 </div>
 
-
             </div>
 
         </div>
@@ -296,7 +305,7 @@
 
     <!-- =========================
          Footer
-    ========================= -->
+    ========================== -->
 
     <footer class="modern-footer">
 
@@ -311,8 +320,7 @@
                     </h3>
 
                     <p>
-                        نحن نصمم بيئات برمجية وأدوات حديثة
-                        لمساعدة مشاريعك وأفكارك على التميز والنجاح.
+                        نحن نصمم بيئات برمجية وأدوات حديثة لمساعدة مشاريعك وأفكارك على التميز والنجاح.
                     </p>
 
                 </div>
@@ -371,11 +379,15 @@
     </footer>
 
 
+    <!-- =========================
+         JavaScript
+    ========================== -->
+
     <script>
 
         /* =========================
            Mobile Menu
-        ========================= */
+        ========================== */
 
         function openMobileMenu() {
 
@@ -398,159 +410,328 @@
 
 
         /* =========================
-           Translation
-        ========================= */
+           Translation Dictionary
+        ========================== */
 
-        const translationDict = [
+        const translationDict = {
 
-            {
-                ar: "الرئيسية",
-                en: "Home"
-            },
+            "الرئيسية":
+                "Home",
 
-            {
-                ar: "من نحن",
-                en: "About Us"
-            },
+            "من نحن":
+                "About Us",
 
-            {
-                ar: "تواصل معنا",
-                en: "Contact Us"
-            },
+            "تواصل معنا":
+                "Contact Us",
 
-            {
-                ar: "التنزيلات",
-                en: "Downloads"
-            },
+            "التنزيلات":
+                "Downloads",
 
-            {
-                ar: "عن Coding Master",
-                en: "About Coding Master"
-            },
+            "عن Coding Master":
+                "About Coding Master",
 
-            {
-                ar: "تصفح",
-                en: "Navigate"
-            },
+            "تصفح":
+                "Navigate",
 
-            {
-                ar: "قم بتحميل تطبيق Coding Master الآن وابدأ رحلتك في عالم البرمجة والكتابة بأبسط طريقة.",
-                en: "Download Coding Master now and start your coding journey in the simplest way."
-            },
+            "قم بتحميل تطبيق Coding Master الآن وابدأ رحلتك في عالم البرمجة والكتابة بأبسط طريقة.":
+                "Download Coding Master now and start your coding journey in the simplest way.",
 
-            {
-                ar: "لأجهزة الكمبيوتر بنظام ويندوز",
-                en: "For Windows computers"
-            },
+            "لأجهزة الكمبيوتر بنظام ويندوز":
+                "For Windows computers",
 
-            {
-                ar: "لأجهزة الكمبيوتر بنظام الماك",
-                en: "For macOS computers"
-            },
+            "لأجهزة الكمبيوتر بنظام الماك":
+                "For macOS computers",
 
-            {
-                ar: "لأجهزة الكمبيوتر بنظام لينكس",
-                en: "For Linux computers"
-            },
+            "لأجهزة الكمبيوتر بنظام لينكس":
+                "For Linux computers",
 
-            {
-                ar: "لأجهزة الجوال والأجهزة اللوحية بنظام Android",
-                en: "For Android phones and tablets"
-            },
+            "لأجهزة الجوال والأجهزة اللوحية بنظام Android":
+                "For Android phones and tablets",
 
-            {
-                ar: "لأجهزة iPhone و iPad بنظام iOS",
-                en: "For iPhone and iPad devices"
-            },
+            "لأجهزة iPhone و iPad بنظام iOS":
+                "For iPhone and iPad devices",
 
-            {
-                ar: "تحميل الآن",
-                en: "Download Now"
-            },
+            "تحميل الآن":
+                "Download Now",
 
-            {
-                ar: "نحن نصمم بيئات برمجية وأدوات حديثة لمساعدة مشاريعك وأفكارك على التميز والنجاح.",
-                en: "We create beautiful, modern coding environments to help your projects stand out."
-            },
+            "نحن نصمم بيئات برمجية وأدوات حديثة لمساعدة مشاريعك وأفكارك على التميز والنجاح.":
+                "We create modern coding environments and tools to help your projects and ideas stand out and succeed.",
 
-            {
-                ar: "جميع الحقوق محفوظة.",
-                en: "All Rights Reserved."
-            }
+            "جميع الحقوق محفوظة.":
+                "All Rights Reserved.",
 
-        ];
+            "لم نتمكن من التعرف على جهازك. يرجى اختيار النظام المناسب.":
+                "We couldn't detect your device. Please choose the appropriate platform."
+
+        };
 
 
-        function walkTextNodes(node, lang) {
+        /* =========================
+           Reverse Dictionary
+        ========================== */
 
-            if (node.nodeType === 3) {
+        const reverseTranslationDict = {};
 
-                let text =
-                    node.nodeValue;
+        Object.keys(translationDict).forEach(ar => {
 
-                let changed = false;
+            reverseTranslationDict[
+                translationDict[ar]
+            ] = ar;
 
-
-                translationDict.forEach(dict => {
-
-                    if (
-                        lang === "en" &&
-                        text.includes(dict.ar)
-                    ) {
-
-                        text =
-                            text.replace(
-                                dict.ar,
-                                dict.en
-                            );
-
-                        changed = true;
-
-                    }
-
-                    else if (
-                        lang === "ar" &&
-                        text.includes(dict.en)
-                    ) {
-
-                        text =
-                            text.replace(
-                                dict.en,
-                                dict.ar
-                            );
-
-                        changed = true;
-
-                    }
-
-                });
+        });
 
 
-                if (changed) {
+        /* =========================
+           Save Original Text
+        ========================== */
 
-                    node.nodeValue =
-                        text;
+        const originalTexts = new WeakMap();
+
+
+        function saveOriginalTextNodes(node) {
+
+            if (
+                node.nodeType === Node.TEXT_NODE
+            ) {
+
+                if (
+                    node.nodeValue.trim()
+                ) {
+
+                    originalTexts.set(
+                        node,
+                        node.nodeValue
+                    );
 
                 }
 
+                return;
+
             }
 
-            else {
 
-                node.childNodes.forEach(
-                    child =>
-                        walkTextNodes(
-                            child,
-                            lang
-                        )
+            node.childNodes.forEach(
+                child => {
+
+                    saveOriginalTextNodes(
+                        child
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* =========================
+           Normalize Text
+        ========================== */
+
+        function normalizeText(text) {
+
+            return text
+                .replace(/\s+/g, " ")
+                .trim();
+
+        }
+
+
+        /* =========================
+           Translate Text Nodes
+        ========================== */
+
+        function translateTextNodes(lang) {
+
+            const walker =
+                document.createTreeWalker(
+                    document.body,
+                    NodeFilter.SHOW_TEXT
                 );
+
+
+            let node;
+
+
+            while (
+                node = walker.nextNode()
+            ) {
+
+                const original =
+                    originalTexts.get(
+                        node
+                    );
+
+
+                if (!original) {
+                    continue;
+                }
+
+
+                const normalized =
+                    normalizeText(
+                        original
+                    );
+
+
+                let translated = null;
+
+
+                if (
+                    lang === "en" &&
+                    translationDict[
+                    normalized
+                    ]
+                ) {
+
+                    translated =
+                        translationDict[
+                        normalized
+                        ];
+
+                }
+
+
+                else if (
+                    lang === "ar" &&
+                    reverseTranslationDict[
+                    normalized
+                    ]
+                ) {
+
+                    translated =
+                        reverseTranslationDict[
+                        normalized
+                        ];
+
+                }
+
+
+                if (
+                    translated !== null
+                ) {
+
+                    const leading =
+                        original.match(
+                            /^\s*/
+                        )?.[0] || "";
+
+
+                    const trailing =
+                        original.match(
+                            /\s*$/
+                        )?.[0] || "";
+
+
+                    node.nodeValue =
+                        leading +
+                        translated +
+                        trailing;
+
+                }
 
             }
 
         }
 
 
+        /* =========================
+           Translate Attributes
+        ========================== */
+
+        function translateAttributes(lang) {
+
+            document
+                .querySelectorAll(
+                    "[alt]"
+                )
+                .forEach(element => {
+
+                    const original =
+                        element.getAttribute(
+                            "data-cm-original-alt"
+                        ) ||
+                        element.getAttribute(
+                            "alt"
+                        );
+
+
+                    if (
+                        !element.hasAttribute(
+                            "data-cm-original-alt"
+                        )
+                    ) {
+
+                        element.setAttribute(
+                            "data-cm-original-alt",
+                            original
+                        );
+
+                    }
+
+
+                    const normalized =
+                        normalizeText(
+                            original
+                        );
+
+
+                    if (
+                        lang === "en" &&
+                        translationDict[
+                        normalized
+                        ]
+                    ) {
+
+                        element.setAttribute(
+                            "alt",
+                            translationDict[
+                            normalized
+                            ]
+                        );
+
+                    }
+
+                    else if (
+                        lang === "ar"
+                    ) {
+
+                        element.setAttribute(
+                            "alt",
+                            original
+                        );
+
+                    }
+
+                });
+
+        }
+
+
+        /* =========================
+           Update Title
+        ========================== */
+
+        function updatePageTitle(lang) {
+
+            document.title =
+                lang === "ar"
+                    ? "Coding Master - التنزيلات"
+                    : "Coding Master - Downloads";
+
+        }
+
+
+        /* =========================
+           Apply Language
+        ========================== */
+
         function applyLanguage(lang) {
+
+            document.documentElement.setAttribute(
+                "lang",
+                lang
+            );
+
 
             document.documentElement.setAttribute(
                 "dir",
@@ -564,9 +745,9 @@
                 .querySelectorAll(
                     ".lang-text, #btnLangText"
                 )
-                .forEach(btn => {
+                .forEach(button => {
 
-                    btn.innerHTML =
+                    button.textContent =
                         lang === "ar"
                             ? "English"
                             : "العربية";
@@ -574,8 +755,17 @@
                 });
 
 
-            walkTextNodes(
-                document.body,
+            translateTextNodes(
+                lang
+            );
+
+
+            translateAttributes(
+                lang
+            );
+
+
+            updatePageTitle(
                 lang
             );
 
@@ -585,25 +775,32 @@
                 lang
             );
 
+
+            updateDeviceMessageLanguage();
+
         }
 
 
+        /* =========================
+           Toggle Language
+        ========================== */
+
         function toggleLanguage() {
 
-            const currentLanguage =
+            const currentLang =
                 localStorage.getItem(
                     "CMLang"
                 ) || "ar";
 
 
-            const newLanguage =
-                currentLanguage === "ar"
+            const newLang =
+                currentLang === "ar"
                     ? "en"
                     : "ar";
 
 
             applyLanguage(
-                newLanguage
+                newLang
             );
 
         }
@@ -611,15 +808,17 @@
 
         /* =========================
            Detect Device
-        ========================= */
+        ========================== */
 
         function detectDevice() {
 
             const userAgent =
                 navigator.userAgent.toLowerCase();
 
+
             const platform =
                 navigator.platform.toLowerCase();
+
 
             const maxTouchPoints =
                 navigator.maxTouchPoints || 0;
@@ -628,7 +827,9 @@
             /* Android */
 
             if (
-                userAgent.includes("android")
+                userAgent.includes(
+                    "android"
+                )
             ) {
 
                 return "Android";
@@ -649,13 +850,12 @@
             }
 
 
-            /*
-             * iPad الجديد قد يظهر كسأنه Mac
-             * لذلك نستخدم اللمس أيضًا.
-             */
+            /* iPad + iPadOS */
 
             if (
-                userAgent.includes("ipad") ||
+                userAgent.includes(
+                    "ipad"
+                ) ||
                 (
                     platform === "macintel" &&
                     maxTouchPoints > 1
@@ -670,7 +870,9 @@
             /* Mac */
 
             if (
-                platform.includes("mac")
+                platform.includes(
+                    "mac"
+                )
             ) {
 
                 return "Mac";
@@ -681,7 +883,9 @@
             /* Windows */
 
             if (
-                platform.includes("win")
+                platform.includes(
+                    "win"
+                )
             ) {
 
                 return "Windows";
@@ -692,7 +896,9 @@
             /* Linux */
 
             if (
-                platform.includes("linux")
+                platform.includes(
+                    "linux"
+                )
             ) {
 
                 return "Linux";
@@ -706,67 +912,65 @@
 
 
         /* =========================
-           Download Placeholder
-        ========================= */
+           Device Message
+        ========================== */
 
-        function triggerNativeDownload(
-            fileName
-        ) {
+        function updateDeviceMessageLanguage() {
 
-            const blob =
-                new Blob(
-                    [
-                        "Coding Master App"
-                    ],
-                    {
-                        type:
-                            "application/octet-stream"
-                    }
+            const deviceMessage =
+                document.getElementById(
+                    "deviceMessage"
                 );
 
 
-            const url =
-                window.URL.createObjectURL(
-                    blob
+            if (
+                !deviceMessage
+            ) {
+                return;
+            }
+
+
+            const currentDevice =
+                detectDevice();
+
+
+            const matchingCard =
+                document.querySelector(
+                    `[data-device="${currentDevice}"]`
                 );
 
 
-            const link =
-                document.createElement(
-                    "a"
-                );
+            if (
+                matchingCard
+            ) {
+
+                deviceMessage.style.display =
+                    "none";
+
+                return;
+
+            }
 
 
-            link.href =
-                url;
-
-            link.download =
-                fileName;
-
-
-            document.body.appendChild(
-                link
-            );
+            const currentLang =
+                localStorage.getItem(
+                    "CMLang"
+                ) || "ar";
 
 
-            link.click();
+            deviceMessage.textContent =
+                currentLang === "en"
 
+                    ? "We couldn't detect your device. Please choose the appropriate platform."
 
-            document.body.removeChild(
-                link
-            );
-
-
-            window.URL.revokeObjectURL(
-                url
-            );
+                    : "لم نتمكن من التعرف على جهازك. يرجى اختيار النظام المناسب.";
 
         }
 
 
         /* =========================
-           Device Cards
-        ========================= */
+           Show Only Correct Device
+        ========================== */
 
         function showOnlyCorrectCard() {
 
@@ -800,7 +1004,9 @@
                 );
 
 
-            if (matchingCard) {
+            if (
+                matchingCard
+            ) {
 
                 matchingCard.style.display =
                     "block";
@@ -813,30 +1019,121 @@
             }
 
 
-            /* Unknown device */
-
             deviceMessage.style.display =
                 "block";
 
-            deviceMessage.textContent =
-                localStorage.getItem(
-                    "CMLang"
-                ) === "en"
 
-                    ? "We couldn't detect your device. Please choose your platform."
+            updateDeviceMessageLanguage();
 
-                    : "لم نتمكن من التعرف على جهازك. يرجى اختيار النظام المناسب.";
+        }
+
+
+        /* =========================
+           Download Placeholder
+        ========================== */
+
+        function triggerNativeDownload(
+            fileName
+        ) {
+
+            const blob =
+                new Blob(
+                    [
+                        "Coding Master App"
+                    ],
+                    {
+                        type:
+                            "application/octet-stream"
+                    }
+                );
+
+
+            const url =
+                window.URL.createObjectURL(
+                    blob
+                );
+
+
+            const link =
+                document.createElement(
+                    "a"
+                );
+
+
+            link.href =
+                url;
+
+
+            link.download =
+                fileName;
+
+
+            document.body.appendChild(
+                link
+            );
+
+
+            link.click();
+
+
+            document.body.removeChild(
+                link
+            );
+
+
+            window.URL.revokeObjectURL(
+                url
+            );
 
         }
 
 
         /* =========================
            Buttons
-        ========================= */
+        ========================== */
+
+        function setupDownloadButton(
+            id,
+            fileName
+        ) {
+
+            const button =
+                document.getElementById(
+                    id
+                );
+
+
+            if (!button) {
+                return;
+            }
+
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    triggerNativeDownload(
+                        fileName
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* =========================
+           Page Loaded
+        ========================== */
 
         document.addEventListener(
             "DOMContentLoaded",
             () => {
+
+                saveOriginalTextNodes(
+                    document.body
+                );
+
 
                 const savedLang =
                     localStorage.getItem(
@@ -858,107 +1155,73 @@
                 showOnlyCorrectCard();
 
 
-                /* Windows */
-
-                const btnWin =
-                    document.getElementById(
-                        "btnWin"
-                    );
-
-
-                btnWin.addEventListener(
-                    "click",
-                    () => {
-
-                        triggerNativeDownload(
-                            "CodingMaster-Windows.exe"
-                        );
-
-                    }
+                setupDownloadButton(
+                    "btnWin",
+                    "CodingMaster-Windows.exe"
                 );
 
 
-                /* Mac */
-
-                const btnMac =
-                    document.getElementById(
-                        "btnMac"
-                    );
-
-
-                btnMac.addEventListener(
-                    "click",
-                    () => {
-
-                        triggerNativeDownload(
-                            "CodingMaster-Mac.dmg"
-                        );
-
-                    }
+                setupDownloadButton(
+                    "btnMac",
+                    "CodingMaster-Mac.dmg"
                 );
 
 
-                /* Linux */
-
-                const btnLin =
-                    document.getElementById(
-                        "btnLin"
-                    );
-
-
-                btnLin.addEventListener(
-                    "click",
-                    () => {
-
-                        triggerNativeDownload(
-                            "CodingMaster-Linux.tar.gz"
-                        );
-
-                    }
+                setupDownloadButton(
+                    "btnLin",
+                    "CodingMaster-Linux.tar.gz"
                 );
 
 
-                /* Android */
-
-                const btnAndroid =
-                    document.getElementById(
-                        "btnAndroid"
-                    );
-
-
-                btnAndroid.addEventListener(
-                    "click",
-                    () => {
-
-                        triggerNativeDownload(
-                            "CodingMaster-Android.apk"
-                        );
-
-                    }
+                setupDownloadButton(
+                    "btnAndroid",
+                    "CodingMaster-Android.apk"
                 );
 
 
-                /* iOS */
-
-                const btnIOS =
-                    document.getElementById(
-                        "btnIOS"
-                    );
-
-
-                btnIOS.addEventListener(
-                    "click",
-                    () => {
-
-                        triggerNativeDownload(
-                            "CodingMaster-iOS.ipa"
-                        );
-
-                    }
+                setupDownloadButton(
+                    "btnIOS",
+                    "CodingMaster-iOS.ipa"
                 );
 
             }
         );
+
+
+        /* =========================
+           Service Worker
+        ========================== */
+
+        if (
+            "serviceWorker" in navigator
+        ) {
+
+            navigator.serviceWorker
+                .register(
+                    "/service-worker.js"
+                )
+                .then(
+                    registration => {
+
+                        console.log(
+                            "Coding Master Service Worker جاهز ✅",
+                            registration
+                        );
+
+                    }
+                )
+                .catch(
+                    error => {
+
+                        console.error(
+                            "Service Worker Error:",
+                            error
+                        );
+
+                    }
+                );
+
+        }
 
     </script>
 

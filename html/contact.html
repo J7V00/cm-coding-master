@@ -17,6 +17,9 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <style>
         .form-response {
             display: none;
@@ -78,34 +81,76 @@
             right: 15px;
             left: auto;
         }
+
+        #otpBox {
+            display: none;
+            margin-bottom: 20px;
+        }
+
+        #otpInput {
+            text-align: center;
+            letter-spacing: 6px;
+            font-size: 1.2rem;
+            font-weight: 800;
+        }
     </style>
+
 </head>
 
 <body>
 
+    <!-- =========================
+         Navbar
+    ========================== -->
+
     <header class="navbar">
 
         <div class="logo">
-            <img src="../assets/logo.png" alt="Coding Master Logo">
-            <span>Coding Master</span>
+
+            <img src="../assets/logo.png" alt="شعار Coding Master">
+
+            <span>
+                Coding Master
+            </span>
+
         </div>
 
         <nav class="nav-pill desktop-nav">
-            <a href="index.html" class="nav-link">الرئيسية</a>
-            <a href="about.html" class="nav-link">من نحن</a>
-            <a href="contact.html" class="nav-link active">تواصل معنا</a>
-            <a href="download.html" class="nav-link">التنزيلات</a>
+
+            <a href="index.html" class="nav-link">
+                الرئيسية
+            </a>
+
+            <a href="about.html" class="nav-link">
+                من نحن
+            </a>
+
+            <a href="contact.html" class="nav-link active">
+                تواصل معنا
+            </a>
+
+            <a href="download.html" class="nav-link">
+                التنزيلات
+            </a>
+
         </nav>
 
         <div class="nav-left-icons">
 
             <button class="en-btn desktop-lang" onclick="toggleLanguage()">
-                <span id="btnLangText">English</span>
+
+                <span id="btnLangText">
+                    English
+                </span>
+
                 <i class="fa-solid fa-globe"></i>
+
             </button>
 
             <button class="mobile-dots-btn" onclick="openMobileMenu()">
+
                 <i class="fas fa-bars"></i>
+
             </button>
 
         </div>
@@ -113,23 +158,45 @@
     </header>
 
 
+    <!-- =========================
+         Mobile Menu
+    ========================== -->
+
     <div id="mobileMenuOverlay" class="mobile-menu-overlay">
 
         <button class="close-menu-btn" onclick="closeMobileMenu()">
+
             <i class="fas fa-times"></i>
+
         </button>
 
         <nav class="mobile-nav-links">
 
-            <a href="index.html">الرئيسية</a>
-            <a href="about.html">من نحن</a>
-            <a href="contact.html" class="active">تواصل معنا</a>
-            <a href="download.html">التنزيلات</a>
+            <a href="index.html">
+                الرئيسية
+            </a>
+
+            <a href="about.html">
+                من نحن
+            </a>
+
+            <a href="contact.html" class="active">
+                تواصل معنا
+            </a>
+
+            <a href="download.html">
+                التنزيلات
+            </a>
 
             <button class="en-btn mobile-lang-btn" onclick="toggleLanguage()"
                 style="margin: 0 auto; justify-content: center; display: flex;">
-                <span class="lang-text">English</span>
+
+                <span class="lang-text">
+                    English
+                </span>
+
                 <i class="fa-solid fa-globe"></i>
+
             </button>
 
         </nav>
@@ -137,13 +204,19 @@
     </div>
 
 
+    <!-- =========================
+         Contact Section
+    ========================== -->
+
     <section class="contact-section">
 
         <div class="container">
 
             <div class="contact-header">
 
-                <h1>كيف يمكننا مساعدتك؟</h1>
+                <h1>
+                    كيف يمكننا مساعدتك؟
+                </h1>
 
                 <p>
                     فريقنا متواجد دائماً للرد على استفساراتك البرمجية والدعم الفني.
@@ -156,16 +229,49 @@
 
                 <div class="contact-form-wrapper">
 
-                    <h3>أرسل لنا رسالة</h3>
+                    <h3>
+                        أرسل لنا رسالة
+                    </h3>
+
 
                     <div id="formResponse" class="form-response"></div>
 
+
+                    <!-- =========================
+                         OTP Box
+                    ========================== -->
+
+                    <div id="otpBox">
+
+                        <div class="input-group">
+
+                            <label>
+                                رمز التحقق
+                            </label>
+
+                            <input type="text" id="otpInput" inputmode="numeric" autocomplete="one-time-code"
+                                maxlength="6" pattern="[0-9]{6}" placeholder="أدخل رمز التحقق الذي وصلك على الإيميل...">
+
+                        </div>
+
+                        <button type="button" class="submit-btn" id="verifyOtpBtn" onclick="verifyEmailOtp()">
+                            تحقق من الرمز
+                        </button>
+
+                    </div>
+
+
+                    <!-- =========================
+                         Contact Form
+                    ========================== -->
 
                     <form class="contact-form" onsubmit="sendEmail(event)">
 
                         <div class="input-group">
 
-                            <label>الاسم الكامل</label>
+                            <label>
+                                الاسم الكامل
+                            </label>
 
                             <input type="text" name="name" required placeholder="أدخل اسمك هنا...">
 
@@ -174,7 +280,9 @@
 
                         <div class="input-group">
 
-                            <label>البريد الإلكتروني</label>
+                            <label>
+                                البريد الإلكتروني
+                            </label>
 
                             <input type="email" name="email" required placeholder="أدخل بريدك الإلكتروني...">
 
@@ -183,7 +291,9 @@
 
                         <div class="input-group">
 
-                            <label>رمز الحساب</label>
+                            <label>
+                                رمز الحساب
+                            </label>
 
                             <div class="password-container">
 
@@ -200,7 +310,9 @@
 
                         <div class="input-group">
 
-                            <label>رقم الهاتف</label>
+                            <label>
+                                رقم الهاتف
+                            </label>
 
                             <input type="tel" name="phone" required placeholder="أدخل رقم هاتفك هنا...">
 
@@ -209,7 +321,9 @@
 
                         <div class="input-group">
 
-                            <label>الرسالة (إلزامي)</label>
+                            <label>
+                                الرسالة (إلزامي)
+                            </label>
 
                             <textarea name="message" rows="4" required placeholder="اكتب رسالتك هنا..."></textarea>
 
@@ -231,11 +345,39 @@
     </section>
 
 
+    <!-- =========================
+         JavaScript
+    ========================== -->
+
     <script>
 
         /* =========================
-           القائمة
-        ========================= */
+           Supabase
+        ========================== */
+
+        const SUPABASE_URL =
+            "https://wkoyeiydytlgtoknypkd.supabase.co";
+
+        const SUPABASE_KEY =
+            "sb_publishable_r3BxLBSCV85_7qR6WvYBdw_Bf9qCZe0";
+
+        const supabaseClient =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_KEY
+            );
+
+
+        /* =========================
+           بيانات OTP المؤقتة
+        ========================== */
+
+        let pendingContactData = null;
+
+
+        /* =========================
+           Mobile Menu
+        ========================== */
 
         function openMobileMenu() {
 
@@ -258,183 +400,309 @@
 
 
         /* =========================
-           الترجمة
-        ========================= */
+           Translation
+        ========================== */
 
-        const translationDict = [
+        const translationDict = {
 
-            { ar: "الرئيسية", en: "Home" },
-            { ar: "من نحن", en: "About Us" },
-            { ar: "تواصل معنا", en: "Contact Us" },
-            { ar: "التنزيلات", en: "Downloads" },
+            "الرئيسية":
+                "Home",
 
-            {
-                ar: "كيف يمكننا مساعدتك؟",
-                en: "How can we help you?"
-            },
+            "من نحن":
+                "About Us",
 
-            {
-                ar: "فريقنا متواجد دائماً للرد على استفساراتك البرمجية والدعم الفني.",
-                en: "Our team is always available for your coding inquiries and technical support."
-            },
+            "تواصل معنا":
+                "Contact Us",
 
-            {
-                ar: "أرسل لنا رسالة",
-                en: "Send us a message"
-            },
+            "التنزيلات":
+                "Downloads",
 
-            {
-                ar: "الاسم الكامل",
-                en: "Full Name"
-            },
+            "كيف يمكننا مساعدتك؟":
+                "How can we help you?",
 
-            {
-                ar: "البريد الإلكتروني",
-                en: "Email Address"
-            },
+            "فريقنا متواجد دائماً للرد على استفساراتك البرمجية والدعم الفني.":
+                "Our team is always available to answer your coding questions and provide technical support.",
 
-            {
-                ar: "رمز الحساب",
-                en: "Account Code"
-            },
+            "أرسل لنا رسالة":
+                "Send us a message",
 
-            {
-                ar: "رقم الهاتف",
-                en: "Phone Number"
-            },
+            "الاسم الكامل":
+                "Full Name",
 
-            {
-                ar: "الرسالة (إلزامي)",
-                en: "Message (Required)"
-            },
+            "البريد الإلكتروني":
+                "Email Address",
 
-            {
-                ar: "إرسال الرسالة",
-                en: "Send Message"
-            },
+            "رمز الحساب":
+                "Account Code",
 
-            {
-                ar: "أدخل اسمك هنا...",
-                en: "Enter your name here..."
-            },
+            "رقم الهاتف":
+                "Phone Number",
 
-            {
-                ar: "أدخل بريدك الإلكتروني...",
-                en: "Enter your email..."
-            },
+            "الرسالة (إلزامي)":
+                "Message (Required)",
 
-            {
-                ar: "أدخل رمز الحساب...",
-                en: "Enter Account Code..."
-            },
+            "إرسال الرسالة":
+                "Send Message",
 
-            {
-                ar: "أدخل رقم هاتفك هنا...",
-                en: "Enter your phone number..."
-            },
+            "رمز التحقق":
+                "Verification Code",
 
-            {
-                ar: "اكتب رسالتك هنا...",
-                en: "Write your message here..."
-            }
+            "تحقق من الرمز":
+                "Verify Code",
 
-        ];
+            "أدخل اسمك هنا...":
+                "Enter your name here...",
 
+            "أدخل بريدك الإلكتروني...":
+                "Enter your email...",
 
-        function walkTextNodes(node, lang) {
+            "أدخل رمز الحساب...":
+                "Enter account code...",
 
-            if (node.nodeType === 3) {
+            "أدخل رقم هاتفك هنا...":
+                "Enter your phone number...",
 
-                let text = node.nodeValue;
-                let changed = false;
+            "اكتب رسالتك هنا...":
+                "Write your message here...",
 
-                translationDict.forEach(dict => {
+            "أدخل رمز التحقق الذي وصلك على الإيميل...":
+                "Enter the verification code sent to your email...",
 
-                    if (
-                        lang === "en" &&
-                        text.includes(dict.ar)
-                    ) {
+            "جاري التحقق...":
+                "Verifying...",
 
-                        text = text.replace(
-                            dict.ar,
-                            dict.en
-                        );
+            "جاري التحقق من الحساب...":
+                "Verifying account...",
 
-                        changed = true;
+            "جاري إرسال الرسالة...":
+                "Sending message...",
 
-                    }
+            "جاري التحقق من الرمز...":
+                "Verifying code...",
 
-                    else if (
-                        lang === "ar" &&
-                        text.includes(dict.en)
-                    ) {
+            "✓ تم إرسال رمز التحقق إلى بريدك الإلكتروني.":
+                "✓ A verification code has been sent to your email.",
 
-                        text = text.replace(
-                            dict.en,
-                            dict.ar
-                        );
+            "✓ تم التحقق من بريدك وإرسال رسالتك بنجاح!":
+                "✓ Your email was verified and your message was sent successfully!",
 
-                        changed = true;
+            "✕ الإيميل أو رمز الحساب غير صحيح.":
+                "✕ The email or account code is incorrect.",
 
-                    }
+            "✕ تعذر إرسال رمز التحقق. حاول مرة أخرى.":
+                "✕ We could not send the verification code. Please try again.",
 
-                });
+            "✕ أدخل رمز التحقق أولًا.":
+                "✕ Enter the verification code first.",
+
+            "✕ رمز التحقق يجب أن يتكون من 6 أرقام.":
+                "✕ The verification code must contain 6 digits.",
+
+            "✕ انتهت جلسة التحقق. أعد المحاولة.":
+                "✕ The verification session expired. Please try again.",
+
+            "✕ رمز التحقق غير صحيح.":
+                "✕ The verification code is incorrect.",
+
+            "✕ تعذر إرسال الرسالة بعد التحقق.":
+                "✕ The message could not be sent after verification.",
+
+            "✕ حدث خطأ أثناء التحقق أو إرسال الرسالة.":
+                "✕ An error occurred while verifying or sending the message.",
+
+            "✕ يرجى تعبئة جميع البيانات.":
+                "✕ Please fill in all fields.",
+
+            "✕ حدث خطأ. حاول مرة أخرى.":
+                "✕ An error occurred. Please try again."
+
+        };
 
 
-                if (changed) {
-                    node.nodeValue = text;
+        const reverseTranslationDict = {};
+
+        Object.keys(translationDict)
+            .forEach(ar => {
+
+                reverseTranslationDict[
+                    translationDict[ar]
+                ] = ar;
+
+            });
+
+
+        const originalTexts =
+            new WeakMap();
+
+
+        function normalizeText(text) {
+
+            return text
+                .replace(/\s+/g, " ")
+                .trim();
+
+        }
+
+
+        function saveOriginalTextNodes(node) {
+
+            if (
+                node.nodeType === Node.TEXT_NODE
+            ) {
+
+                if (
+                    node.nodeValue.trim()
+                ) {
+
+                    originalTexts.set(
+                        node,
+                        node.nodeValue
+                    );
+
                 }
 
+                return;
+
             }
 
-            else {
 
-                node.childNodes.forEach(
-                    child => walkTextNodes(child, lang)
+            node.childNodes.forEach(
+                child => {
+
+                    saveOriginalTextNodes(
+                        child
+                    );
+
+                }
+            );
+
+        }
+
+
+        function translateTextNodes(lang) {
+
+            const walker =
+                document.createTreeWalker(
+                    document.body,
+                    NodeFilter.SHOW_TEXT
                 );
+
+            let node;
+
+            while (
+                node = walker.nextNode()
+            ) {
+
+                const original =
+                    originalTexts.get(node);
+
+                if (!original) {
+                    continue;
+                }
+
+                const normalized =
+                    normalizeText(original);
+
+                let translated = null;
+
+
+                if (
+                    lang === "en" &&
+                    translationDict[normalized]
+                ) {
+
+                    translated =
+                        translationDict[normalized];
+
+                }
+
+                else if (
+                    lang === "ar" &&
+                    reverseTranslationDict[normalized]
+                ) {
+
+                    translated =
+                        reverseTranslationDict[normalized];
+
+                }
+
+
+                if (
+                    translated !== null
+                ) {
+
+                    const leading =
+                        original.match(/^\s*/)?.[0] || "";
+
+                    const trailing =
+                        original.match(/\s*$/)?.[0] || "";
+
+
+                    node.nodeValue =
+                        leading +
+                        translated +
+                        trailing;
+
+                }
 
             }
 
         }
 
 
-        function translatePlaceholders(lang) {
+        function translateInputs(lang) {
 
             document
-                .querySelectorAll("input, textarea")
+                .querySelectorAll(
+                    "input, textarea"
+                )
                 .forEach(input => {
 
-                    translationDict.forEach(dict => {
+                    const original =
+                        input.getAttribute(
+                            "data-cm-original-placeholder"
+                        ) ||
+                        input.placeholder;
 
-                        if (
-                            lang === "en" &&
-                            input.placeholder &&
-                            input.placeholder.includes(dict.ar)
-                        ) {
 
-                            input.placeholder =
-                                input.placeholder.replace(
-                                    dict.ar,
-                                    dict.en
-                                );
+                    if (
+                        !input.hasAttribute(
+                            "data-cm-original-placeholder"
+                        )
+                    ) {
 
-                        }
+                        input.setAttribute(
+                            "data-cm-original-placeholder",
+                            original
+                        );
 
-                        else if (
-                            lang === "ar" &&
-                            input.placeholder &&
-                            input.placeholder.includes(dict.en)
-                        ) {
+                    }
 
-                            input.placeholder =
-                                input.placeholder.replace(
-                                    dict.en,
-                                    dict.ar
-                                );
 
-                        }
+                    const normalized =
+                        normalizeText(
+                            original
+                        );
 
-                    });
+
+                    if (
+                        lang === "en" &&
+                        translationDict[normalized]
+                    ) {
+
+                        input.placeholder =
+                            translationDict[normalized];
+
+                    }
+
+                    else if (
+                        lang === "ar"
+                    ) {
+
+                        input.placeholder =
+                            original;
+
+                    }
 
                 });
 
@@ -444,16 +712,26 @@
         function applyLanguage(lang) {
 
             document.documentElement.setAttribute(
+                "lang",
+                lang
+            );
+
+
+            document.documentElement.setAttribute(
                 "dir",
-                lang === "ar" ? "rtl" : "ltr"
+                lang === "ar"
+                    ? "rtl"
+                    : "ltr"
             );
 
 
             document
-                .querySelectorAll(".lang-text, #btnLangText")
-                .forEach(btn => {
+                .querySelectorAll(
+                    ".lang-text, #btnLangText"
+                )
+                .forEach(button => {
 
-                    btn.innerHTML =
+                    button.textContent =
                         lang === "ar"
                             ? "English"
                             : "العربية";
@@ -461,13 +739,20 @@
                 });
 
 
-            walkTextNodes(
-                document.body,
+            translateTextNodes(
                 lang
             );
 
 
-            translatePlaceholders(lang);
+            translateInputs(
+                lang
+            );
+
+
+            document.title =
+                lang === "ar"
+                    ? "Coding Master - تواصل معنا"
+                    : "Coding Master - Contact Us";
 
 
             localStorage.setItem(
@@ -480,38 +765,28 @@
 
         function toggleLanguage() {
 
+            const currentLang =
+                localStorage.getItem(
+                    "CMLang"
+                ) || "ar";
+
+
             const newLang =
-                (
-                    localStorage.getItem("CMLang") || "ar"
-                ) === "ar"
+                currentLang === "ar"
                     ? "en"
                     : "ar";
 
 
-            applyLanguage(newLang);
+            applyLanguage(
+                newLang
+            );
 
         }
 
 
-        document.addEventListener(
-            "DOMContentLoaded",
-            () => {
-
-                if (
-                    localStorage.getItem("CMLang") === "en"
-                ) {
-
-                    applyLanguage("en");
-
-                }
-
-            }
-        );
-
-
         /* =========================
-           رمز الحساب
-        ========================= */
+           Password Visibility
+        ========================== */
 
         function toggleCodeVisibility() {
 
@@ -520,14 +795,15 @@
                     "accountCodeInput"
                 );
 
-
             const icon =
                 document.getElementById(
                     "toggleCodeBtn"
                 );
 
 
-            if (input.type === "password") {
+            if (
+                input.type === "password"
+            ) {
 
                 input.type = "text";
 
@@ -543,7 +819,8 @@
 
             else {
 
-                input.type = "password";
+                input.type =
+                    "password";
 
                 icon.classList.remove(
                     "fa-eye-slash"
@@ -559,29 +836,8 @@
 
 
         /* =========================
-           SUPABASE
-        ========================= */
-
-        /*
-         * هنا يوجد مكانان فقط يحتاجان منك التعديل.
-         *
-         * 1) API URL
-         * 2) Publishable Key
-         *
-         * ضع القيم التي نسختها من Supabase.
-         */
-
-        const SUPABASE_URL =
-            "https://wkoyeiydytlgtoknypkd.supabase.co";
-
-
-        const SUPABASE_KEY =
-            "sb_publishable_r3BxLBSCV85_7qR6WvYBdw_Bf9qCZe0";
-
-
-        /* =========================
-           إرسال الرسالة
-        ========================= */
+           Send Message
+        ========================== */
 
         async function sendEmail(event) {
 
@@ -604,113 +860,571 @@
                 );
 
 
+            const otpBox =
+                document.getElementById(
+                    "otpBox"
+                );
+
+
             const currentLang =
                 localStorage.getItem(
                     "CMLang"
                 ) || "ar";
 
 
-            btn.disabled = true;
+            const formData =
+                new FormData(form);
 
 
-            btn.innerHTML =
+            const name =
+                String(
+                    formData.get("name") || ""
+                ).trim();
+
+
+            const email =
+                String(
+                    formData.get("email") || ""
+                ).trim();
+
+
+            const accountCode =
+                String(
+                    formData.get("account_code") || ""
+                );
+
+
+            const phone =
+                String(
+                    formData.get("phone") || ""
+                ).trim();
+
+
+            const message =
+                String(
+                    formData.get("message") || ""
+                ).trim();
+
+
+            /* =========================
+               التحقق من البيانات
+            ========================== */
+
+            if (
+                !name ||
+                !email ||
+                !accountCode ||
+                !phone ||
+                !message
+            ) {
+
+                responseDiv.className =
+                    "form-response error";
+
+
+                responseDiv.textContent =
+                    currentLang === "ar"
+
+                        ? "✕ يرجى تعبئة جميع البيانات."
+
+                        : "✕ Please fill in all fields.";
+
+
+                responseDiv.style.display =
+                    "block";
+
+
+                return;
+
+            }
+
+
+            btn.disabled =
+                true;
+
+
+            btn.textContent =
                 currentLang === "ar"
-                    ? "جاري الإرسال..."
-                    : "Sending...";
+
+                    ? "جاري التحقق من الحساب..."
+
+                    : "Verifying account...";
 
 
             responseDiv.style.display =
                 "none";
 
 
-            const formData =
-                new FormData(form);
-
-
-            /*
-             * نحن نحفظ:
-             * الاسم
-             * البريد
-             * الهاتف
-             * الرسالة
-             *
-             * ولا نحفظ رمز الحساب.
-             */
-
-            const data = {
-
-                name:
-                    formData.get("name"),
-
-                email:
-                    formData.get("email"),
-
-                phone:
-                    formData.get("phone"),
-
-                message:
-                    formData.get("message")
-
-            };
-
-
             try {
 
-                const response =
-                    await fetch(
-                        `${SUPABASE_URL}/rest/v1/messages`,
-                        {
-                            method: "POST",
+                /* =========================
+                   1. التحقق من الإيميل
+                      ورمز الحساب
+                ========================== */
 
-                            headers: {
+                const {
+                    data: authData,
+                    error: authError
+                } =
+                    await supabaseClient.auth
+                        .signInWithPassword({
 
-                                "Content-Type":
-                                    "application/json",
+                            email:
+                                email,
 
-                                "apikey":
-                                    SUPABASE_KEY,
+                            password:
+                                accountCode
 
-                                "Authorization":
-                                    `Bearer ${SUPABASE_KEY}`,
-
-                                "Prefer":
-                                    "return=minimal"
-
-                            },
-
-                            body:
-                                JSON.stringify(data)
-
-                        }
-                    );
+                        });
 
 
-                if (!response.ok) {
+                if (
+                    authError ||
+                    !authData ||
+                    !authData.user
+                ) {
 
                     throw new Error(
-                        "فشل إرسال الرسالة"
+                        "INVALID_ACCOUNT"
                     );
 
                 }
 
 
-                form.reset();
+                /* =========================
+                   تسجيل الخروج المؤقت
+                ========================== */
+
+                await supabaseClient.auth.signOut();
+
+
+                /* =========================
+                   2. حفظ بيانات الرسالة
+                ========================== */
+
+                pendingContactData = {
+
+                    name:
+                        name,
+
+                    email:
+                        email,
+
+                    phone:
+                        phone,
+
+                    message:
+                        message
+
+                };
+
+
+                /* =========================
+                   3. إرسال OTP
+                ========================== */
+
+                const {
+                    error: otpError
+                } =
+                    await supabaseClient.auth
+                        .signInWithOtp({
+
+                            email:
+                                email,
+
+                            options: {
+
+                                shouldCreateUser:
+                                    false
+
+                            }
+
+                        });
+
+
+                if (
+                    otpError
+                ) {
+
+                    console.error(
+                        "OTP Error:",
+                        otpError
+                    );
+
+
+                    pendingContactData =
+                        null;
+
+
+                    throw new Error(
+                        "OTP_FAILED"
+                    );
+
+                }
+
+
+                /* =========================
+                   4. إظهار OTP
+                ========================== */
+
+                otpBox.style.display =
+                    "block";
 
 
                 responseDiv.className =
                     "form-response success";
 
 
-                responseDiv.innerHTML =
+                responseDiv.textContent =
                     currentLang === "ar"
 
-                        ? "✓ تم إرسال رسالتك بنجاح! شكرًا لتواصلك معنا."
+                        ? "✓ تم إرسال رمز التحقق إلى بريدك الإلكتروني."
 
-                        : "✓ Message sent successfully!";
+                        : "✓ A verification code has been sent to your email.";
 
 
                 responseDiv.style.display =
                     "block";
+
+
+                btn.style.display =
+                    "none";
+
+
+                document
+                    .getElementById(
+                        "otpInput"
+                    )
+                    .focus();
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Contact Error:",
+                    error
+                );
+
+
+                responseDiv.className =
+                    "form-response error";
+
+
+                if (
+                    error.message ===
+                    "INVALID_ACCOUNT"
+                ) {
+
+                    responseDiv.textContent =
+                        currentLang === "ar"
+
+                            ? "✕ الإيميل أو رمز الحساب غير صحيح."
+
+                            : "✕ The email or account code is incorrect.";
+
+                }
+
+                else if (
+                    error.message ===
+                    "OTP_FAILED"
+                ) {
+
+                    responseDiv.textContent =
+                        currentLang === "ar"
+
+                            ? "✕ تعذر إرسال رمز التحقق. حاول مرة أخرى."
+
+                            : "✕ We could not send the verification code. Please try again.";
+
+                }
+
+                else {
+
+                    responseDiv.textContent =
+                        currentLang === "ar"
+
+                            ? "✕ حدث خطأ. حاول مرة أخرى."
+
+                            : "✕ An error occurred. Please try again.";
+
+                }
+
+
+                responseDiv.style.display =
+                    "block";
+
+            }
+
+            finally {
+
+                btn.disabled =
+                    false;
+
+            }
+
+        }
+
+
+        /* =========================
+           Verify Email OTP
+        ========================== */
+
+        async function verifyEmailOtp() {
+
+            const otpInput =
+                document.getElementById(
+                    "otpInput"
+                );
+
+
+            const otpBtn =
+                document.getElementById(
+                    "verifyOtpBtn"
+                );
+
+
+            const responseDiv =
+                document.getElementById(
+                    "formResponse"
+                );
+
+
+            const currentLang =
+                localStorage.getItem(
+                    "CMLang"
+                ) || "ar";
+
+
+            const token =
+                String(
+                    otpInput.value || ""
+                ).trim();
+
+
+            /* =========================
+               التحقق من وجود الرمز
+            ========================== */
+
+            if (
+                !token
+            ) {
+
+                responseDiv.className =
+                    "form-response error";
+
+
+                responseDiv.textContent =
+                    currentLang === "ar"
+
+                        ? "✕ أدخل رمز التحقق أولًا."
+
+                        : "✕ Enter the verification code first.";
+
+
+                responseDiv.style.display =
+                    "block";
+
+
+                return;
+
+            }
+
+
+            /* =========================
+               OTP يجب أن يكون 6 أرقام
+            ========================== */
+
+            if (
+                !/^\d{6}$/.test(token)
+            ) {
+
+                responseDiv.className =
+                    "form-response error";
+
+
+                responseDiv.textContent =
+                    currentLang === "ar"
+
+                        ? "✕ رمز التحقق يجب أن يتكون من 6 أرقام."
+
+                        : "✕ The verification code must contain 6 digits.";
+
+
+                responseDiv.style.display =
+                    "block";
+
+
+                return;
+
+            }
+
+
+            /* =========================
+               التأكد من وجود البيانات
+            ========================== */
+
+            if (
+                !pendingContactData
+            ) {
+
+                responseDiv.className =
+                    "form-response error";
+
+
+                responseDiv.textContent =
+                    currentLang === "ar"
+
+                        ? "✕ انتهت جلسة التحقق. أعد المحاولة."
+
+                        : "✕ The verification session expired. Please try again.";
+
+
+                responseDiv.style.display =
+                    "block";
+
+
+                return;
+
+            }
+
+
+            otpBtn.disabled =
+                true;
+
+
+            otpBtn.textContent =
+                currentLang === "ar"
+
+                    ? "جاري التحقق من الرمز..."
+
+                    : "Verifying code...";
+
+
+            try {
+
+                /* =========================
+                   1. التحقق من OTP
+                ========================== */
+
+                const {
+                    data: verifyData,
+                    error: verifyError
+                } =
+                    await supabaseClient.auth
+                        .verifyOtp({
+
+                            email:
+                                pendingContactData.email,
+
+                            token:
+                                token,
+
+                            type:
+                                "email"
+
+                        });
+
+
+                if (
+                    verifyError ||
+                    !verifyData ||
+                    !verifyData.user
+                ) {
+
+                    throw new Error(
+                        "INVALID_OTP"
+                    );
+
+                }
+
+
+                /* =========================
+                   2. إرسال الرسالة
+                ========================== */
+
+                const {
+                    error: insertError
+                } =
+                    await supabaseClient
+                        .from("messages")
+                        .insert({
+
+                            name:
+                                pendingContactData.name,
+
+                            email:
+                                pendingContactData.email,
+
+                            phone:
+                                pendingContactData.phone,
+
+                            message:
+                                pendingContactData.message
+
+                        });
+
+
+                if (
+                    insertError
+                ) {
+
+                    console.error(
+                        "Insert Error:",
+                        insertError
+                    );
+
+
+                    throw new Error(
+                        "SEND_FAILED"
+                    );
+
+                }
+
+
+                /* =========================
+                   3. النجاح
+                ========================== */
+
+                responseDiv.className =
+                    "form-response success";
+
+
+                responseDiv.textContent =
+                    currentLang === "ar"
+
+                        ? "✓ تم التحقق من بريدك وإرسال رسالتك بنجاح!"
+
+                        : "✓ Your email was verified and your message was sent successfully!";
+
+
+                responseDiv.style.display =
+                    "block";
+
+
+                formReset();
+
+
+                pendingContactData =
+                    null;
+
+
+                try {
+
+                    await supabaseClient.auth.signOut();
+
+                }
+
+                catch (
+                signOutError
+                ) {
+
+                    console.warn(
+                        "Sign out warning:",
+                        signOutError
+                    );
+
+                }
 
 
                 const successSound =
@@ -721,15 +1435,16 @@
 
                 successSound
                     .play()
-                    .catch(() => { });
-
+                    .catch(
+                        () => { }
+                    );
 
             }
 
             catch (error) {
 
                 console.error(
-                    "Supabase Error:",
+                    "OTP Verification Error:",
                     error
                 );
 
@@ -738,12 +1453,44 @@
                     "form-response error";
 
 
-                responseDiv.innerHTML =
-                    currentLang === "ar"
+                if (
+                    error.message ===
+                    "INVALID_OTP"
+                ) {
 
-                        ? "✕ حدث خطأ أثناء الإرسال! يرجى المحاولة مرة أخرى."
+                    responseDiv.textContent =
+                        currentLang === "ar"
 
-                        : "✕ An error occurred. Please try again.";
+                            ? "✕ رمز التحقق غير صحيح."
+
+                            : "✕ The verification code is incorrect.";
+
+                }
+
+                else if (
+                    error.message ===
+                    "SEND_FAILED"
+                ) {
+
+                    responseDiv.textContent =
+                        currentLang === "ar"
+
+                            ? "✕ تم التحقق من الإيميل، لكن تعذر إرسال الرسالة."
+
+                            : "✕ Your email was verified, but the message could not be sent.";
+
+                }
+
+                else {
+
+                    responseDiv.textContent =
+                        currentLang === "ar"
+
+                            ? "✕ حدث خطأ أثناء التحقق أو إرسال الرسالة."
+
+                            : "✕ An error occurred while verifying or sending the message.";
+
+                }
 
 
                 responseDiv.style.display =
@@ -758,21 +1505,160 @@
 
                 errorSound
                     .play()
-                    .catch(() => { });
+                    .catch(
+                        () => { }
+                    );
 
             }
 
             finally {
 
-                btn.disabled = false;
+                otpBtn.disabled =
+                    false;
 
 
-                btn.innerHTML =
+                otpBtn.textContent =
                     currentLang === "ar"
-                        ? "إرسال الرسالة"
-                        : "Send Message";
+
+                        ? "تحقق من الرمز"
+
+                        : "Verify Code";
 
             }
+
+        }
+
+
+        /* =========================
+           Reset Form
+        ========================== */
+
+        function formReset() {
+
+            const form =
+                document.querySelector(
+                    ".contact-form"
+                );
+
+
+            form.reset();
+
+
+            document
+                .getElementById(
+                    "otpInput"
+                )
+                .value =
+                "";
+
+
+            document
+                .getElementById(
+                    "otpBox"
+                )
+                .style.display =
+                "none";
+
+
+            document
+                .getElementById(
+                    "btnSubmit"
+                )
+                .style.display =
+                "";
+
+
+            document
+                .getElementById(
+                    "accountCodeInput"
+                )
+                .type =
+                "password";
+
+
+            const toggleIcon =
+                document.getElementById(
+                    "toggleCodeBtn"
+                );
+
+
+            toggleIcon.classList.remove(
+                "fa-eye-slash"
+            );
+
+
+            toggleIcon.classList.add(
+                "fa-eye"
+            );
+
+        }
+
+
+        /* =========================
+           Page Loaded
+        ========================== */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            () => {
+
+                saveOriginalTextNodes(
+                    document.body
+                );
+
+
+                const savedLang =
+                    localStorage.getItem(
+                        "CMLang"
+                    ) || "ar";
+
+
+                if (
+                    savedLang === "en"
+                ) {
+
+                    applyLanguage(
+                        "en"
+                    );
+
+                }
+
+            }
+        );
+
+
+        /* =========================
+           Service Worker
+        ========================== */
+
+        if (
+            "serviceWorker" in navigator
+        ) {
+
+            navigator.serviceWorker
+                .register(
+                    "/service-worker.js"
+                )
+                .then(
+                    registration => {
+
+                        console.log(
+                            "Coding Master Service Worker جاهز ✅",
+                            registration
+                        );
+
+                    }
+                )
+                .catch(
+                    error => {
+
+                        console.error(
+                            "Service Worker Error:",
+                            error
+                        );
+
+                    }
+                );
 
         }
 

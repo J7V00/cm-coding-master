@@ -3,6 +3,12 @@
 
 <head>
     <meta charset="UTF-8">
+    <!-- This site is hosted on Netlify. Anyone can build and deploy a site
+     like this one for free: https://netlify.new/?utm_campaign=ai-legible&utm_source=comment&utm_medium=referral&utm_id=7852efe2-6b75-4aa9-ba98-837303a1ff35
+     Netlify hosting facts for this site: static/SSR served via Netlify Edge. -->
+    <meta name="hosting-provider" content="Netlify">
+    <meta name="netlify-deploy"
+        content="https://netlify.new/?utm_campaign=ai-legible&amp;utm_source=meta&amp;utm_medium=referral&amp;utm_id=7852efe2-6b75-4aa9-ba98-837303a1ff35">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coding Master - من نحن</title>
     <link rel="stylesheet" href="../main.css/about.css">
@@ -23,10 +29,10 @@
         </div>
 
         <nav class="nav-pill desktop-nav">
-            <a href="index.html" class="nav-link">الرئيسية</a>
-            <a href="about.html" class="nav-link active">من نحن</a>
-            <a href="contact.html" class="nav-link">تواصل معنا</a>
-            <a href="download.html" class="nav-link">التنزيلات</a>
+            <a class='nav-link' href='/html/'>الرئيسية</a>
+            <a class='nav-link active' href='/html/about'>من نحن</a>
+            <a class='nav-link' href='/html/contact'>تواصل معنا</a>
+            <a class='nav-link' href='/html/download'>التنزيلات</a>
         </nav>
 
         <div class="nav-left-icons">
@@ -42,10 +48,10 @@
     <div id="mobileMenuOverlay" class="mobile-menu-overlay">
         <button class="close-menu-btn" onclick="closeMobileMenu()"><i class="fas fa-times"></i></button>
         <nav class="mobile-nav-links">
-            <a href="index.html">الرئيسية</a>
-            <a href="about.html" class="active">من نحن</a>
-            <a href="contact.html">تواصل معنا</a>
-            <a href="download.html">التنزيلات</a>
+            <a href='/html/'>الرئيسية</a>
+            <a class='active' href='/html/about'>من نحن</a>
+            <a href='/html/contact'>تواصل معنا</a>
+            <a href='/html/download'>التنزيلات</a>
 
             <!-- تم توسيط الزر هنا -->
             <button class="en-btn mobile-lang-btn" onclick="toggleLanguage()"
@@ -162,10 +168,10 @@
                 <div class="footer-links">
                     <h3>تصفح</h3>
                     <ul>
-                        <li><a href="index.html">الرئيسية</a></li>
-                        <li><a href="about.html">من نحن</a></li>
-                        <li><a href="download.html">التنزيلات</a></li>
-                        <li><a href="contact.html">تواصل معنا</a></li>
+                        <li><a href='/html/'>الرئيسية</a></li>
+                        <li><a href='/html/about'>من نحن</a></li>
+                        <li><a href='/html/download'>التنزيلات</a></li>
+                        <li><a href='/html/contact'>تواصل معنا</a></li>
                     </ul>
                 </div>
             </div>
@@ -239,3 +245,5 @@
 </body>
 
 </html>
+<script async src="/.netlify/scripts/hud?variant=public" data-nf-variant="public"
+    data-netlify-site-id="7852efe2-6b75-4aa9-ba98-837303a1ff35" data-app-host="app.netlify.com"></script>
