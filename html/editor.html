@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coding Master - محرر الأكواد</title>
+  <link rel="icon" href="assets/logo.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="main.css/editor.css">
+</head>
+<body>
+  <div class="editor-shell">
+    <header class="editor-topbar">
+      <a class="brand" href="index.html" aria-label="العودة إلى الرئيسية">
+        <img src="assets/logo.png" alt="Coding Master">
+        <div>
+          <strong>Coding Master</strong>
+          <span>محرر الأكواد</span>
+        </div>
+      </a>
+
+      <div class="topbar-actions">
+        <button id="runBtn" class="primary-btn" type="button">تشغيل ▶</button>
+        <button id="resetBtn" class="secondary-btn" type="button">إعادة ضبط</button>
+        <a class="back-link" href="index.html">الرئيسية</a>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <section class="editor-panel">
+        <div class="panel-head">
+          <div>
+            <h1>اكتب الكود</h1>
+            <p>جرّب HTML وCSS وJavaScript وشاهد النتيجة مباشرة.</p>
+          </div>
+          <div class="status-dot"><span></span>جاهز</div>
+        </div>
+
+        <div class="tabs" role="tablist" aria-label="نوع الكود">
+          <button class="tab active" data-language="html" role="tab" type="button">HTML</button>
+          <button class="tab" data-language="css" role="tab" type="button">CSS</button>
+          <button class="tab" data-language="js" role="tab" type="button">JavaScript</button>
+        </div>
+
+        <div class="code-wrap">
+          <div id="lineNumbers" class="line-numbers" aria-hidden="true">1</div>
+          <textarea id="codeEditor" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="محرر الأكواد"></textarea>
+        </div>
+
+        <div class="editor-footer">
+          <span id="languageLabel">HTML</span>
+          <span id="saveState">يحفظ تلقائيًا على هذا الجهاز</span>
+        </div>
+      </section>
+
+      <section class="preview-panel">
+        <div class="panel-head preview-head">
+          <div>
+            <h2>المعاينة</h2>
+            <p>هذه هي النتيجة كما سيشاهدها المستخدم.</p>
+          </div>
+          <button id="clearPreviewBtn" class="icon-btn" type="button">مسح</button>
+        </div>
+        <div class="preview-frame-wrap">
+          <iframe id="preview" title="معاينة الكود"></iframe>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="editor.js"></script>
+</body>
+</html>
