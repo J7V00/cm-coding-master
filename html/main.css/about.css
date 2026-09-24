@@ -1,6 +1,6 @@
 :root {
     --bg-main: #060709;
-    --gray-gradient: linear-gradient(145deg, #1b1e26 0%, #0d0e12 100%);
+    --bg-card: rgba(20, 22, 28, 0.6);
     --text-white: #ffffff;
     --text-gray: #a1a6b0;
     --border-light: rgba(255, 255, 255, 0.1);
@@ -19,13 +19,18 @@ body {
     line-height: 1.8;
 }
 
+img {
+    max-width: 100%;
+    height: auto;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 5%;
 }
 
-/* ================== الشريط العلوي (Navbar) ================== */
+/* ================== الهيدر الموحد ================== */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -127,7 +132,6 @@ body {
     }
 }
 
-/* ================== قائمة الجوال المخفية ================== */
 .mobile-menu-overlay {
     position: fixed;
     top: 0;
@@ -162,234 +166,166 @@ body {
 .mobile-nav-links {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 40px;
     text-align: center;
 }
 
 .mobile-nav-links a {
     color: var(--text-gray);
     text-decoration: none;
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: 700;
-    transition: 0.3s;
 }
 
 .mobile-nav-links a.active {
     color: #ffffff !important;
-    font-size: 2.1rem !important;
+    font-size: 2.3rem !important;
     font-weight: 900 !important;
 }
 
-/* ================== قسم نموذج التواصل ================== */
-.contact-section {
-    padding: 80px 0 120px;
-    background: radial-gradient(circle at 50% 10%, #15181e 0%, var(--bg-main) 90%);
-    min-height: 80vh;
-}
-
-.contact-header {
+/* ================== الهيرو والمحتوى ================== */
+.about-hero {
     text-align: center;
-    margin-bottom: 50px;
+    padding: 100px 0 60px;
+    background: radial-gradient(circle at 50% 0%, #15181e 0%, var(--bg-main) 100%);
+    border-bottom: 1px solid var(--border-light);
 }
 
-.contact-header h1 {
-    font-size: 3rem;
+.about-hero h1 {
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: #ffffff;
+    margin-bottom: 25px;
+    line-height: 1.4;
+}
+
+.about-hero p {
+    font-size: 1.2rem;
+    color: var(--text-gray);
+    max-width: 850px;
+    margin: 0 auto;
+    line-height: 2;
+}
+
+.hero-highlight {
+    color: #ffffff;
+    font-weight: 900;
+    font-size: 1.3rem;
+    display: inline-block;
+    margin-top: 10px;
+    border-bottom: 2px solid #ffffff;
+    padding-bottom: 6px;
+}
+
+.about-content {
+    padding: 80px 0;
+}
+
+.about-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+    margin-bottom: 80px;
+}
+
+.about-row.row-reverse {
+    flex-direction: row-reverse;
+}
+
+.about-image-box {
+    flex: 0 0 380px;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid var(--border-light);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.about-image-box img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s;
+}
+
+.about-image-box:hover img {
+    transform: scale(1.05);
+}
+
+.about-text-box {
+    flex: 1;
+    text-align: right;
+}
+
+.badge {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    color: #fff;
+    display: inline-block;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.about-text-box h2 {
+    font-size: 2rem;
     font-weight: 900;
     color: #ffffff;
     margin-bottom: 15px;
 }
 
-.contact-header p {
-    font-size: 1.1rem;
+.about-text-box p {
     color: var(--text-gray);
+    font-size: 1.05rem;
+    line-height: 1.8;
 }
 
-.centered-form-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* ================== قسم الأسئلة الشائعة ================== */
+.faq-section {
+    padding: 80px 0;
+    background: #0b0c10;
+    border-top: 1px solid var(--border-light);
 }
 
-.contact-form-wrapper {
-    width: 100%;
-    max-width: 650px;
-    background: var(--gray-gradient);
-    border: 1px solid var(--border-light);
-    padding: 40px;
-    border-radius: 24px;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
-}
-
-.contact-form-wrapper h3 {
+.faq-title {
     text-align: center;
-    font-size: 1.8rem;
-    font-weight: 800;
-    color: #fff;
-    margin-bottom: 30px;
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: #ffffff;
+    margin-bottom: 40px;
 }
 
-.contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+.faq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
 }
 
-.input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+.faq-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    padding: 30px 25px;
+    border-radius: 20px;
     text-align: right;
 }
 
-.input-group label {
-    color: #d1d5db;
+.faq-item h3 {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 12px;
+}
+
+.faq-item p {
+    color: var(--text-gray);
     font-size: 0.95rem;
-    font-weight: 700;
+    line-height: 1.7;
 }
 
-.input-group input,
-.input-group textarea,
-.input-group select {
-    width: 100%;
-    background: #090a0c;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    color: #ffffff;
-    padding: 14px 16px;
-    border-radius: 12px;
-    font-size: 1rem;
-    outline: none;
-    transition: 0.3s;
-}
-
-.input-group input:focus,
-.input-group textarea:focus,
-.input-group select:focus {
-    border-color: rgba(255, 255, 255, 0.4);
-    background: #0d0f13;
-}
-
-/* تنسيق كود الدولة ورقم الهاتف */
-.phone-container {
-    display: flex;
-    gap: 10px;
-    width: 100%;
-}
-
-.country-code {
-    width: 125px !important;
-    background: #090a0c;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    color: #ffffff;
-    border-radius: 12px;
-    padding: 0 8px !important;
-    font-size: 0.95rem;
-    outline: none;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.phone-container input {
-    flex: 1;
-}
-
-/* تنسيق الرمز السري مع زر العين */
-.password-container {
-    position: relative;
-    width: 100%;
-}
-
-[dir="rtl"] .password-container input {
-    padding-left: 45px !important;
-    padding-right: 16px !important;
-}
-
-[dir="ltr"] .password-container input {
-    padding-right: 45px !important;
-    padding-left: 16px !important;
-}
-
-.toggle-icon {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    color: #a1a6b0;
-    font-size: 1.1rem;
-    transition: 0.3s;
-    z-index: 10;
-}
-
-.toggle-icon:hover {
-    color: #ffffff;
-}
-
-[dir="rtl"] .toggle-icon {
-    left: 15px;
-    right: auto;
-}
-
-[dir="ltr"] .toggle-icon {
-    right: 15px;
-    left: auto;
-}
-
-/* تنسيق إشعارات النجاح والخطأ */
-.form-response {
-    display: none;
-    padding: 15px;
-    border-radius: 12px;
-    margin-bottom: 20px;
-    font-weight: 700;
-    text-align: center;
-    font-size: 1rem;
-}
-
-.form-response.success {
-    background-color: rgba(16, 185, 129, 0.2);
-    border: 1px solid #10b981;
-    color: #10b981;
-}
-
-.form-response.error {
-    background-color: rgba(239, 68, 68, 0.2);
-    border: 1px solid #ef4444;
-    color: #ef4444;
-}
-
-/* زر الإرسال */
-.submit-btn {
-    background: #ffffff;
-    color: #000000;
-    border: none;
-    padding: 16px;
-    border-radius: 12px;
-    font-size: 1.1rem;
-    font-weight: 900;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    transition: 0.3s;
-    margin-top: 10px;
-}
-
-.submit-btn:hover {
-    background: #e5e5e5;
-    transform: translateY(-2px);
-}
-
-.submit-btn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none;
-}
-
-[dir="ltr"] .input-group {
-    text-align: left;
-}
-
-/* ================== الفوتر الموحد ================== */
+/* ================== الفوتر الجديد (Modern Footer) ================== */
 .modern-footer {
     background-color: #060709;
     padding: 60px 0 20px;
@@ -454,30 +390,58 @@ body {
     color: var(--text-gray);
 }
 
+/* دعم الاتجاه الأيسر للغة الإنجليزية في الفوتر */
 [dir="ltr"] .footer-about,
 [dir="ltr"] .footer-links {
     text-align: left;
 }
 
+[dir="ltr"] .about-text-box {
+    text-align: left;
+}
+
+[dir="ltr"] .faq-item {
+    text-align: left;
+}
+
+@media (max-width: 1024px) {
+    .faq-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 900px) {
+
+    .about-row,
+    .about-row.row-reverse {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+    }
+
+    .about-image-box {
+        flex: auto;
+        width: 100%;
+    }
+
+    .about-text-box {
+        text-align: center;
+    }
+}
+
 @media (max-width: 768px) {
-    .contact-form-wrapper {
-        padding: 25px 20px;
-    }
-
-    .country-code {
-        width: 105px !important;
-        font-size: 0.85rem;
-    }
-
     .footer-top {
         flex-direction: column;
         gap: 40px;
         text-align: center;
     }
 
-    .footer-about,
-    .footer-links {
+    .footer-about {
         max-width: 100%;
+        text-align: center;
+    }
+
+    .footer-links {
         text-align: center;
     }
 

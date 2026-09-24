@@ -2,33 +2,35 @@
 <html lang="ar" dir="rtl">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Coding Master - التنزيلات</title>
 
-    <link rel="stylesheet" href="../main.css/download.css">
-    <link rel="icon" href="../assets/logo.png" type="image/png">
-    <link rel="manifest" href="../manifest.json">
-    <link rel="apple-touch-icon" href="../assets/logo.png">
+    <link rel="icon" href="assets/logo.png" type="image/png">
 
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap"
         rel="stylesheet">
 
+    <link rel="stylesheet" href="main.css/download.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 </head>
+
 
 <body>
 
-    <!-- =========================
-         Navigation
-    ========================== -->
+
+    <!-- ================== الهيدر ================== -->
 
     <header class="navbar">
 
         <div class="logo">
 
-            <img src="../assets/logo.png" alt="شعار Coding Master">
+            <img src="assets/logo.png" alt="Coding Master Logo" onerror="this.style.display='none'">
 
             <span>
                 Coding Master
@@ -62,11 +64,11 @@
 
             <button class="en-btn desktop-lang" onclick="toggleLanguage()">
 
+                <i class="fa-solid fa-globe"></i>
+
                 <span id="btnLangText">
                     English
                 </span>
-
-                <i class="fa-solid fa-globe"></i>
 
             </button>
 
@@ -82,9 +84,8 @@
     </header>
 
 
-    <!-- =========================
-         Mobile Menu
-    ========================== -->
+
+    <!-- ================== قائمة الجوال ================== -->
 
     <div id="mobileMenuOverlay" class="mobile-menu-overlay">
 
@@ -114,14 +115,13 @@
             </a>
 
 
-            <button class="en-btn mobile-lang-btn" onclick="toggleLanguage()"
-                style="margin: 0 auto; justify-content: center; display: flex;">
+            <button class="en-btn mobile-lang-btn" onclick="toggleLanguage()">
+
+                <i class="fa-solid fa-globe"></i>
 
                 <span class="lang-text">
                     English
                 </span>
-
-                <i class="fa-solid fa-globe"></i>
 
             </button>
 
@@ -130,264 +130,463 @@
     </div>
 
 
-    <!-- =========================
-         Hero
-    ========================== -->
 
-    <section class="dl-hero-section">
+    <!-- ================== المحتوى ================== -->
 
-        <div class="container dl-hero-flex">
+    <div class="container">
 
-            <div class="dl-hero-text">
 
-                <div class="title-with-icon">
+        <!-- ================== القسم الرئيسي ================== -->
 
-                    <div class="title-icon-box">
-                        <i class="fas fa-download"></i>
+        <section class="hero-section">
+
+
+            <div class="hero-title">
+
+                <h1>
+                    التنزيلات
+                </h1>
+
+
+                <p>
+                    اختر جهازك ونزّل التطبيق المناسب لك وابدأ رحلتك في تعلم البرمجة الآن
+                </p>
+
+            </div>
+
+
+
+            <div class="hero-mockup-wrapper">
+
+                <svg class="hero-devices-img" viewBox="0 0 600 350" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                    <rect x="140" y="40" width="320" height="200" rx="12" fill="#12151e" stroke="#2a2e3d"
+                        stroke-width="3" />
+
+                    <rect x="155" y="55" width="290" height="170" rx="6" fill="#090a0f" />
+
+                    <rect x="270" y="115" width="60" height="50" rx="8" fill="#1e2230" />
+
+                    <path d="M288 132L297 140L288 148" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"
+                        stroke-linejoin="round" />
+
+                    <path d="M100 240H500L520 255H80L100 240Z" fill="#1e2230" stroke="#2a2e3d" stroke-width="2" />
+
+                    <rect x="360" y="80" width="150" height="150" rx="14" fill="#12151e" stroke="#3b4055"
+                        stroke-width="2" />
+
+                    <rect x="370" y="90" width="130" height="130" rx="8" fill="#090a0f" />
+
+                    <circle cx="435" cy="155" r="16" fill="#1e2230" />
+
+                    <text x="428" y="160" fill="#fff" font-size="12" font-weight="bold">
+                        CM
+                    </text>
+
+
+                    <rect x="80" y="110" width="80" height="140" rx="14" fill="#12151e" stroke="#3b4055"
+                        stroke-width="2" />
+
+                    <rect x="86" y="120" width="68" height="120" rx="8" fill="#090a0f" />
+
+                    <circle cx="120" cy="180" r="12" fill="#1e2230" />
+
+                    <text x="114" y="184" fill="#fff" font-size="9" font-weight="bold">
+                        CM
+                    </text>
+
+                </svg>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================== بطاقات التنزيل الست ================== -->
+
+        <section class="downloads-grid">
+
+
+            <!-- ================== macOS ================== -->
+
+            <div class="download-card" id="card-mac">
+
+                <div class="card-top">
+
+
+                    <div class="card-img-box">
+
+                        <i class="fab fa-apple"></i>
+
                     </div>
 
-                    <h1>
-                        التنزيلات
-                    </h1>
+
+                    <div class="card-info">
+
+                        <div class="card-header-title">
+
+                            <i class="fab fa-apple"></i>
+
+                            <h3>
+                                macOS
+                            </h3>
+
+                        </div>
+
+
+                        <p>
+                            لأجهزة ماك، احصل على النسخة المناسبة وتابع التعلم بكل سهولة.
+                        </p>
+
+                    </div>
 
                 </div>
 
 
-                <p>
-                    قم بتحميل تطبيق Coding Master الآن وابدأ رحلتك في عالم البرمجة والكتابة بأبسط طريقة.
-                </p>
+                <div>
+
+                    <a href="../downloads/Coding-Master-macOS.dmg" class="card-btn" download>
+
+                        <i class="fa-solid fa-download"></i>
+
+                        تحميل لـ macOS
+
+                    </a>
+
+
+                    <div class="card-footer-text">
+                        متوافق مع macOS 11 أو أحدث
+                    </div>
+
+                </div>
 
             </div>
 
 
-            <div class="dl-hero-image">
 
-                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80"
-                    alt="Coding Master Laptop">
+            <!-- ================== Windows ================== -->
 
+            <div class="download-card" id="card-windows">
+
+                <div class="card-top">
+
+
+                    <div class="card-img-box">
+
+                        <i class="fab fa-windows"></i>
+
+                    </div>
+
+
+                    <div class="card-info">
+
+                        <div class="card-header-title">
+
+                            <i class="fab fa-windows"></i>
+
+                            <h3>
+                                Windows
+                            </h3>
+
+                        </div>
+
+
+                        <p>
+                            لأجهزة ويندوز، حمل التطبيق وابدأ رحلتك في البرمجة الآن.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    <a href="../downloads/Coding-Master-Windows.exe" class="card-btn" download>
+
+                        <i class="fa-solid fa-download"></i>
+
+                        تحميل لـ Windows
+
+                    </a>
+
+
+                    <div class="card-footer-text">
+                        متوافق مع Windows 10 أو أحدث
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================== Linux ================== -->
+
+            <div class="download-card" id="card-linux">
+
+                <div class="card-top">
+
+
+                    <div class="card-img-box">
+
+                        <i class="fab fa-linux"></i>
+
+                    </div>
+
+
+                    <div class="card-info">
+
+                        <div class="card-header-title">
+
+                            <i class="fab fa-linux"></i>
+
+                            <h3>
+                                Linux
+                            </h3>
+
+                        </div>
+
+
+                        <p>
+                            لمستخدمي لينكس، استمتع بتجربة سلسة ومجانية.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    <a href="../downloads/Coding-Master-Linux.AppImage" class="card-btn" download>
+
+                        <i class="fa-solid fa-download"></i>
+
+                        تحميل لـ Linux
+
+                    </a>
+
+
+                    <div class="card-footer-text">
+                        متوافق مع معظم توزيعات لينكس
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================== iPhone ================== -->
+
+            <div class="download-card" id="card-iphone">
+
+                <div class="card-top">
+
+
+                    <div class="card-img-box">
+
+                        <i class="fa-solid fa-mobile-screen-button"></i>
+
+                    </div>
+
+
+                    <div class="card-info">
+
+                        <div class="card-header-title">
+
+                            <i class="fab fa-apple"></i>
+
+                            <h3>
+                                iPhone / iOS
+                            </h3>
+
+                        </div>
+
+
+                        <p>
+                            للآيفون والآيباد، حمل التطبيق من متجر التطبيقات.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    <a href="#" class="card-btn" target="_blank" rel="noopener noreferrer">
+
+                        <i class="fa-solid fa-download"></i>
+
+                        تحميل من App Store
+
+                    </a>
+
+
+                    <div class="card-footer-text">
+                        متوافق مع iOS 15 أو أحدث
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================== Android ================== -->
+
+            <div class="download-card" id="card-android">
+
+                <div class="card-top">
+
+
+                    <div class="card-img-box">
+
+                        <i class="fab fa-android"></i>
+
+                    </div>
+
+
+                    <div class="card-info">
+
+                        <div class="card-header-title">
+
+                            <i class="fab fa-android"></i>
+
+                            <h3>
+                                Android
+                            </h3>
+
+                        </div>
+
+
+                        <p>
+                            لأجهزة أندرويد، حمل التطبيق من متجر جوجل بلاي.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    <a href="#" class="card-btn" target="_blank" rel="noopener noreferrer">
+
+                        <i class="fa-solid fa-download"></i>
+
+                        تحميل من Google Play
+
+                    </a>
+
+
+                    <div class="card-footer-text">
+                        متوافق مع Android 8 أو أحدث
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================== iPad ================== -->
+
+            <div class="download-card" id="card-ipad">
+
+                <div class="card-top">
+
+
+                    <div class="card-img-box">
+
+                        <i class="fa-solid fa-tablet-screen-button"></i>
+
+                    </div>
+
+
+                    <div class="card-info">
+
+                        <div class="card-header-title">
+
+                            <i class="fab fa-apple"></i>
+
+                            <h3>
+                                iPad
+                            </h3>
+
+                        </div>
+
+
+                        <p>
+                            لأجهزة الآيباد، استمتع بتجربة تعليمية مميزة ومريحة.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    <a href="#" class="card-btn" target="_blank" rel="noopener noreferrer">
+
+                        <i class="fa-solid fa-download"></i>
+
+                        تحميل من App Store
+
+                    </a>
+
+
+                    <div class="card-footer-text">
+                        متوافق مع iPadOS 15 أو أحدث
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================== البانر السفلي ================== -->
+
+        <div class="bottom-banner">
+
+            <div class="info-side">
+
+                <i class="fa-regular fa-circle-question"></i>
+
+                <span>
+                    بعد تحميل التطبيق، قم بتثبيته واتبع خطوات الإعداد الأولية لبدء التعلم.
+                </span>
+
+            </div>
+
+
+            <div class="brand-side">
+                تعلم . ابدع . اصنع فكرتك
+                &nbsp;|&nbsp;
+                Coding Master
             </div>
 
         </div>
 
-    </section>
+    </div>
 
 
-    <!-- =========================
-         Downloads
-    ========================== -->
 
-    <section class="dl-cards-section">
-
-        <div class="container">
-
-            <div id="deviceMessage" style="
-                    display:none;
-                    text-align:center;
-                    margin-bottom:25px;
-                    color:#a8a8a8;
-                    font-weight:700;
-                "></div>
-
-
-            <div class="dl-grid">
-
-
-                <!-- Windows -->
-
-                <div class="os-card device-card" id="windowsCard" data-device="Windows">
-
-                    <i class="fab fa-windows os-icon"></i>
-
-                    <h3>
-                        Windows
-                    </h3>
-
-                    <p>
-                        لأجهزة الكمبيوتر بنظام ويندوز
-                    </p>
-
-                    <button class="os-dl-btn" id="btnWin">
-                        تحميل الآن
-                    </button>
-
-                </div>
-
-
-                <!-- macOS -->
-
-                <div class="os-card device-card" id="macCard" data-device="Mac">
-
-                    <i class="fab fa-apple os-icon"></i>
-
-                    <h3>
-                        macOS
-                    </h3>
-
-                    <p>
-                        لأجهزة الكمبيوتر بنظام الماك
-                    </p>
-
-                    <button class="os-dl-btn" id="btnMac">
-                        تحميل الآن
-                    </button>
-
-                </div>
-
-
-                <!-- Linux -->
-
-                <div class="os-card device-card" id="linuxCard" data-device="Linux">
-
-                    <i class="fab fa-linux os-icon"></i>
-
-                    <h3>
-                        Linux
-                    </h3>
-
-                    <p>
-                        لأجهزة الكمبيوتر بنظام لينكس
-                    </p>
-
-                    <button class="os-dl-btn" id="btnLin">
-                        تحميل الآن
-                    </button>
-
-                </div>
-
-
-                <!-- Android -->
-
-                <div class="os-card device-card" id="androidCard" data-device="Android">
-
-                    <i class="fab fa-android os-icon"></i>
-
-                    <h3>
-                        Android
-                    </h3>
-
-                    <p>
-                        لأجهزة الجوال والأجهزة اللوحية بنظام Android
-                    </p>
-
-                    <button class="os-dl-btn" id="btnAndroid">
-                        تحميل الآن
-                    </button>
-
-                </div>
-
-
-                <!-- iPhone / iPad -->
-
-                <div class="os-card device-card" id="iosCard" data-device="iOS">
-
-                    <i class="fab fa-apple os-icon"></i>
-
-                    <h3>
-                        iPhone / iPad
-                    </h3>
-
-                    <p>
-                        لأجهزة iPhone و iPad بنظام iOS
-                    </p>
-
-                    <button class="os-dl-btn" id="btnIOS">
-                        تحميل الآن
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         Footer
-    ========================== -->
-
-    <footer class="modern-footer">
-
-        <div class="container">
-
-            <div class="footer-top">
-
-                <div class="footer-about">
-
-                    <h3>
-                        عن Coding Master
-                    </h3>
-
-                    <p>
-                        نحن نصمم بيئات برمجية وأدوات حديثة لمساعدة مشاريعك وأفكارك على التميز والنجاح.
-                    </p>
-
-                </div>
-
-
-                <div class="footer-links">
-
-                    <h3>
-                        تصفح
-                    </h3>
-
-                    <ul>
-
-                        <li>
-                            <a href="index.html">
-                                الرئيسية
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="about.html">
-                                من نحن
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="download.html">
-                                التنزيلات
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="contact.html">
-                                تواصل معنا
-                            </a>
-                        </li>
-
-                    </ul>
-
-                </div>
-
-            </div>
-
-
-            <div class="footer-bottom">
-
-                <p>
-                    &copy; 2026 Coding Master.
-                    جميع الحقوق محفوظة.
-                </p>
-
-            </div>
-
-        </div>
-
-    </footer>
-
-
-    <!-- =========================
-         JavaScript
-    ========================== -->
+    <!-- ================== JavaScript ================== -->
 
     <script>
 
+
         /* =========================
            Mobile Menu
-        ========================== */
+        ========================= */
 
         function openMobileMenu() {
 
@@ -409,321 +608,198 @@
         }
 
 
-        /* =========================
-           Translation Dictionary
-        ========================== */
-
-        const translationDict = {
-
-            "الرئيسية":
-                "Home",
-
-            "من نحن":
-                "About Us",
-
-            "تواصل معنا":
-                "Contact Us",
-
-            "التنزيلات":
-                "Downloads",
-
-            "عن Coding Master":
-                "About Coding Master",
-
-            "تصفح":
-                "Navigate",
-
-            "قم بتحميل تطبيق Coding Master الآن وابدأ رحلتك في عالم البرمجة والكتابة بأبسط طريقة.":
-                "Download Coding Master now and start your coding journey in the simplest way.",
-
-            "لأجهزة الكمبيوتر بنظام ويندوز":
-                "For Windows computers",
-
-            "لأجهزة الكمبيوتر بنظام الماك":
-                "For macOS computers",
-
-            "لأجهزة الكمبيوتر بنظام لينكس":
-                "For Linux computers",
-
-            "لأجهزة الجوال والأجهزة اللوحية بنظام Android":
-                "For Android phones and tablets",
-
-            "لأجهزة iPhone و iPad بنظام iOS":
-                "For iPhone and iPad devices",
-
-            "تحميل الآن":
-                "Download Now",
-
-            "نحن نصمم بيئات برمجية وأدوات حديثة لمساعدة مشاريعك وأفكارك على التميز والنجاح.":
-                "We create modern coding environments and tools to help your projects and ideas stand out and succeed.",
-
-            "جميع الحقوق محفوظة.":
-                "All Rights Reserved.",
-
-            "لم نتمكن من التعرف على جهازك. يرجى اختيار النظام المناسب.":
-                "We couldn't detect your device. Please choose the appropriate platform."
-
-        };
-
 
         /* =========================
-           Reverse Dictionary
-        ========================== */
+           الترجمة
+        ========================= */
 
-        const reverseTranslationDict = {};
+        const translationDict = [
 
-        Object.keys(translationDict).forEach(ar => {
+            {
+                ar: "الرئيسية",
+                en: "Home"
+            },
 
-            reverseTranslationDict[
-                translationDict[ar]
-            ] = ar;
+            {
+                ar: "من نحن",
+                en: "About Us"
+            },
 
-        });
+            {
+                ar: "تواصل معنا",
+                en: "Contact Us"
+            },
 
+            {
+                ar: "التنزيلات",
+                en: "Downloads"
+            },
 
-        /* =========================
-           Save Original Text
-        ========================== */
+            {
+                ar: "اختر جهازك ونزّل التطبيق المناسب لك وابدأ رحلتك في تعلم البرمجة الآن",
+                en: "Choose your device, download the right app, and start learning to code now."
+            },
 
-        const originalTexts = new WeakMap();
+            {
+                ar: "✨ جهازك الحالي",
+                en: "✨ Current Device"
+            },
 
+            {
+                ar: "لأجهزة ماك، احصل على النسخة المناسبة وتابع التعلم بكل سهولة.",
+                en: "For Mac devices, get the right version and continue learning easily."
+            },
 
-        function saveOriginalTextNodes(node) {
+            {
+                ar: "تحميل لـ macOS",
+                en: "Download for macOS"
+            },
 
-            if (
-                node.nodeType === Node.TEXT_NODE
-            ) {
+            {
+                ar: "متوافق مع macOS 11 أو أحدث",
+                en: "Compatible with macOS 11 or later"
+            },
 
-                if (
-                    node.nodeValue.trim()
-                ) {
+            {
+                ar: "لأجهزة ويندوز، حمل التطبيق وابدأ رحلتك في البرمجة الآن.",
+                en: "For Windows devices, download the app and start your coding journey now."
+            },
 
-                    originalTexts.set(
-                        node,
-                        node.nodeValue
-                    );
+            {
+                ar: "تحميل لـ Windows",
+                en: "Download for Windows"
+            },
 
-                }
+            {
+                ar: "متوافق مع Windows 10 أو أحدث",
+                en: "Compatible with Windows 10 or later"
+            },
 
-                return;
+            {
+                ar: "لمستخدمي لينكس، استمتع بتجربة سلسة ومجانية.",
+                en: "For Linux users, enjoy a smooth and free experience."
+            },
 
+            {
+                ar: "تحميل لـ Linux",
+                en: "Download for Linux"
+            },
+
+            {
+                ar: "متوافق مع معظم توزيعات لينكس",
+                en: "Compatible with most Linux distros"
+            },
+
+            {
+                ar: "للآيفون والآيباد، حمل التطبيق من متجر التطبيقات.",
+                en: "For iPhone & iPad, download the app from App Store."
+            },
+
+            {
+                ar: "تحميل من App Store",
+                en: "Download on App Store"
+            },
+
+            {
+                ar: "متوافق مع iOS 15 أو أحدث",
+                en: "Compatible with iOS 15 or later"
+            },
+
+            {
+                ar: "لأجهزة أندرويد، حمل التطبيق من متجر جوجل بلاي.",
+                en: "For Android devices, download the app from Google Play."
+            },
+
+            {
+                ar: "تحميل من Google Play",
+                en: "Get it on Google Play"
+            },
+
+            {
+                ar: "متوافق مع Android 8 أو أحدث",
+                en: "Compatible with Android 8 or later"
+            },
+
+            {
+                ar: "لأجهزة الآيباد، استمتع بتجربة تعليمية مميزة ومريحة.",
+                en: "For iPad devices, enjoy a unique and comfortable learning experience."
+            },
+
+            {
+                ar: "متوافق مع iPadOS 15 أو أحدث",
+                en: "Compatible with iPadOS 15 or later"
+            },
+
+            {
+                ar: "بعد تحميل التطبيق، قم بتثبيته واتبع خطوات الإعداد الأولية لبدء التعلم.",
+                en: "After downloading, install the app and follow initial setup steps."
+            },
+
+            {
+                ar: "تعلم . ابدع . اصنع فكرتك",
+                en: "Learn . Innovate . Create Your Idea"
             }
 
+        ];
 
-            node.childNodes.forEach(
-                child => {
-
-                    saveOriginalTextNodes(
-                        child
-                    );
-
-                }
-            );
-
-        }
 
 
         /* =========================
-           Normalize Text
-        ========================== */
+           تغيير النصوص
+        ========================= */
 
-        function normalizeText(text) {
+        function walkTextNodes(node, lang) {
 
-            return text
-                .replace(/\s+/g, " ")
-                .trim();
+            if (node.nodeType === 3) {
 
-        }
+                let text = node.nodeValue;
 
+                translationDict.forEach(dict => {
 
-        /* =========================
-           Translate Text Nodes
-        ========================== */
+                    if (lang === "en") {
 
-        function translateTextNodes(lang) {
+                        if (text.includes(dict.ar)) {
 
-            const walker =
-                document.createTreeWalker(
-                    document.body,
-                    NodeFilter.SHOW_TEXT
-                );
+                            text = text.replace(
+                                dict.ar,
+                                dict.en
+                            );
 
+                        }
 
-            let node;
+                    } else {
 
+                        if (text.includes(dict.en)) {
 
-            while (
-                node = walker.nextNode()
-            ) {
+                            text = text.replace(
+                                dict.en,
+                                dict.ar
+                            );
 
-                const original =
-                    originalTexts.get(
-                        node
-                    );
-
-
-                if (!original) {
-                    continue;
-                }
-
-
-                const normalized =
-                    normalizeText(
-                        original
-                    );
-
-
-                let translated = null;
-
-
-                if (
-                    lang === "en" &&
-                    translationDict[
-                    normalized
-                    ]
-                ) {
-
-                    translated =
-                        translationDict[
-                        normalized
-                        ];
-
-                }
-
-
-                else if (
-                    lang === "ar" &&
-                    reverseTranslationDict[
-                    normalized
-                    ]
-                ) {
-
-                    translated =
-                        reverseTranslationDict[
-                        normalized
-                        ];
-
-                }
-
-
-                if (
-                    translated !== null
-                ) {
-
-                    const leading =
-                        original.match(
-                            /^\s*/
-                        )?.[0] || "";
-
-
-                    const trailing =
-                        original.match(
-                            /\s*$/
-                        )?.[0] || "";
-
-
-                    node.nodeValue =
-                        leading +
-                        translated +
-                        trailing;
-
-                }
-
-            }
-
-        }
-
-
-        /* =========================
-           Translate Attributes
-        ========================== */
-
-        function translateAttributes(lang) {
-
-            document
-                .querySelectorAll(
-                    "[alt]"
-                )
-                .forEach(element => {
-
-                    const original =
-                        element.getAttribute(
-                            "data-cm-original-alt"
-                        ) ||
-                        element.getAttribute(
-                            "alt"
-                        );
-
-
-                    if (
-                        !element.hasAttribute(
-                            "data-cm-original-alt"
-                        )
-                    ) {
-
-                        element.setAttribute(
-                            "data-cm-original-alt",
-                            original
-                        );
-
-                    }
-
-
-                    const normalized =
-                        normalizeText(
-                            original
-                        );
-
-
-                    if (
-                        lang === "en" &&
-                        translationDict[
-                        normalized
-                        ]
-                    ) {
-
-                        element.setAttribute(
-                            "alt",
-                            translationDict[
-                            normalized
-                            ]
-                        );
-
-                    }
-
-                    else if (
-                        lang === "ar"
-                    ) {
-
-                        element.setAttribute(
-                            "alt",
-                            original
-                        );
+                        }
 
                     }
 
                 });
 
-        }
+                node.nodeValue = text;
 
+            } else {
 
-        /* =========================
-           Update Title
-        ========================== */
+                node.childNodes.forEach(
+                    child =>
+                        walkTextNodes(child, lang)
+                );
 
-        function updatePageTitle(lang) {
-
-            document.title =
-                lang === "ar"
-                    ? "Coding Master - التنزيلات"
-                    : "Coding Master - Downloads";
+            }
 
         }
 
 
+
         /* =========================
-           Apply Language
-        ========================== */
+           تطبيق اللغة
+        ========================= */
 
         function applyLanguage(lang) {
 
@@ -755,19 +831,16 @@
                 });
 
 
-            translateTextNodes(
+            walkTextNodes(
+                document.body,
                 lang
             );
 
 
-            translateAttributes(
-                lang
-            );
-
-
-            updatePageTitle(
-                lang
-            );
+            document.title =
+                lang === "ar"
+                    ? "Coding Master - التنزيلات"
+                    : "Coding Master - Downloads";
 
 
             localStorage.setItem(
@@ -776,14 +849,15 @@
             );
 
 
-            updateDeviceMessageLanguage();
+            updateDetectedBadgeLanguage();
 
         }
 
 
+
         /* =========================
-           Toggle Language
-        ========================== */
+           زر اللغة
+        ========================= */
 
         function toggleLanguage() {
 
@@ -806,150 +880,20 @@
         }
 
 
-        /* =========================
-           Detect Device
-        ========================== */
-
-        function detectDevice() {
-
-            const userAgent =
-                navigator.userAgent.toLowerCase();
-
-
-            const platform =
-                navigator.platform.toLowerCase();
-
-
-            const maxTouchPoints =
-                navigator.maxTouchPoints || 0;
-
-
-            /* Android */
-
-            if (
-                userAgent.includes(
-                    "android"
-                )
-            ) {
-
-                return "Android";
-
-            }
-
-
-            /* iPhone / iPod */
-
-            if (
-                /iphone|ipod/.test(
-                    userAgent
-                )
-            ) {
-
-                return "iOS";
-
-            }
-
-
-            /* iPad + iPadOS */
-
-            if (
-                userAgent.includes(
-                    "ipad"
-                ) ||
-                (
-                    platform === "macintel" &&
-                    maxTouchPoints > 1
-                )
-            ) {
-
-                return "iOS";
-
-            }
-
-
-            /* Mac */
-
-            if (
-                platform.includes(
-                    "mac"
-                )
-            ) {
-
-                return "Mac";
-
-            }
-
-
-            /* Windows */
-
-            if (
-                platform.includes(
-                    "win"
-                )
-            ) {
-
-                return "Windows";
-
-            }
-
-
-            /* Linux */
-
-            if (
-                platform.includes(
-                    "linux"
-                )
-            ) {
-
-                return "Linux";
-
-            }
-
-
-            return "Unknown";
-
-        }
-
 
         /* =========================
-           Device Message
-        ========================== */
+           تحديث علامة جهازك الحالي
+        ========================= */
 
-        function updateDeviceMessageLanguage() {
+        function updateDetectedBadgeLanguage() {
 
-            const deviceMessage =
-                document.getElementById(
-                    "deviceMessage"
-                );
-
-
-            if (
-                !deviceMessage
-            ) {
-                return;
-            }
-
-
-            const currentDevice =
-                detectDevice();
-
-
-            const matchingCard =
+            const badge =
                 document.querySelector(
-                    `[data-device="${currentDevice}"]`
+                    ".detected-badge"
                 );
 
 
-            if (
-                matchingCard
-            ) {
-
-                deviceMessage.style.display =
-                    "none";
-
-                return;
-
-            }
+            if (!badge) return;
 
 
             const currentLang =
@@ -958,272 +902,206 @@
                 ) || "ar";
 
 
-            deviceMessage.textContent =
+            badge.textContent =
                 currentLang === "en"
-
-                    ? "We couldn't detect your device. Please choose the appropriate platform."
-
-                    : "لم نتمكن من التعرف على جهازك. يرجى اختيار النظام المناسب.";
+                    ? "✨ Current Device"
+                    : "✨ جهازك الحالي";
 
         }
 
 
+
         /* =========================
-           Show Only Correct Device
-        ========================== */
+           اكتشاف الجهاز
+        ========================= */
 
-        function showOnlyCorrectCard() {
+        function autoDetectDevice() {
 
-            const currentDevice =
-                detectDevice();
-
-
-            const cards =
-                document.querySelectorAll(
-                    ".device-card"
-                );
+            const ua =
+                navigator.userAgent.toLowerCase();
 
 
-            const deviceMessage =
-                document.getElementById(
-                    "deviceMessage"
-                );
+            const platform =
+                navigator.platform
+                    ? navigator.platform.toLowerCase()
+                    : "";
 
 
-            cards.forEach(card => {
-
-                card.style.display =
-                    "none";
-
-            });
+            let detectedId = "";
 
 
-            const matchingCard =
-                document.querySelector(
-                    `[data-device="${currentDevice}"]`
-                );
 
+            /* iPad */
 
             if (
-                matchingCard
+                ua.includes("ipad") ||
+                (
+                    platform.includes("mac") &&
+                    navigator.maxTouchPoints > 1
+                )
             ) {
 
-                matchingCard.style.display =
-                    "block";
-
-                deviceMessage.style.display =
-                    "none";
-
-                return;
+                detectedId =
+                    "card-ipad";
 
             }
 
 
-            deviceMessage.style.display =
-                "block";
+            /* iPhone */
+
+            else if (
+                ua.includes("iphone") ||
+                ua.includes("ipod")
+            ) {
+
+                detectedId =
+                    "card-iphone";
+
+            }
 
 
-            updateDeviceMessageLanguage();
+            /* Android */
 
-        }
+            else if (
+                ua.includes("android")
+            ) {
 
+                detectedId =
+                    "card-android";
 
-        /* =========================
-           Download Placeholder
-        ========================== */
-
-        function triggerNativeDownload(
-            fileName
-        ) {
-
-            const blob =
-                new Blob(
-                    [
-                        "Coding Master App"
-                    ],
-                    {
-                        type:
-                            "application/octet-stream"
-                    }
-                );
+            }
 
 
-            const url =
-                window.URL.createObjectURL(
-                    blob
-                );
+            /* Mac */
+
+            else if (
+                ua.includes("mac") ||
+                platform.includes("mac")
+            ) {
+
+                detectedId =
+                    "card-mac";
+
+            }
 
 
-            const link =
-                document.createElement(
-                    "a"
-                );
+            /* Linux */
+
+            else if (
+                ua.includes("linux") ||
+                platform.includes("linux")
+            ) {
+
+                detectedId =
+                    "card-linux";
+
+            }
 
 
-            link.href =
-                url;
+            /* Windows */
+
+            else if (
+                ua.includes("win") ||
+                platform.includes("win")
+            ) {
+
+                detectedId =
+                    "card-windows";
+
+            }
 
 
-            link.download =
-                fileName;
+
+            if (!detectedId) return;
 
 
-            document.body.appendChild(
-                link
-            );
 
-
-            link.click();
-
-
-            document.body.removeChild(
-                link
-            );
-
-
-            window.URL.revokeObjectURL(
-                url
-            );
-
-        }
-
-
-        /* =========================
-           Buttons
-        ========================== */
-
-        function setupDownloadButton(
-            id,
-            fileName
-        ) {
-
-            const button =
+            const targetCard =
                 document.getElementById(
-                    id
+                    detectedId
                 );
 
 
-            if (!button) {
-                return;
+            if (!targetCard) return;
+
+
+
+            targetCard.classList.add(
+                "detected-card"
+            );
+
+
+
+            const oldBadge =
+                targetCard.querySelector(
+                    ".detected-badge"
+                );
+
+
+            if (oldBadge) {
+
+                oldBadge.remove();
+
             }
 
 
-            button.addEventListener(
-                "click",
-                () => {
 
-                    triggerNativeDownload(
-                        fileName
-                    );
+            const badge =
+                document.createElement(
+                    "div"
+                );
 
-                }
+
+            badge.className =
+                "detected-badge";
+
+
+            const currentLang =
+                localStorage.getItem(
+                    "CMLang"
+                ) || "ar";
+
+
+            badge.textContent =
+                currentLang === "en"
+                    ? "✨ Current Device"
+                    : "✨ جهازك الحالي";
+
+
+            targetCard.appendChild(
+                badge
             );
 
         }
 
 
+
         /* =========================
-           Page Loaded
-        ========================== */
+           تشغيل الصفحة
+        ========================= */
 
         document.addEventListener(
             "DOMContentLoaded",
             () => {
 
-                saveOriginalTextNodes(
-                    document.body
-                );
-
-
-                const savedLang =
+                const savedLanguage =
                     localStorage.getItem(
                         "CMLang"
                     ) || "ar";
 
 
-                if (
-                    savedLang === "en"
-                ) {
-
-                    applyLanguage(
-                        "en"
-                    );
-
-                }
+                autoDetectDevice();
 
 
-                showOnlyCorrectCard();
-
-
-                setupDownloadButton(
-                    "btnWin",
-                    "CodingMaster-Windows.exe"
-                );
-
-
-                setupDownloadButton(
-                    "btnMac",
-                    "CodingMaster-Mac.dmg"
-                );
-
-
-                setupDownloadButton(
-                    "btnLin",
-                    "CodingMaster-Linux.tar.gz"
-                );
-
-
-                setupDownloadButton(
-                    "btnAndroid",
-                    "CodingMaster-Android.apk"
-                );
-
-
-                setupDownloadButton(
-                    "btnIOS",
-                    "CodingMaster-iOS.ipa"
+                applyLanguage(
+                    savedLanguage
                 );
 
             }
         );
 
-
-        /* =========================
-           Service Worker
-        ========================== */
-
-        if (
-            "serviceWorker" in navigator
-        ) {
-
-            navigator.serviceWorker
-                .register(
-                    "/service-worker.js"
-                )
-                .then(
-                    registration => {
-
-                        console.log(
-                            "Coding Master Service Worker جاهز ✅",
-                            registration
-                        );
-
-                    }
-                )
-                .catch(
-                    error => {
-
-                        console.error(
-                            "Service Worker Error:",
-                            error
-                        );
-
-                    }
-                );
-
-        }
-
     </script>
+
 
 </body>
 

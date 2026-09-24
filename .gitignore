@@ -1,0 +1,9 @@
+.DS_Store
+**/.DS_Store
+
+src-tauri/target/
+node_modules/
+
+make-circle.swift.save
+
+*.textClipping
