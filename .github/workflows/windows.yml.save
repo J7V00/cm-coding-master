@@ -1,0 +1,29 @@
+name: Build Windows App
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Build Tauri Windows App
+        uses: tauri-apps/tauri-action@v1
+        with:
+          args: --bundles nsis
+
+      - name: Upload Windows Installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: Coding-Master-Windows
+          path: src-tauri/target/release/bundle/nsis/*.exegrep 'tauri-apps/tauri-action' .github/workflows/windows.yml
+
+uses: tauri-apps/tauri-action@v0
+

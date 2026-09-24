@@ -1,19 +1,12 @@
-:root {
-    --bg-main: #060709;
-    --gray-gradient: linear-gradient(145deg, #1b1e26 0%, #0d0e12 100%);
-    --text-white: #ffffff;
-    --text-gray: #a1a6b0;
-    --border-light: rgba(255, 255, 255, 0.1);
-}
 
-
-/* ================== الأساسيات ================== */
+/* =========================================================
+   Coding Master - Download Page
+   ========================================================= */
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Tajawal", sans-serif;
 }
 
 html {
@@ -21,287 +14,188 @@ html {
 }
 
 body {
-    background-color: var(--bg-main);
-    color: var(--text-white);
-    line-height: 1.8;
+    min-height: 100vh;
+    background: #08090d;
+    color: #ffffff;
+    font-family: "Tajawal", sans-serif;
     overflow-x: hidden;
 }
 
-a,
-button {
-    font-family: inherit;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 5%;
-}
-
-
-/* ================== الشريط العلوي (Navbar) ================== */
+/* =========================================================
+   Navbar
+   ========================================================= */
 
 .navbar {
+    width: 100%;
+    height: 82px;
+    padding: 0 42px;
+
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
 
-    padding: 15px 5%;
-
-    background: var(--bg-main);
-
-    border-bottom: 1px solid var(--border-light);
+    background: #0d0f14;
+    border-bottom: 1px solid #242833;
 
     position: sticky;
     top: 0;
-
     z-index: 1000;
 }
 
 .logo {
+    min-width: 210px;
+
     display: flex;
     align-items: center;
-
     gap: 12px;
-
-    font-weight: 800;
-    font-size: 1.2rem;
-
-    color: #ffffff;
 }
 
 .logo img {
-    width: 35px !important;
-    height: 35px !important;
-
-    border-radius: 8px;
+    width: 44px;
+    height: 44px;
 
     object-fit: contain;
+    border-radius: 10px;
 }
 
+.logo span {
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+/* =========================================================
+   Desktop Navigation
+   ========================================================= */
+
 .nav-pill {
+    padding: 6px;
+
     display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 
-    background: #ffffff !important;
-
-    padding: 5px;
-
-    border-radius: 40px;
-
-    border: none;
+    background: #151820;
+    border: 1px solid #292e3a;
+    border-radius: 14px;
 }
 
 .nav-link {
+    padding: 11px 18px;
+
+    color: #a7acb8;
     text-decoration: none;
 
-    color: #000000 !important;
-
-    padding: 8px 25px;
-
-    border-radius: 30px;
-
+    font-size: 15px;
     font-weight: 700;
-    font-size: 0.95rem;
 
-    transition: 0.3s;
+    border-radius: 10px;
+
+    transition: 0.2s ease;
 }
 
 .nav-link:hover {
-    background: #eeeeee;
+    color: #ffffff;
+    background: #20242e;
 }
 
 .nav-link.active {
-    background: #000000 !important;
-    color: #ffffff !important;
+    color: #ffffff;
+    background: #2a2f3b;
 }
 
+/* =========================================================
+   Right Side Buttons
+   ========================================================= */
+
 .nav-left-icons {
+    min-width: 210px;
+
     display: flex;
     align-items: center;
+    justify-content: flex-end;
+}
 
-    gap: 15px;
+.en-btn,
+.mobile-dots-btn {
+    border: 1px solid #2b303b;
+    background: #151820;
+    color: #ffffff;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
 }
 
 .en-btn {
-    background: transparent;
+    min-height: 44px;
+    padding: 0 15px;
 
-    border: 1px solid rgba(255, 255, 255, 0.4);
-
-    color: #ffffff !important;
-
-    padding: 8px 20px;
-
-    border-radius: 30px;
-
-    cursor: pointer;
-
-    font-weight: 800;
-
-    display: flex;
+    display: inline-flex;
     align-items: center;
+    gap: 9px;
 
-    gap: 8px;
+    border-radius: 11px;
 
-    transition: 0.3s;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
 }
 
 .en-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: #ffffff;
+    background: #20242e;
+    border-color: #3a4050;
 }
 
 .mobile-dots-btn {
+    width: 44px;
+    height: 44px;
+
     display: none;
+    align-items: center;
+    justify-content: center;
 
-    background: none;
-    border: none;
+    border-radius: 11px;
 
-    color: #ffffff;
-
-    font-size: 1.8rem;
-
-    cursor: pointer;
-
-    padding: 5px;
+    font-size: 18px;
 }
 
-
-/* ================== Responsive Navbar ================== */
-
-@media (max-width: 1024px) {
-
-    .desktop-nav,
-    .desktop-lang {
-        display: none !important;
-    }
-
-    .mobile-dots-btn {
-        display: block !important;
-    }
-
-    .navbar {
-        flex-direction: row-reverse;
-    }
-}
-
-
-/* ================== قائمة الجوال ================== */
+/* =========================================================
+   Mobile Menu
+   ========================================================= */
 
 .mobile-menu-overlay {
-    position: fixed;
-
-    top: 0;
-    left: 0;
-
-    width: 100vw;
-    height: 100vh;
-
-    background-color: var(--bg-main);
-
-    z-index: 2000;
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: center;
-    align-items: center;
-
-    transform: translateY(-100%);
-
-    transition: transform 0.4s ease-in-out;
-}
-
-.mobile-menu-overlay.active {
-    transform: translateY(0);
-}
-
-.close-menu-btn {
-    position: absolute;
-
-    top: 30px;
-    left: 30px;
-
-    background: none;
-
-    border: none;
-
-    color: #ffffff;
-
-    font-size: 2.5rem;
-
-    cursor: pointer;
+    display: none;
 }
 
 .mobile-nav-links {
     display: flex;
-
-    flex-direction: column;
-
-    gap: 30px;
-
-    text-align: center;
 }
 
-.mobile-nav-links a {
-    color: var(--text-gray);
+/* =========================================================
+   Main Container
+   ========================================================= */
 
-    text-decoration: none;
+.container {
+    width: min(1220px, calc(100% - 40px));
+    margin: 0 auto;
 
-    font-size: 1.8rem;
-
-    font-weight: 700;
-
-    transition: 0.3s;
+    padding: 45px 0 35px;
 }
 
-.mobile-nav-links a:hover {
-    color: #ffffff;
-}
-
-.mobile-nav-links a.active {
-    color: #ffffff !important;
-
-    font-size: 2.1rem !important;
-
-    font-weight: 900 !important;
-}
-
-.mobile-lang-btn {
-    margin: 20px auto !important;
-
-    justify-content: center;
-
-    display: flex;
-}
-
-
-/* ================== الصفحة الرئيسية للتنزيلات ================== */
+/* =========================================================
+   Hero Section
+   ========================================================= */
 
 .hero-section {
-    min-height: 470px;
+    min-height: 360px;
+    margin-bottom: 42px;
 
     display: grid;
-
     grid-template-columns: 1fr 1fr;
-
     align-items: center;
-
-    gap: 60px;
-
-    padding: 55px;
-
-    margin-top: 70px;
-
-    background: var(--gray-gradient);
-
-    border: 1px solid var(--border-light);
-
-    border-radius: 28px;
-
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65);
-
-    overflow: hidden;
+    gap: 45px;
 }
 
 .hero-title {
@@ -309,627 +203,585 @@ button {
 }
 
 .hero-title h1 {
-    font-size: clamp(3rem, 6vw, 5rem);
-
-    line-height: 1.15;
-
-    font-weight: 900;
+    margin-bottom: 20px;
 
     color: #ffffff;
 
-    margin-bottom: 18px;
+    font-size: clamp(38px, 5vw, 62px);
+    font-weight: 900;
+    line-height: 1.1;
 }
 
 .hero-title p {
-    max-width: 620px;
+    max-width: 600px;
 
-    color: var(--text-gray);
+    color: #9da3af;
 
-    font-size: 1.1rem;
-
+    font-size: 18px;
+    font-weight: 500;
     line-height: 2;
 }
 
-
-/* ================== شكل الأجهزة في Hero ================== */
-
 .hero-mockup-wrapper {
-    width: 100%;
+    min-height: 300px;
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
-    min-height: 330px;
-
-    background: #090a0c;
-
-    border: 1px solid rgba(255, 255, 255, 0.1);
-
-    border-radius: 24px;
-
-    padding: 20px;
-
-    box-shadow: inset 0 0 40px #000000;
 }
 
 .hero-devices-img {
     width: 100%;
-
     max-width: 600px;
-
     height: auto;
 
     display: block;
 }
 
-
-/* ================== بطاقات التنزيل ================== */
+/* =========================================================
+   Downloads Grid - 3 Cards
+   ========================================================= */
 
 .downloads-grid {
+    width: 100%;
+
     display: grid;
-
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-
-    gap: 24px;
-
-    margin-top: 55px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
 }
 
+/* =========================================================
+   Download Cards
+   ========================================================= */
+
 .download-card {
-    position: relative;
-
-    min-height: 300px;
-
-    padding: 30px;
+    min-height: 320px;
+    padding: 24px;
 
     display: flex;
-
     flex-direction: column;
-
     justify-content: space-between;
 
-    background: var(--gray-gradient);
+    background: #11141a;
+    border: 1px solid #292e39;
+    border-radius: 22px;
 
-    border: 1px solid var(--border-light);
-
-    border-radius: 24px;
-
+    position: relative;
     overflow: hidden;
 
-    transition: 0.3s ease;
-
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
 }
 
 .download-card:hover {
-    transform: translateY(-6px);
+    background: #15181f;
+    border-color: #424958;
 
-    border-color: rgba(255, 255, 255, 0.28);
-
-    box-shadow: 0 28px 60px rgba(0, 0, 0, 0.7);
+    transform: translateY(-4px);
 }
 
+.download-card.detected-card {
+    background: #15181f;
+    border-color: #ffffff;
+}
 
-/* ================== أعلى البطاقة ================== */
+/* =========================================================
+   Card Top
+   ========================================================= */
 
 .card-top {
     display: flex;
-
     align-items: flex-start;
-
-    gap: 20px;
+    gap: 18px;
 }
 
 .card-img-box {
-    width: 78px;
-    height: 78px;
+    width: 62px;
+    height: 62px;
 
-    min-width: 78px;
+    flex: 0 0 62px;
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
-    background: #090a0c;
-
-    border: 1px solid rgba(255, 255, 255, 0.12);
-
-    border-radius: 20px;
+    background: #1b1f27;
+    border: 1px solid #343a47;
+    border-radius: 16px;
 
     color: #ffffff;
 
-    font-size: 34px;
-
-    box-shadow: inset 0 0 25px #000000;
+    font-size: 28px;
 }
-
-.card-img-box i {
-    color: #ffffff !important;
-}
-
-
-/* ================== معلومات البطاقة ================== */
 
 .card-info {
     flex: 1;
 }
 
 .card-header-title {
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-
     margin-bottom: 10px;
+
+    display: flex;
+    align-items: center;
+    gap: 9px;
 }
 
 .card-header-title i {
-    color: #ffffff;
-
-    font-size: 18px;
+    color: #c7cbd2;
+    font-size: 16px;
 }
 
 .card-header-title h3 {
     color: #ffffff;
 
-    font-size: 1.55rem;
-
-    font-weight: 900;
+    font-size: 22px;
+    font-weight: 800;
 }
 
 .card-info p {
-    color: var(--text-gray);
+    color: #969ca8;
 
-    font-size: 0.95rem;
-
+    font-size: 14px;
+    font-weight: 500;
     line-height: 1.9;
-
-    margin-top: 5px;
 }
 
+/* =========================================================
+   Current Device Badge
+   ========================================================= */
 
-/* ================== زر التحميل ================== */
+.detected-badge {
+    width: fit-content;
+
+    margin-top: 18px;
+    padding: 7px 12px;
+
+    display: inline-flex;
+
+    background: #242934;
+    border: 1px solid #444b59;
+    border-radius: 9px;
+
+    color: #ffffff;
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+/* =========================================================
+   Download Button
+   ========================================================= */
 
 .card-btn {
     width: 100%;
+    min-height: 50px;
+
+    margin-top: 20px;
+    padding: 12px 16px;
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     gap: 10px;
 
-    padding: 14px 18px;
-
-    background: #ffffff;
-
-    color: #000000;
-
-    text-decoration: none;
-
+    background: #e8e9ec;
+    border: 1px solid #e8e9ec;
     border-radius: 12px;
 
-    font-size: 1rem;
+    color: #0b0c10;
+    text-decoration: none;
 
-    font-weight: 900;
+    font-size: 15px;
+    font-weight: 800;
 
-    transition: 0.3s ease;
+    transition: 0.2s ease;
 }
 
 .card-btn:hover {
-    background: #dddddd;
+    background: #ffffff;
+    border-color: #ffffff;
 
     transform: translateY(-2px);
 }
 
-.card-btn i {
-    font-size: 15px;
+.card-btn:active {
+    transform: translateY(0);
 }
 
+.card-btn i {
+    font-size: 14px;
+}
 
-/* ================== معلومات التوافق ================== */
+/* =========================================================
+   Footer Text
+   ========================================================= */
 
 .card-footer-text {
+    margin-top: 11px;
+
+    color: #737986;
+
     text-align: center;
 
-    margin-top: 12px;
-
-    color: #7f8590;
-
-    font-size: 0.8rem;
-
-    font-weight: 600;
+    font-size: 12px;
+    font-weight: 500;
 }
 
-
-/* ================== جهازك الحالي ================== */
-
-.download-card.detected-card {
-    border: 1px solid #ffffff;
-
-    background: linear-gradient(145deg, #232731 0%, #111319 100%);
-
-    box-shadow:
-        0 0 0 1px #ffffff,
-        0 25px 65px rgba(0, 0, 0, 0.8);
-}
-
-.download-card.detected-card::before {
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-
-    right: 0;
-
-    left: 0;
-
-    height: 4px;
-
-    background: #ffffff;
-}
-
-.detected-badge {
-    position: absolute;
-
-    top: 16px;
-
-    left: 16px;
-
-    padding: 7px 12px;
-
-    border-radius: 10px;
-
-    background: #ffffff;
-
-    color: #000000;
-
-    font-size: 0.75rem;
-
-    font-weight: 900;
-
-    z-index: 5;
-
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
-}
-
-
-/* ================== البانر السفلي ================== */
+/* =========================================================
+   Bottom Banner
+   ========================================================= */
 
 .bottom-banner {
-    margin-top: 38px;
-
-    min-height: 110px;
-
-    padding: 22px 28px;
+    min-height: 76px;
+    margin-top: 28px;
+    padding: 20px 24px;
 
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
-
     gap: 25px;
 
-    background: var(--gray-gradient);
-
-    border: 1px solid var(--border-light);
-
-    border-radius: 22px;
-
-    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.55);
+    background: #11141a;
+    border: 1px solid #292e39;
+    border-radius: 18px;
 }
 
 .info-side {
     display: flex;
-
     align-items: center;
+    gap: 12px;
 
-    gap: 15px;
+    color: #969ca8;
 
-    color: var(--text-gray);
-
-    font-size: 0.95rem;
-
+    font-size: 14px;
     line-height: 1.8;
 }
 
 .info-side i {
-    width: 44px;
-    height: 44px;
-
-    min-width: 44px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    background: #090a0c;
+    flex: 0 0 auto;
 
     color: #ffffff;
-
-    border: 1px solid rgba(255, 255, 255, 0.12);
-
-    border-radius: 13px;
-
-    font-size: 18px;
+    font-size: 19px;
 }
 
 .brand-side {
     color: #ffffff;
 
-    font-size: 0.95rem;
-
+    font-size: 13px;
     font-weight: 800;
 
     white-space: nowrap;
 }
 
+/* =========================================================
+   Focus
+   ========================================================= */
 
-/* ================== اللغة الإنجليزية ================== */
-
-[dir="ltr"] .hero-title {
-    text-align: left;
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 3px;
 }
 
-[dir="ltr"] .card-info {
-    text-align: left;
-}
-
-[dir="ltr"] .bottom-banner {
-    text-align: left;
-}
-
-[dir="ltr"] .card-header-title {
-    justify-content: flex-start;
-}
-
-[dir="ltr"] .info-side {
-    flex-direction: row;
-}
-
-
-/* ================== Tablet ================== */
+/* =========================================================
+   Tablet
+   ========================================================= */
 
 @media (max-width: 1050px) {
 
+    .navbar {
+        padding: 0 24px;
+    }
+
+    .logo,
+    .nav-left-icons {
+        min-width: 160px;
+    }
+
+    .nav-link {
+        padding: 10px 13px;
+        font-size: 14px;
+    }
+
+    .container {
+        width: min(100% - 30px, 900px);
+    }
+
     .hero-section {
-        grid-template-columns: 1fr;
-
-        padding: 45px;
-
-        gap: 35px;
-
-        margin-top: 50px;
-    }
-
-    .hero-title {
-        text-align: center;
-    }
-
-    .hero-title p {
-        margin: 0 auto;
-    }
-
-    .hero-mockup-wrapper {
-        min-height: 300px;
+        gap: 25px;
     }
 
     .downloads-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .bottom-banner {
-        flex-direction: column;
-
-        align-items: stretch;
-
-        text-align: center;
-    }
-
-    .brand-side {
-        white-space: normal;
-
-        text-align: center;
-    }
-
-    [dir="ltr"] .bottom-banner {
-        text-align: center;
-    }
 }
 
+/* =========================================================
+   Mobile
+   ========================================================= */
 
-/* ================== Mobile ================== */
+@media (max-width: 760px) {
 
-@media (max-width: 768px) {
+    .navbar {
+        height: 72px;
+        padding: 0 17px;
+    }
+
+    .logo {
+        min-width: auto;
+    }
+
+    .logo img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .logo span {
+        font-size: 17px;
+    }
+
+    .desktop-nav,
+    .desktop-lang {
+        display: none;
+    }
+
+    .nav-left-icons {
+        min-width: auto;
+    }
+
+    .mobile-dots-btn {
+        display: flex;
+    }
+
+    /* =========================
+       Mobile Menu
+       ========================= */
+
+    .mobile-menu-overlay {
+        position: fixed;
+        inset: 0;
+
+        z-index: 2000;
+
+        padding: 25px;
+
+        background: #090b0f;
+
+        flex-direction: column;
+    }
+
+    .mobile-menu-overlay.active {
+        display: flex;
+    }
+
+    .close-menu-btn {
+        width: 45px;
+        height: 45px;
+
+        margin-right: auto;
+
+        border: 1px solid #303640;
+        border-radius: 11px;
+
+        background: #161a21;
+        color: #ffffff;
+
+        cursor: pointer;
+
+        font-size: 18px;
+    }
+
+    .mobile-nav-links {
+        flex: 1;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        gap: 12px;
+    }
+
+    .mobile-nav-links a {
+        width: 100%;
+        padding: 16px 18px;
+
+        background: #12151b;
+        border: 1px solid #292e38;
+        border-radius: 13px;
+
+        color: #a7acb8;
+        text-decoration: none;
+
+        text-align: center;
+
+        font-size: 17px;
+        font-weight: 800;
+    }
+
+    .mobile-nav-links a.active {
+        background: #232832;
+        border-color: #404756;
+        color: #ffffff;
+    }
+
+    .mobile-lang-btn {
+        width: 100%;
+
+        justify-content: center;
+
+        margin-top: 8px;
+    }
+
+    /* =========================
+       Main
+       ========================= */
 
     .container {
-        padding: 0 4%;
+        width: min(100% - 24px, 620px);
+        padding-top: 30px;
     }
 
     .hero-section {
-        margin-top: 35px;
+        min-height: 0;
+        margin-bottom: 30px;
 
-        padding: 30px 22px;
+        grid-template-columns: 1fr;
+        gap: 25px;
 
-        border-radius: 22px;
+        text-align: center;
+    }
+
+    .hero-title {
+        text-align: center;
     }
 
     .hero-title h1 {
-        font-size: 2.8rem;
+        margin-bottom: 14px;
+
+        font-size: 42px;
     }
 
     .hero-title p {
-        font-size: 0.95rem;
-
+        font-size: 15px;
         line-height: 1.9;
     }
 
     .hero-mockup-wrapper {
-        min-height: 230px;
-
-        padding: 10px;
-
-        border-radius: 20px;
+        min-height: 220px;
     }
+
+    /* =========================
+       Cards
+       ========================= */
 
     .downloads-grid {
         grid-template-columns: 1fr;
-
-        gap: 18px;
-
-        margin-top: 35px;
-    }
-
-    .download-card {
-        min-height: 290px;
-
-        padding: 24px;
-
-        border-radius: 21px;
-    }
-
-    .card-top {
         gap: 16px;
     }
 
-    .card-img-box {
-        width: 68px;
-        height: 68px;
-
-        min-width: 68px;
-
-        font-size: 28px;
-
-        border-radius: 17px;
+    .download-card {
+        min-height: 300px;
+        padding: 20px;
     }
 
-    .card-header-title h3 {
-        font-size: 1.3rem;
-    }
-
-    .card-info p {
-        font-size: 0.9rem;
-    }
-
-    .detected-badge {
-        top: 12px;
-
-        left: 12px;
-
-        font-size: 0.7rem;
-    }
+    /* =========================
+       Bottom Banner
+       ========================= */
 
     .bottom-banner {
-        margin-top: 25px;
+        flex-direction: column;
+        align-items: stretch;
 
-        padding: 20px;
+        padding: 18px;
 
-        border-radius: 19px;
+        text-align: center;
     }
 
     .info-side {
-        align-items: flex-start;
-
-        font-size: 0.85rem;
-    }
-
-    .brand-side {
-        font-size: 0.85rem;
-
-        line-height: 1.8;
-    }
-}
-
-
-/* ================== Mobile Small ================== */
-
-@media (max-width: 480px) {
-
-    .navbar {
-        padding: 14px 5%;
-    }
-
-    .logo {
-        font-size: 1rem;
-    }
-
-    .logo img {
-        width: 32px !important;
-        height: 32px !important;
-    }
-
-    .hero-section {
-        padding: 25px 17px;
-    }
-
-    .hero-title h1 {
-        font-size: 2.35rem;
-    }
-
-    .hero-title p {
-        font-size: 0.88rem;
-    }
-
-    .card-top {
+        justify-content: center;
         flex-direction: column;
     }
 
-    .card-img-box {
-        width: 64px;
-        height: 64px;
-
-        min-width: 64px;
+    .brand-side {
+        white-space: normal;
+        line-height: 1.8;
     }
 
-    .download-card {
-        padding: 20px;
+}
+
+/* =========================================================
+   Small Mobile
+   ========================================================= */
+
+@media (max-width: 430px) {
+
+    .navbar {
+        padding: 0 12px;
+    }
+
+    .logo span {
+        font-size: 15px;
+    }
+
+    .container {
+        width: calc(100% - 18px);
+    }
+
+    .hero-title h1 {
+        font-size: 36px;
+    }
+
+    .hero-title p {
+        font-size: 14px;
+    }
+
+    .card-top {
+        gap: 13px;
+    }
+
+    .card-img-box {
+        width: 54px;
+        height: 54px;
+
+        flex-basis: 54px;
+
+        border-radius: 14px;
+
+        font-size: 23px;
     }
 
     .card-header-title h3 {
-        font-size: 1.2rem;
+        font-size: 19px;
+    }
+
+    .card-info p {
+        font-size: 13px;
     }
 
     .card-btn {
-        padding: 13px 14px;
-
-        font-size: 0.92rem;
+        font-size: 14px;
     }
 
-    .detected-badge {
-        font-size: 0.65rem;
+}
 
-        padding: 6px 9px;
+/* =========================================================
+   Reduced Motion
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
     }
-}
 
+    *,
+    *::before,
+    *::after {
+        transition: none !important;
+    }
 
-/* ================== تحسين التركيز ================== */
-
-a:focus-visible,
-button:focus-visible {
-    outline: 2px solid #ffffff;
-
-    outline-offset: 3px;
-}
-
-
-/* ================== منع تحديد صورة الأجهزة ================== */
-
-.hero-devices-img {
-    user-select: none;
-
-    pointer-events: none;
 }
 
