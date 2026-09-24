@@ -49,6 +49,9 @@ jobs:
           cp manifest.json _site/ 2>/dev/null || true
           cp service-worker.js _site/ 2>/dev/null || true
 
+          # Fix paths that differ after the html files are moved to the site root
+          sed -i 's#\.\./downloads/#downloads/#g' _site/download.html
+
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
