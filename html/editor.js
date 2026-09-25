@@ -10,6 +10,7 @@ const DEFAULT_FILES={
 
 let files={...DEFAULT_FILES};
 let folders=new Set();
+let activeFolder="";
 let currentFile="index.html";
 let openFiles=["index.html"];
 let projectRoot=localStorage.getItem(ROOT_KEY)||"CODING-MASTER";
@@ -892,7 +893,7 @@ editor.addEventListener("keydown",event=>{
 
   if(mod&&event.key.toLowerCase()==="l"){
     event.preventDefault();
-    run();
+    openPreview();
   }
 
   if(mod&&event.key.toLowerCase()==="o"){
