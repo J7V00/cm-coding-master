@@ -1,33 +1,26 @@
-const DEFAULT_FILES={
-"index.html":`<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<title>Coding Master</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-<main class="card">
-<span>CODING MASTER</span>
-<h1>مرحبًا بك 👋</h1>
-<p>ابدأ بكتابة فكرتك هنا.</p>
-<button onclick="hello()">جرّب JavaScript</button>
-</main>
-<script src="script.js"><\/script>
-</body>
-</html>`,
-"style.css":`*{box-sizing:border-box}
-body{margin:0;min-height:100vh;display:grid;place-items:center;background:#0b0b0b;color:#fff;font-family:Arial,sans-serif}
-.card{width:min(520px,calc(100% - 40px));padding:34px;border:1px solid #333;border-radius:18px;background:#151515}
-button{padding:10px 14px;border:0;border-radius:8px;cursor:pointer}`,
-"script.js":`function hello(){alert("JavaScript يعمل ✅");}`
-};
 const FILES_KEY="cm-project-files";
+const ROOT_KEY="cm-project-root";
+
+const DEFAULT_FILES={
+  "index.html":"<!DOCTYPE html>\n<html lang=\"ar\" dir=\"rtl\">\n<head>\n<meta charset=\"UTF-8\">\n<title>Coding Master</title>\n<link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n<main class=\"card\">\n<h1>مرحبًا بك 👋</h1>\n<p>ابدأ بكتابة فكرتك هنا.</p>\n<button onclick=\"hello()\">جرّب JavaScript</button>\n</main>\n<script src=\"script.js\"><\\/script>\n</body>\n</html>",
+  "style.css":"*{box-sizing:border-box}\nbody{margin:0;min-height:100vh;display:grid;place-items:center;background:#0b0b0b;color:#fff;font-family:Arial,sans-serif}\n.card{width:min(520px,calc(100% - 40px));padding:34px;border:1px solid #333;border-radius:18px;background:#151515}\nbutton{padding:10px 14px;border:0;border-radius:8px;cursor:pointer}",
+  "script.js":"function hello(){alert(\"JavaScript يعمل ✅\");}"
+};
+
 let files={...DEFAULT_FILES};
-try{const saved=JSON.parse(localStorage.getItem(FILES_KEY));if(saved)Object.assign(files,saved)}catch{}
 let currentFile="index.html";
 let openFiles=["index.html"];
+let projectRoot=localStorage.getItem(ROOT_KEY)||"CODING-MASTER";
+
+try{
+  const saved=JSON.parse(localStorage.getItem(FILES_KEY));
+  if(saved&&typeof saved==="object"&&Object.keys(saved).length){
+    files={...DEFAULT_FILES,...saved};
+  }
+}catch{}
+
 const editor=document.getElementById("codeEditor");
+const syntaxLayer=document.getElementById("syntaxLayer");
 const lines=document.getElementById("lineNumbers");
 const preview=document.getElementById("preview");
 const breadcrumb=document.getElementById("breadcrumb");
@@ -36,110 +29,797 @@ const panelBody=document.getElementById("panelBody");
 const sideContent=document.getElementById("sideContent");
 const filePicker=document.getElementById("filePicker");
 const folderPicker=document.getElementById("folderPicker");
+const problemCount=document.getElementById("problemCount");
+const projectName=document.getElementById("projectName");
 
-function language(file){if(file.endsWith(".css"))return"CSS";if(file.endsWith(".js"))return"JavaScript";if(file.endsWith(".json"))return"JSON";return"HTML"}
-function saveStore(){try{localStorage.setItem(FILES_KEY,JSON.stringify(files))}catch{}}
-function updateLines(){lines.textContent=Array.from({length:Math.max(editor.value.split("\n").length,1)},(_,i)=>i+1).join("\n")}
+function normalizePath(value){
+  return String(value||"").replace(/\\/g,"/").replace(/^\.\/+/,"").replace(/^\/+/,"");
+}
+
+function baseName(path){
+  const parts=normalizePath(path).split("/");
+  return parts[parts.length-1]||path;
+}
+
+function extension(path){
+  const name=baseName(path).toLowerCase();
+  const dot=name.lastIndexOf(".");
+  return dot===-1?"":name.slice(dot+1);
+}
+
+function language(file){
+  const ext=extension(file);
+  if(ext==="css")return"CSS";
+  if(["js","jsx","ts","tsx"].includes(ext))return"JavaScript";
+  if(ext==="json")return"JSON";
+  if(["md","txt","xml","svg"].includes(ext))return"Text";
+  return"HTML";
+}
+
+function iconClass(file){
+  const ext=extension(file);
+  if(["html","htm"].includes(ext))return"html";
+  if(ext==="css")return"css";
+  if(["js","jsx","ts","tsx"].includes(ext))return"js";
+  if(ext==="json")return"json";
+  return"text";
+}
+
+function iconText(file){
+  const ext=extension(file);
+  if(["html","htm"].includes(ext))return"<>";
+  if(ext==="css")return"CSS";
+  if(["js","jsx","ts","tsx"].includes(ext))return"JS";
+  if(ext==="json")return"{}";
+  return"TXT";
+}
+
+function saveStore(){
+  try{
+    localStorage.setItem(FILES_KEY,JSON.stringify(files));
+    localStorage.setItem(ROOT_KEY,projectRoot);
+  }catch{}
+}
+
+function escapeHtml(value){
+  return String(value).replace(/[&<>"]/g,character=>({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;"
+  }[character]));
+}
+
+function escapeAttr(value){
+  return escapeHtml(value).replace(/'/g,"&#039;");
+}
+
+function addErrorLines(html,errorLines){
+  if(!errorLines.length)return html;
+  return html.split("\n").map((line,index)=>{
+    return errorLines.includes(index+1)
+      ? '<span class="syn-error">'+line+"</span>"
+      : line;
+  }).join("\n");
+}
+
+function lintCode(code,lang){
+  const linesWithProblems=new Set();
+  const messages=[];
+
+  if(lang==="HTML"){
+    const stack=[];
+    const voidTags=new Set(["area","base","br","col","embed","hr","img","input","link","meta","param","source","track","wbr"]);
+    const pattern=/<\s*\/?\s*([A-Za-z0-9:-]+)[^>]*>/g;
+    let match;
+
+    while((match=pattern.exec(code))){
+      const raw=match[0];
+      if(raw.startsWith("<!--"))continue;
+
+      const name=match[1].toLowerCase();
+      const line=code.slice(0,match.index).split("\n").length;
+
+      if(/^<\s*\//.test(raw)){
+        const index=stack.map(item=>item.name).lastIndexOf(name);
+
+        if(index===-1){
+          linesWithProblems.add(line);
+          messages.push("Closing tag </"+name+"> has no matching opening tag.");
+        }else{
+          stack.splice(index,stack.length-index);
+        }
+      }else if(!voidTags.has(name)&&!/\s*\/>$/.test(raw)){
+        stack.push({name,line});
+      }
+    }
+
+    stack.forEach(item=>{
+      linesWithProblems.add(item.line);
+      messages.push("Tag <"+item.name+"> is not closed.");
+    });
+  }
+
+  if(lang==="CSS"){
+    const sourceLines=code.split("\n");
+    let balance=0;
+
+    sourceLines.forEach((line,index)=>{
+      for(const char of line){
+        if(char==="{")balance++;
+        if(char==="}")balance--;
+        if(balance<0){
+          linesWithProblems.add(index+1);
+          messages.push("Unexpected }.");
+          balance=0;
+        }
+      }
+    });
+
+    if(balance>0){
+      linesWithProblems.add(sourceLines.length);
+      messages.push("Missing }.");
+    }
+
+    sourceLines.forEach((line,index)=>{
+      const clean=line.trim();
+      if(clean&&!clean.startsWith("/*")&&!clean.startsWith("*")&&!clean.startsWith("@")&&clean.includes("{")===false&&clean.includes("}")===false&&clean.includes(":")===false){
+        if(/[A-Za-z-]+\s+[A-Za-z-]+/.test(clean)){
+          linesWithProblems.add(index+1);
+          messages.push("CSS declaration looks incomplete.");
+        }
+      }
+    });
+  }
+
+  if(lang==="JavaScript"){
+    const sourceLines=code.split("\n");
+    const pairs=[["{","}"],["[","]"],["(",")"]];
+
+    for(const [open,close] of pairs){
+      let balance=0;
+
+      sourceLines.forEach((line,index)=>{
+        for(const char of line){
+          if(char===open)balance++;
+          if(char===close)balance--;
+          if(balance<0){
+            linesWithProblems.add(index+1);
+            messages.push("Unexpected "+close+".");
+            balance=0;
+          }
+        }
+      });
+
+      if(balance>0){
+        linesWithProblems.add(sourceLines.length);
+        messages.push("Missing "+close+".");
+      }
+    }
+
+    for(const quote of ['"',"'"]){
+      let escaped=false;
+      let open=false;
+      let lineNumber=1;
+
+      for(let i=0;i<code.length;i++){
+        const char=code[i];
+
+        if(char==="\n")lineNumber++;
+
+        if(escaped){
+          escaped=false;
+          continue;
+        }
+
+        if(char==="\\"){
+          escaped=true;
+          continue;
+        }
+
+        if(char===quote){
+          open=!open;
+        }
+      }
+
+      if(open){
+        linesWithProblems.add(lineNumber);
+        messages.push("Unclosed string.");
+      }
+    }
+  }
+
+  if(lang==="JSON"){
+    try{
+      JSON.parse(code);
+    }catch(error){
+      const message=String(error&&error.message||"Invalid JSON");
+      messages.push(message);
+      const positionMatch=message.match(/position\s+(\d+)/i);
+      const position=positionMatch?Number(positionMatch[1]):0;
+      linesWithProblems.add(code.slice(0,position).split("\n").length);
+    }
+  }
+
+  return{
+    lines:[...linesWithProblems],
+    messages:[...new Set(messages)].slice(0,8)
+  };
+}
+
+function highlightHtml(code){
+  const token=/<!--[\s\S]*?-->|<\/?[A-Za-z][^>]*>/g;
+  let result="";
+  let cursor=0;
+  let match;
+
+  while((match=token.exec(code))){
+    result+=escapeHtml(code.slice(cursor,match.index));
+    const raw=match[0];
+
+    if(raw.startsWith("<!--")){
+      result+='<span class="syn-comment">'+escapeHtml(raw)+"</span>";
+    }else{
+      const opening=raw.match(/^(<\s*\/?\s*)([A-Za-z0-9:-]+)/);
+
+      if(!opening){
+        result+='<span class="syn-punc">'+escapeHtml(raw)+"</span>";
+      }else{
+        let inner='<span class="syn-punc">'+escapeHtml(opening[1])+"</span>";
+        inner+='<span class="syn-tag">'+escapeHtml(opening[2])+"</span>";
+
+        const rest=raw.slice(opening[0].length);
+        const attrRegex=/([A-Za-z_:][\w:.-]*)(\s*=\s*)?("[^"]*"|'[^']*'|[^\s>]+)?/g;
+        let aMatch;
+        let attrCursor=0;
+
+        while((aMatch=attrRegex.exec(rest))){
+          inner+=escapeHtml(rest.slice(attrCursor,aMatch.index));
+          inner+='<span class="syn-attr">'+escapeHtml(aMatch[1])+"</span>";
+
+          if(aMatch[2]){
+            inner+='<span class="syn-punc">'+escapeHtml(aMatch[2])+"</span>";
+          }
+
+          if(aMatch[3]){
+            const cls=/^["']/.test(aMatch[3])?"syn-string":"syn-value";
+            inner+='<span class="'+cls+'">'+escapeHtml(aMatch[3])+"</span>";
+          }
+
+          attrCursor=attrRegex.lastIndex;
+        }
+
+        inner+=escapeHtml(rest.slice(attrCursor));
+        result+=inner;
+      }
+    }
+
+    cursor=match.index+raw.length;
+  }
+
+  result+=escapeHtml(code.slice(cursor));
+
+  const lint=lintCode(code,"HTML");
+  return addErrorLines(result,lint.lines);
+}
+
+function highlightCss(code){
+  let result=escapeHtml(code);
+
+  result=result.replace(/(\/\*[\s\S]*?\*\/)/g,'<span class="syn-comment">$1</span>');
+  result=result.replace(/(^|[\n}])([^{}\n]+)(?={)/g,(match,prefix,selector)=>{
+    return prefix+'<span class="syn-selector">'+selector+"</span>";
+  });
+  result=result.replace(/([A-Za-z-]+)(\s*):/g,'<span class="syn-property">$1</span>$2<span class="syn-punc">:</span>');
+  result=result.replace(/(:\s*)([^;{}\n]+)/g,'$1<span class="syn-value">$2</span>');
+  result=result.replace(/("[^"]*"|'[^']*')/g,'<span class="syn-string">$1</span>');
+  result=result.replace(/\b\d+(?:\.\d+)?\b/g,'<span class="syn-number">$&</span>');
+
+  const lint=lintCode(code,"CSS");
+  return addErrorLines(result,lint.lines);
+}
+
+function highlightJs(code){
+  let result=escapeHtml(code);
+
+  result=result.replace(/(\/\/[^\n]*|\/\*[\s\S]*?\*\/)/g,'<span class="syn-comment">$1</span>');
+  result=result.replace(/("[^"]*"|'[^']*')/g,'<span class="syn-string">$1</span>');
+  result=result.replace(/\b(?:const|let|var|function|return|if|else|for|while|new|class|extends|import|from|export|default|async|await|true|false|null|undefined|try|catch|throw)\b/g,'<span class="syn-keyword">$&</span>');
+  result=result.replace(/\b\d+(?:\.\d+)?\b/g,'<span class="syn-number">$&</span>');
+
+  const lint=lintCode(code,"JavaScript");
+  return addErrorLines(result,lint.lines);
+}
+
+function highlightJson(code){
+  let result=escapeHtml(code);
+
+  result=result.replace(/("(?:\\.|[^"\\])*")\s*:/g,'<span class="syn-property">$1</span><span class="syn-punc">:</span>');
+  result=result.replace(/"(?:\\.|[^"\\])*"/g,'<span class="syn-string">$&</span>');
+  result=result.replace(/\b(?:true|false|null)\b/g,'<span class="syn-keyword">$&</span>');
+  result=result.replace(/\b-?\d+(?:\.\d+)?\b/g,'<span class="syn-number">$&</span>');
+
+  const lint=lintCode(code,"JSON");
+  return addErrorLines(result,lint.lines);
+}
+
+function highlightCode(code,file){
+  const lang=language(file);
+
+  if(lang==="CSS")return highlightCss(code);
+  if(lang==="JavaScript")return highlightJs(code);
+  if(lang==="JSON")return highlightJson(code);
+  if(lang==="HTML")return highlightHtml(code);
+
+  return escapeHtml(code);
+}
+
+function updateLines(){
+  const count=Math.max(editor.value.split("\n").length,1);
+  const lint=lintCode(editor.value,language(currentFile));
+  let html="";
+
+  for(let i=1;i<=count;i++){
+    html+=lint.lines.includes(i)
+      ? '<span class="problem-line">'+i+"</span>"
+      : i;
+
+    if(i<count)html+="\n";
+  }
+
+  lines.innerHTML=html;
+  problemCount.textContent=String(lint.lines.length);
+  return lint;
+}
+
+function updateStatus(){
+  const position=editor.selectionStart;
+  const before=editor.value.slice(0,position);
+  const line=before.split("\n").length;
+  const lastBreak=before.lastIndexOf("\n");
+  const col=position-(lastBreak+1)+1;
+  const lint=lintCode(editor.value,language(currentFile));
+
+  status.textContent="Ln "+line+", Col "+col+" • "+language(currentFile)+" • UTF-8"+(lint.lines.length?" • "+lint.lines.length+" problem(s)":"");
+}
+
+function renderSyntax(){
+  syntaxLayer.innerHTML=highlightCode(editor.value,currentFile)||" ";
+  updateLines();
+  updateStatus();
+}
+
 function save(){
- files[currentFile]=editor.value;saveStore();
- panelBody.innerHTML="<div>$ coding-master save</div><p>Saved "+currentFile+".</p>";
-}
-function renderExplorer(){
- const names=Object.keys(files).filter(Boolean).sort((a,b)=>a==="index.html"?-1:b==="index.html"?1:a.localeCompare(b));
- sideContent.innerHTML='<div class="folder">CODING-MASTER <span>⌄</span></div>'+
- names.map(name=>'<button class="file '+(name===currentFile?"active":"")+'" data-file="'+escapeAttr(name)+'" type="button"><span class="file-icon '+language(name).toLowerCase()+'">◇</span> '+escapeHtml(name)+'</button>').join("");
- sideContent.querySelectorAll(".file").forEach(x=>x.addEventListener("click",()=>openFile(x.dataset.file)));
-}
-function renderTabs(){
- document.getElementById("tabs").innerHTML=openFiles.map(file=>'<button class="tab '+(file===currentFile?"active":"")+'" data-file="'+escapeAttr(file)+'" type="button">◇ '+escapeHtml(file)+'<span class="tab-close">×</span></button>').join("");
- document.querySelectorAll(".tab").forEach(tab=>tab.addEventListener("click",e=>{
-   if(e.target.classList.contains("tab-close")){closeTab(tab.dataset.file);return}
-   openFile(tab.dataset.file);
- }));
-}
-function openFile(file){
- if(!(file in files))files[file]="";
- files[currentFile]=editor.value;
- currentFile=file;
- if(!openFiles.includes(file))openFiles.push(file);
- editor.value=files[file];
- breadcrumb.textContent="CODING-MASTER / "+file;
- status.textContent="Ln 1, Col 1 • "+language(file)+" • UTF-8";
- renderExplorer();renderTabs();updateLines();editor.focus();
-}
-function closeTab(file){
- if(openFiles.length===1)return;
- openFiles=openFiles.filter(x=>x!==file);
- if(currentFile===file)currentFile=openFiles[openFiles.length-1];
- openFile(currentFile);
-}
-function addImportedFile(fileName,text){
- files[fileName]=text;
- if(!openFiles.includes(fileName))openFiles.push(fileName);
- currentFile=fileName;
- saveStore();renderExplorer();renderTabs();editor.value=text;breadcrumb.textContent="CODING-MASTER / "+fileName;updateLines();
-}
-async function importFiles(list){
- let count=0;
- for(const file of [...list]){
-   try{addImportedFile(file.name,await file.text());count++}catch{}
- }
- if(count){localStorage.setItem("cm-was-imported","1");panelBody.innerHTML="<div>$ coding-master import</div><p>Imported "+count+" file(s).</p>";}
-}
-function newFile(){
- const name=prompt("اسم الملف الجديد","untitled.html");
- if(!name)return;
- if(name in files){openFile(name);return}
- files[name]="";openFiles.push(name);openFile(name);
-}
-function run(){
- save();
- const html=(files["index.html"]||"").replace(/<link[^>]*href=["']style\.css["'][^>]*>/i,"").replace(/<script[^>]*src=["']script\.js["']><\/script>/i,"");
- const css=files["style.css"]||"";
- const js=(files["script.js"]||"").replace(/<\/script/gi,"<\\/script");
- preview.srcdoc=html.replace("</head>","<style>"+css+"</style></head>").replace("</body>","<script>"+js+"<\/script></body>");
- panelBody.innerHTML="<div>$ coding-master run</div><p>Project is running in preview.</p>";
-}
-function escapeHtml(v){return String(v).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
-function escapeAttr(v){return escapeHtml(v)}
+  files[currentFile]=editor.value;
+  saveStore();
+  renderExplorer();
+  renderTabs();
 
-document.getElementById("newFileBtn").addEventListener("click",newFile);
+  const lint=lintCode(editor.value,language(currentFile));
+
+  panelBody.innerHTML='<div>$ coding-master save</div><p class="'+
+    (lint.lines.length?"problem-row":"success-row")+
+    '">'+
+    (lint.lines.length
+      ? "Saved with "+lint.lines.length+" problem(s)."
+      : "Saved "+escapeHtml(currentFile)+".")+
+    "</p>";
+}
+
+function renderExplorer(){
+  const entries=Object.keys(files)
+    .filter(Boolean)
+    .map(normalizePath)
+    .sort((a,b)=>a.localeCompare(b));
+
+  const folders=[];
+  const seen=new Set();
+
+  entries.forEach(path=>{
+    const parts=path.split("/");
+
+    if(parts.length>1){
+      for(let i=1;i<parts.length;i++){
+        const folder=parts.slice(0,i).join("/");
+
+        if(!seen.has(folder)){
+          seen.add(folder);
+          folders.push(folder);
+        }
+      }
+    }
+  });
+
+  const folderHtml=folders.map(folder=>{
+    const depth=folder.split("/").length-1;
+
+    return '<button class="tree-folder" data-folder="'+escapeAttr(folder)+
+      '" style="padding-left:'+(10+depth*14)+"px\" type=\"button\">▾ "+
+      escapeHtml(baseName(folder))+"</button>";
+  }).join("");
+
+  const fileHtml=entries.map(path=>{
+    const depth=path.split("/").length-1;
+
+    return '<button class="tree-file '+(path===currentFile?"active":"")+
+      '" data-file="'+escapeAttr(path)+
+      '" style="padding-left:'+(10+depth*14)+"px\" type=\"button\">"+
+      '<span class="file-icon '+iconClass(path)+'">'+iconText(path)+"</span>"+
+      "<span>"+escapeHtml(baseName(path))+"</span></button>";
+  }).join("");
+
+  sideContent.innerHTML=
+    '<div class="project-root">⌄ '+escapeHtml(projectRoot)+"</div>"+
+    folderHtml+
+    fileHtml;
+
+  sideContent.querySelectorAll(".tree-file").forEach(button=>{
+    button.addEventListener("click",()=>openFile(button.dataset.file));
+  });
+}
+
+function renderTabs(){
+  const tabs=document.getElementById("tabs");
+
+  tabs.innerHTML=openFiles.map(file=>{
+    return '<button class="tab '+(file===currentFile?"active":"")+
+      '" data-file="'+escapeAttr(file)+'" type="button">'+
+      '<span class="tab-icon '+iconClass(file)+'">'+iconText(file)+"</span>"+
+      "<span>"+escapeHtml(baseName(file))+"</span>"+
+      '<span class="tab-close">×</span></button>';
+  }).join("");
+
+  tabs.querySelectorAll(".tab").forEach(tab=>{
+    tab.addEventListener("click",event=>{
+      if(event.target.classList.contains("tab-close")){
+        closeTab(tab.dataset.file);
+        return;
+      }
+
+      openFile(tab.dataset.file);
+    });
+  });
+}
+
+function firstIndexFile(){
+  const exact=Object.keys(files).find(path=>normalizePath(path).toLowerCase()==="index.html");
+  if(exact)return exact;
+
+  return Object.keys(files).find(path=>extension(path)==="html")||
+    Object.keys(files)[0]||
+    "index.html";
+}
+
+function openFile(file){
+  file=normalizePath(file);
+
+  if(!(file in files))files[file]="";
+
+  if(currentFile)files[currentFile]=editor.value;
+
+  currentFile=file;
+
+  if(!openFiles.includes(file))openFiles.push(file);
+
+  editor.value=files[file]||"";
+  breadcrumb.textContent=file.replace(/\//g," / ");
+  projectName.textContent=projectRoot;
+
+  renderExplorer();
+  renderTabs();
+  renderSyntax();
+
+  editor.focus();
+}
+
+function closeTab(file){
+  if(openFiles.length===1)return;
+
+  const index=openFiles.indexOf(file);
+  openFiles=openFiles.filter(item=>item!==file);
+
+  if(currentFile===file){
+    currentFile=openFiles[Math.max(0,index-1)]||openFiles[0];
+  }
+
+  openFile(currentFile);
+}
+
+function newFile(targetFolder=""){
+  const raw=prompt("File name","index.html");
+  if(!raw)return;
+
+  let name=normalizePath(raw.trim());
+  if(!name)return;
+
+  if(targetFolder&&!name.includes("/")){
+    name=normalizePath(targetFolder)+"/"+name;
+  }
+
+  if(name in files){
+    openFile(name);
+    return;
+  }
+
+  files[name]="";
+  saveStore();
+  openFile(name);
+}
+
+async function importFiles(list,targetFolder=""){
+  let count=0;
+
+  for(const file of [...list]){
+    try{
+      const relative=file.webkitRelativePath
+        ? normalizePath(file.webkitRelativePath)
+        : normalizePath(file.name);
+
+      const parts=relative.split("/");
+      const withoutRoot=parts.length>1?parts.slice(1).join("/"):parts[0];
+      const path=targetFolder
+        ? normalizePath(targetFolder)+"/"+withoutRoot
+        : withoutRoot;
+
+      if(path){
+        files[path]=await file.text();
+        count++;
+      }
+
+      if(file.webkitRelativePath){
+        projectRoot=parts[0]||projectRoot;
+      }
+    }catch{}
+  }
+
+  if(!count)return;
+
+  saveStore();
+
+  const preferred=firstIndexFile();
+  currentFile=preferred;
+  openFiles=[preferred];
+
+  renderExplorer();
+  renderTabs();
+  editor.value=files[preferred]||"";
+  breadcrumb.textContent=preferred.replace(/\//g," / ");
+  renderSyntax();
+
+  panelBody.innerHTML='<div>$ coding-master import</div><p class="success-row">Imported '+count+" file(s).</p>";
+  editor.focus();
+}
+
+function findProjectFile(reference){
+  const clean=normalizePath(reference).split("?")[0].split("#")[0];
+
+  if(files[clean]!==undefined)return clean;
+
+  const normalized=clean.replace(/^\.\/+/,"");
+
+  const exact=Object.keys(files).find(path=>normalizePath(path)===normalized);
+  if(exact)return exact;
+
+  const byBase=Object.keys(files).find(path=>baseName(path)===baseName(normalized));
+  return byBase||"";
+}
+
+function buildPreviewHtml(){
+  files[currentFile]=editor.value;
+
+  const indexFile=firstIndexFile();
+  let html=files[indexFile]||"";
+
+  html=html.replace(/<link[^>]+href=["']([^"']+\.css)["'][^>]*>/gi,(full,href)=>{
+    const path=findProjectFile(href);
+
+    return path
+      ? "<style>\n"+files[path]+"\n</style>"
+      : full;
+  });
+
+  html=html.replace(/<script([^>]+)src=["']([^"']+\.js)["'][^>]*><\/script>/gi,(full,attrs,src)=>{
+    const path=findProjectFile(src);
+
+    if(!path)return full;
+
+    const cleanAttrs=attrs.replace(/\s+src=["'][^"']+["']/i,"");
+    return "<script"+cleanAttrs+">"+files[path]+"<\/script>";
+  });
+
+  if(!/<meta[^>]+name=["']viewport["']/i.test(html)){
+    html=html.replace(/<head>/i,'<head><meta name="viewport" content="width=device-width,initial-scale=1.0">');
+  }
+
+  return html;
+}
+
+function run(){
+  save();
+
+  const html=buildPreviewHtml();
+  preview.srcdoc=html;
+
+  panelBody.innerHTML='<div>$ coding-master run</div><p class="success-row">Project is running in the preview.</p>';
+}
+
+function openPreview(){
+  const html=buildPreviewHtml();
+  const blob=new Blob([html],{type:"text/html"});
+  const url=URL.createObjectURL(blob);
+  const tab=window.open(url,"_blank","noopener,noreferrer");
+
+  if(!tab){
+    panelBody.innerHTML='<p class="problem-row">The browser blocked the preview tab. Allow pop-ups for Coding Master.</p>';
+  }else{
+    setTimeout(()=>URL.revokeObjectURL(url),60000);
+  }
+}
+
+document.getElementById("newFileBtn").addEventListener("click",()=>newFile());
 document.getElementById("openFileBtn").addEventListener("click",()=>filePicker.click());
-filePicker.addEventListener("change",e=>importFiles(e.target.files));
-folderPicker.addEventListener("change",e=>importFiles(e.target.files));
+document.getElementById("openFolderBtn").addEventListener("click",()=>folderPicker.click());
+
+filePicker.addEventListener("change",event=>{
+  importFiles(event.target.files);
+  event.target.value="";
+});
+
+folderPicker.addEventListener("change",event=>{
+  importFiles(event.target.files);
+  event.target.value="";
+});
+
 document.getElementById("runBtn").addEventListener("click",run);
 document.getElementById("saveBtn").addEventListener("click",save);
+document.getElementById("chromeBtn").addEventListener("click",openPreview);
 document.getElementById("refreshBtn").addEventListener("click",run);
-document.getElementById("previewToggle").addEventListener("click",()=>{const p=document.getElementById("previewPane");p.style.display=p.style.display==="none"?"flex":"none"});
-document.getElementById("welcomeBtn").addEventListener("click",()=>{localStorage.removeItem("cm-welcome-seen");location.href="welcome.html"});
-document.getElementById("commandBtn").addEventListener("click",()=>{panelBody.innerHTML="<div>⌘K</div><p>ملف جديد • فتح ملف • حفظ • تشغيل • معاينة</p>"});
-document.getElementById("settingsBtn").addEventListener("click",()=>{panelBody.innerHTML="<div>⚙ SETTINGS</div><p>Settings will be added gradually.</p>"});
-document.querySelectorAll(".activity[data-view]").forEach(btn=>btn.addEventListener("click",()=>{
- document.querySelectorAll(".activity[data-view]").forEach(x=>x.classList.remove("active"));btn.classList.add("active");
- const view=btn.dataset.view;
- document.getElementById("sideTitle").textContent=view==="explorer"?"EXPLORER":view.toUpperCase();
- if(view==="explorer"){renderExplorer();return}
- sideContent.innerHTML='<div class="sidebar-note"><b>'+view.toUpperCase()+'</b><span>This space is ready for development.</span></div>';
-}));
-document.querySelectorAll(".panel-tab").forEach(btn=>btn.addEventListener("click",()=>{
- document.querySelectorAll(".panel-tab").forEach(x=>x.classList.remove("active"));btn.classList.add("active");
- panelBody.innerHTML="<div>"+btn.dataset.panel.toUpperCase()+"</div><p>Ready.</p>";
-}));
-editor.addEventListener("input",()=>{
- files[currentFile]=editor.value;updateLines();
- const pos=editor.selectionStart;
- status.textContent="Ln "+(editor.value.slice(0,pos).split("\n").length)+", Col "+(pos-editor.value.lastIndexOf("\n",pos-1))+" • "+language(currentFile)+" • UTF-8";
-});
-editor.addEventListener("scroll",()=>{lines.scrollTop=editor.scrollTop});
-editor.addEventListener("keydown",e=>{
- if(e.key==="Tab"){e.preventDefault();const s=editor.selectionStart;editor.setRangeText("  ",s,editor.selectionEnd,"end");files[currentFile]=editor.value;updateLines()}
- if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==="s"){e.preventDefault();save()}
- if((e.metaKey||e.ctrlKey)&&e.key==="Enter"){e.preventDefault();run()}
- if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==="o"){e.preventDefault();filePicker.click()}
- if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==="n"){e.preventDefault();newFile()}
- if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==="w"){e.preventDefault();closeTab(currentFile)}
-});
-document.addEventListener("dragover",e=>e.preventDefault());
-document.addEventListener("drop",e=>{e.preventDefault();if(e.dataTransfer?.files?.length)importFiles(e.dataTransfer.files)});
 
-renderExplorer();renderTabs();openFile(currentFile);run();
+document.getElementById("previewToggle").addEventListener("click",()=>{
+  const pane=document.getElementById("previewPane");
+  pane.style.display=pane.style.display==="none"?"flex":"none";
+});
+
+document.getElementById("welcomeBtn").addEventListener("click",()=>{
+  localStorage.removeItem("cm-welcome-seen");
+  location.href="welcome.html";
+});
+
+document.getElementById("commandBtn").addEventListener("click",()=>{
+  panelBody.innerHTML="<div>⌘K</div><p>New File • Open File • Open Folder • Save • Run • Preview</p>";
+});
+
+document.getElementById("settingsBtn").addEventListener("click",()=>{
+  panelBody.innerHTML="<div>⚙ SETTINGS</div><p>Workspace settings are ready.</p>";
+});
+
+document.querySelectorAll(".activity[data-view]").forEach(button=>{
+  button.addEventListener("click",()=>{
+    document.querySelectorAll(".activity[data-view]").forEach(item=>item.classList.remove("active"));
+    button.classList.add("active");
+
+    const view=button.dataset.view;
+    document.getElementById("sideTitle").textContent=view==="explorer"?"EXPLORER":view.toUpperCase();
+
+    if(view==="explorer"){
+      renderExplorer();
+      return;
+    }
+
+    sideContent.innerHTML='<div class="sidebar-note"><b>'+
+      view.toUpperCase()+
+      '</b><span>Workspace tools are ready.</span></div>';
+  });
+});
+
+document.querySelectorAll(".panel-tab").forEach(button=>{
+  button.addEventListener("click",()=>{
+    document.querySelectorAll(".panel-tab").forEach(item=>item.classList.remove("active"));
+    button.classList.add("active");
+
+    if(button.dataset.panel==="problems"){
+      const lint=lintCode(editor.value,language(currentFile));
+
+      panelBody.innerHTML=lint.messages.length
+        ? lint.messages.map(message=>'<p class="problem-row">• '+escapeHtml(message)+"</p>").join("")
+        : '<p class="success-row">No problems found.</p>';
+
+      return;
+    }
+
+    panelBody.innerHTML="<div>"+button.dataset.panel.toUpperCase()+"</div><p>Ready.</p>";
+  });
+});
+
+editor.addEventListener("input",()=>{
+  files[currentFile]=editor.value;
+  renderSyntax();
+});
+
+editor.addEventListener("click",updateStatus);
+editor.addEventListener("keyup",updateStatus);
+editor.addEventListener("select",updateStatus);
+
+editor.addEventListener("scroll",()=>{
+  syntaxLayer.scrollTop=editor.scrollTop;
+  syntaxLayer.scrollLeft=editor.scrollLeft;
+  lines.scrollTop=editor.scrollTop;
+});
+
+editor.addEventListener("keydown",event=>{
+  const mod=event.metaKey||event.ctrlKey;
+
+  if(event.key==="Tab"){
+    event.preventDefault();
+
+    const start=editor.selectionStart;
+    const end=editor.selectionEnd;
+
+    editor.setRangeText("  ",start,end,"end");
+    files[currentFile]=editor.value;
+    renderSyntax();
+    return;
+  }
+
+  if(mod&&event.key.toLowerCase()==="s"){
+    event.preventDefault();
+    save();
+  }
+
+  if(mod&&event.key==="Enter"){
+    event.preventDefault();
+    run();
+  }
+
+  if(mod&&event.key.toLowerCase()==="l"){
+    event.preventDefault();
+    run();
+  }
+
+  if(mod&&event.key.toLowerCase()==="o"){
+    event.preventDefault();
+    filePicker.click();
+  }
+
+  if(mod&&event.key.toLowerCase()==="n"){
+    event.preventDefault();
+    newFile();
+  }
+
+  if(mod&&event.key.toLowerCase()==="w"){
+    event.preventDefault();
+    closeTab(currentFile);
+  }
+});
+
+document.addEventListener("dragover",event=>{
+  event.preventDefault();
+});
+
+document.addEventListener("drop",event=>{
+  event.preventDefault();
+
+  if(!event.dataTransfer?.files?.length)return;
+
+  const folder=event.target.closest(".tree-folder")?.dataset.folder||"";
+  importFiles(event.dataTransfer.files,folder);
+});
+
+const requestedNewFile=localStorage.getItem("cm-new-file");
+
+if(requestedNewFile){
+  localStorage.removeItem("cm-new-file");
+  currentFile=requestedNewFile;
+  files[currentFile]="";
+  openFiles=[currentFile];
+}
+
+if(!(currentFile in files)){
+  currentFile=firstIndexFile();
+  openFiles=[currentFile];
+}
+
+renderExplorer();
+renderTabs();
+openFile(currentFile);
+run();
