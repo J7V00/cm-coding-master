@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Coding Master - البداية</title>
+  <title>Coding Master - Welcome</title>
   <link rel="icon" href="assets/logo.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="main.css/welcome.css">
 </head>
 <body>
-  <main class="welcome">
-    <header class="welcome-top">
+  <main class="welcome-shell">
+    <header class="top">
       <div class="brand">
         <img src="assets/logo.png" alt="Coding Master">
         <div>
@@ -17,67 +18,75 @@
           <span>بيئة كتابة الأكواد</span>
         </div>
       </div>
-      <span class="version">Coding Master 0.1</span>
+      <div class="top-right">
+        <span>Coding Master 0.1</span>
+        <button id="helpBtn" type="button" title="التعليمات">?</button>
+      </div>
     </header>
 
-    <section class="hero">
-      <div class="hero-copy">
-        <span class="eyebrow">WELCOME</span>
-        <h1>أهلًا بك في<br><span>Coding Master</span></h1>
-        <p>مكان واحد تكتب فيه الكود، تنظّم ملفاتك، وتشاهد النتيجة أمامك.</p>
-        <button id="startBtn" class="start-btn" type="button">ابدأ الكتابة <span>→</span></button>
-        <label class="remember">
-          <input id="rememberMe" type="checkbox" checked>
-          <span>افتح المحرر مباشرة في المرات القادمة</span>
-        </label>
-      </div>
+    <section class="welcome-grid">
+      <section class="welcome-copy">
+        <span class="eyebrow">CODING MASTER</span>
+        <h1>ابدأ ببناء<br><span>فكرتك.</span></h1>
+        <p>اكتب، عدّل، جرّب وشاهد النتيجة في مكان واحد.</p>
 
-      <div class="guide">
-        <div class="guide-head">
-          <div>
-            <span class="guide-kicker">GET STARTED</span>
-            <h2>ابدأ في 3 خطوات</h2>
-          </div>
-          <div class="guide-mark">CM</div>
+        <div class="start-block">
+          <h2>ابدأ</h2>
+          <button class="action-link" id="newFileBtn" type="button"><span class="action-icon">＋</span> ملف جديد...</button>
+          <button class="action-link" id="openFileBtn" type="button"><span class="action-icon">↗</span> فتح ملف...</button>
+          <button class="action-link" id="openFolderBtn" type="button"><span class="action-icon">□</span> فتح مشروع...</button>
         </div>
 
-        <div class="step">
-          <b>01</b>
+        <div class="shortcuts">
+          <span class="shortcut-label">اختصارات سريعة</span>
           <div>
-            <h3>أنشئ فكرتك</h3>
-            <p>ابدأ بمشروع جديد واكتب أول ملف لك.</p>
+            <span><kbd>⌘ N</kbd> ملف جديد</span>
+            <span><kbd>⌘ O</kbd> فتح ملف</span>
+            <span><kbd>⌘ W</kbd> إغلاق الملف</span>
           </div>
         </div>
-        <div class="step">
-          <b>02</b>
-          <div>
-            <h3>اكتب الكود</h3>
-            <p>تبدّل بين الملفات من القائمة الجانبية وتعمل على الكود مباشرة.</p>
-          </div>
-        </div>
-        <div class="step">
-          <b>03</b>
-          <div>
-            <h3>شاهد النتيجة</h3>
-            <p>شغّل مشروعك وافتح المعاينة من داخل البيئة نفسها.</p>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <section class="tips">
-      <div class="tip-card">
-        <span>⌘ P</span>
-        <div><strong>فتح الملفات</strong><small>اختصار سريع للوصول إلى الملفات.</small></div>
-      </div>
-      <div class="tip-card">
-        <span>⌘ S</span>
-        <div><strong>حفظ</strong><small>احفظ مشروعك بسرعة أثناء العمل.</small></div>
-      </div>
-      <div class="tip-card">
-        <span>▶</span>
-        <div><strong>تشغيل</strong><small>شاهد ما صنعته في المعاينة.</small></div>
-      </div>
+        <input id="filePicker" type="file" multiple hidden
+          accept=".html,.htm,.css,.js,.json,.md,.txt,.xml,.svg,.ts,.tsx,.jsx">
+        <input id="folderPicker" type="file" webkitdirectory directory multiple hidden>
+      </section>
+
+      <section class="start-panel">
+        <div class="panel-heading">
+          <div>
+            <span class="kicker">START</span>
+            <h2>ابدأ بسرعة</h2>
+          </div>
+          <span class="panel-mark">CM</span>
+        </div>
+
+        <button class="big-action" id="continueBtn" type="button">
+          <span class="big-icon">▶</span>
+          <span><b>فتح المحرر</b><small>الدخول مباشرة إلى بيئة الكتابة</small></span>
+          <em>→</em>
+        </button>
+
+        <button class="big-action" id="importBtn" type="button">
+          <span class="big-icon">⇩</span>
+          <span><b>استيراد ملفات</b><small>اجلب ملفاتك من أي مكان في جهازك</small></span>
+          <em>→</em>
+        </button>
+
+        <div class="recent-heading">
+          <span>RECENT</span>
+          <button id="clearRecentBtn" type="button">مسح</button>
+        </div>
+        <div class="recent-list" id="recentList"></div>
+
+        <div class="walkthrough">
+          <div>
+            <span class="kicker">WALKTHROUGH</span>
+            <b>تعلم أساسيات Coding Master</b>
+            <small>ابدأ بملف HTML ثم أضف CSS وJavaScript.</small>
+          </div>
+          <button id="learnBtn" type="button">ابدأ الشرح →</button>
+        </div>
+      </section>
     </section>
 
     <footer>
