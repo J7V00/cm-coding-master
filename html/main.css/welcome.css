@@ -87,14 +87,20 @@ button{cursor:pointer}
   flex:1;
   min-height:620px;
   display:grid;
-  grid-template-columns:minmax(0,1fr) 360px;
-  align-items:center;
-  gap:110px;
-  padding:55px 7vw 52px 8vw;
+  grid-template-columns:360px minmax(0,720px);
+  align-items:start;
+  justify-content:space-between;
+  gap:70px;
+  padding:82px 5vw 52px;
 }
 
 .welcome-content{
+  grid-column:2;
+  grid-row:1;
+  width:100%;
   max-width:720px;
+  justify-self:end;
+  text-align:left;
 }
 
 .welcome-label{
@@ -237,8 +243,11 @@ button{cursor:pointer}
 }
 
 .welcome-side{
-  height:330px;
+  grid-column:1;
+  grid-row:1;
+  height:280px;
   position:relative;
+  align-self:center;
   border-left:1px solid #202020;
   padding-left:32px;
   display:flex;
@@ -321,7 +330,14 @@ footer a:hover{color:#ddd}
     padding-left:0;
     padding-right:0;
   }
+  .welcome-content{
+    grid-column:1;
+    grid-row:1;
+    justify-self:stretch;
+  }
   .welcome-side{
+    grid-column:1;
+    grid-row:2;
     height:220px;
     max-width:620px;
   }
