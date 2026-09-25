@@ -512,6 +512,9 @@ function firstIndexFile(){
   const exact=Object.keys(files).find(path=>normalizePath(path).toLowerCase()==="index.html");
   if(exact)return exact;
 
+  const nested=Object.keys(files).find(path=>baseName(path).toLowerCase()==="index.html");
+  if(nested)return nested;
+
   return Object.keys(files).find(path=>extension(path)==="html")||
     Object.keys(files)[0]||
     "index.html";
