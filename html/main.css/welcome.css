@@ -53,3 +53,13 @@ footer{display:flex;justify-content:space-between;padding-top:12px;border-top:1p
 footer a{color:#666;text-decoration:none}footer a:hover{color:#ddd}
 @media(max-width:850px){.welcome-grid{grid-template-columns:1fr;gap:25px;padding-top:32px}.welcome-shell{padding:18px 20px}.welcome-copy{padding-top:0}}
 @media(max-width:520px){.top{align-items:flex-start}.top-right span{display:none}.shortcuts>div{flex-direction:column}.welcome-copy h1{font-size:48px}footer{flex-direction:column;gap:6px}}
+/* Top file actions sit above the Welcome content */
+.actionbar{height:48px;display:flex;align-items:center;gap:6px;margin-top:10px;padding:7px;border:1px solid var(--line);border-radius:10px;background:#0f0f0f}
+.action{height:32px;display:inline-flex;align-items:center;gap:8px;padding:0 11px;border:1px solid #282828;border-radius:7px;background:#151515;color:#a0a0a0;font-size:10px;font-weight:700}
+.action:hover{background:#1a1a1a;border-color:#404040;color:#fff}
+.action.primary{border-color:#3c3c3c}.action.start{margin-left:auto;border-color:#fff;background:#fff;color:#080808;padding:0 14px}
+.action-symbol{font-size:15px;line-height:1;color:#787878}.action-arrow{font-size:14px}
+.action kbd{height:19px;min-width:27px;padding:0 6px;display:inline-flex;align-items:center;justify-content:center;border:1px solid #313131;border-radius:5px;background:#101010;color:#8a8a8a;font:8px ui-monospace,SFMono-Regular,Menlo,monospace}
+.action-spacer{flex:1}
+.action.start:hover{background:#e9e9e9;border-color:#e9e9e9;color:#080808}
+@media(max-width:520px){.action kbd{display:none}.actionbar{overflow:auto}}
