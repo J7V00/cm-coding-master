@@ -439,8 +439,8 @@ function renderExplorer(){
     .map(normalizePath)
     .sort((a,b)=>a.localeCompare(b));
 
-  const folders=[];
-  const seen=new Set();
+  const folderList=[...folders];
+  const seen=new Set(folders);
 
   entries.forEach(path=>{
     const parts=path.split("/");
@@ -451,13 +451,13 @@ function renderExplorer(){
 
         if(!seen.has(folder)){
           seen.add(folder);
-          folders.push(folder);
+          folderList.push(folder);
         }
       }
     }
   });
 
-  const folderHtml=folders.map(folder=>{
+  const folderHtml=[...new Set(folderList)].sort((a,b)=>a.localeCompare(b)).map(folder=>{
     const depth=folder.split("/").length-1;
 
     return '<button class="tree-folder" data-folder="'+escapeAttr(folder)+
@@ -482,9 +482,77 @@ function renderExplorer(){
 
   sideContent.querySelectorAll(".tree-file").forEach(button=>{
     button.addEventListener("click",()=>openFile(button.dataset.file));
+
+    button.addEventListener("dragstart",event=>{
+      event.dataTransfer.setData("text/cm-file",button.dataset.file);
+      event.dataTransfer.effectAllowed="move";
+      button.classList.add("dragging");
+    });
+
+    button.addEventListener("dragend",()=>{
+      button.classList.remove("dragging");
+    });
+  });
+
+  sideContent.querySelectorAll(".tree-folder").forEach(button=>{
+    const folder=button.dataset.folder;
+
+    button.addEventListener("click",()=>{
+      activeFolder=folder;
+    });
+
+    button.addEventListener("dragover",event=>{
+      if(event.dataTransfer.types.includes("text/cm-file")){
+        event.preventDefault();
+        event.dataTransfer.dropEffect="move";
+        button.classList.add("drop-target");
+      }
+    });
+
+    button.addEventListener("dragleave",()=>{
+      button.classList.remove("drop-target");
+    });
+
+    button.addEventListener("drop",event=>{
+      event.preventDefault();
+      button.classList.remove("drop-target");
+
+      const source=event.dataTransfer.getData("text/cm-file");
+      if(source)moveFileToFolder(source,folder);
+    });
   });
 }
 
+function moveFileToFolder(source,targetFolder){
+  source=normalizePath(source);
+  targetFolder=normalizePath(targetFolder);
+
+  if(!source||!(source in files)||!targetFolder)return;
+
+  const next=targetFolder+"/"+baseName(source);
+
+  if(next===source)return;
+
+  if(next in files){
+    panelBody.innerHTML='<p class="problem-row">That file already exists in the target folder.</p>';
+    return;
+  }
+
+  files[next]=files[source];
+  delete files[source];
+
+  openFiles=openFiles.map(file=>file===source?next:file);
+  if(currentFile===source)currentFile=next;
+
+  addFolderAndParents(targetFolder);
+  saveStore();
+  renderExplorer();
+  renderTabs();
+
+  editor.value=files[currentFile]||"";
+  breadcrumb.textContent=currentFile.replace(///g," / ");
+  renderSyntax();
+}
 function renderTabs(){
   const tabs=document.getElementById("tabs");
 
