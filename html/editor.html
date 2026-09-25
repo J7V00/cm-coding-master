@@ -35,16 +35,24 @@
           <div class="sidebar-actions">
             <button id="newFileBtn" type="button" title="New File">＋</button>
             <button id="openFileBtn" type="button" title="Open File">↗</button>
+            <button id="openFolderBtn" type="button" title="Open Folder">□</button>
           </div>
         </div>
+
         <input id="filePicker" type="file" multiple hidden accept=".html,.htm,.css,.js,.json,.md,.txt,.xml,.svg,.ts,.tsx,.jsx">
         <input id="folderPicker" type="file" webkitdirectory directory multiple hidden>
+
         <div id="sideContent"></div>
-        <div class="sidebar-note"><b>Project</b><span>Drop files here or open them from your computer.</span></div>
+
+        <div class="sidebar-note">
+          <b>Project</b>
+          <span>Drop files or folders here to add them to the workspace.</span>
+        </div>
       </aside>
 
       <main class="main-editor">
         <div class="tabs" id="tabs"></div>
+
         <div class="center">
           <section class="code-area">
             <div class="editor-toolbar">
@@ -52,30 +60,50 @@
               <div class="toolbar-actions">
                 <button id="saveBtn" type="button">Save</button>
                 <button id="runBtn" class="run" type="button">▶ Run</button>
+                <button id="chromeBtn" type="button">↗ Preview</button>
               </div>
             </div>
+
             <div class="editor-grid">
               <pre id="lineNumbers" class="line-numbers">1</pre>
-              <textarea id="codeEditor" spellcheck="false" autocomplete="off" autocapitalize="off" aria-label="محرر الأكواد"></textarea>
+              <div class="code-stage">
+                <pre id="syntaxLayer" class="syntax-layer" aria-hidden="true"></pre>
+                <textarea id="codeEditor" spellcheck="false" autocomplete="off" autocapitalize="off" aria-label="Code editor"></textarea>
+              </div>
             </div>
           </section>
+
           <section class="preview" id="previewPane">
-            <div class="preview-head"><div><b>Preview</b><small>PREVIEW</small></div><button id="refreshBtn" type="button">↻</button></div>
-            <iframe id="preview" title="معاينة Project"></iframe>
+            <div class="preview-head">
+              <div><b>Preview</b><small>LIVE</small></div>
+              <button id="refreshBtn" type="button" title="Refresh Preview">↻</button>
+            </div>
+            <iframe id="preview" title="Coding Master Preview"></iframe>
           </section>
         </div>
+
         <section class="panel">
-          <div class="panel-head"><div class="panel-tabs">
-            <button class="panel-tab active" data-panel="terminal" type="button">TERMINAL</button>
-            <button class="panel-tab" data-panel="problems" type="button">PROBLEMS <span id="problemCount">0</span></button>
-            <button class="panel-tab" data-panel="output" type="button">OUTPUT</button>
-          </div></div>
-          <div class="panel-body" id="panelBody"><div>$ <span>coding-master</span></div><p>Ready.</p></div>
+          <div class="panel-head">
+            <div class="panel-tabs">
+              <button class="panel-tab active" data-panel="terminal" type="button">TERMINAL</button>
+              <button class="panel-tab" data-panel="problems" type="button">PROBLEMS <span id="problemCount">0</span></button>
+              <button class="panel-tab" data-panel="output" type="button">OUTPUT</button>
+            </div>
+          </div>
+          <div class="panel-body" id="panelBody">
+            <div>$ <span>coding-master</span></div>
+            <p>Ready.</p>
+          </div>
         </section>
       </main>
     </div>
-    <footer class="statusbar"><span>main</span><span id="status">Ln 1, Col 1 • HTML • UTF-8</span></footer>
+
+    <footer class="statusbar">
+      <span id="projectName">coding-master</span>
+      <span id="status">Ln 1, Col 1 • HTML • UTF-8</span>
+    </footer>
   </div>
+
   <script src="editor.js"></script>
 </body>
 </html>
