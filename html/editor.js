@@ -551,9 +551,11 @@ function moveFileToFolder(source,targetFolder){
   renderTabs();
 
   editor.value=files[currentFile]||"";
-  breadcrumb.textContent=currentFile.replace(///g," / ");
+  breadcrumb.textContent=currentFile.replace(/\//g," / ");
   renderSyntax();
-}function newFolder(parent=""){
+}
+
+function newFolder(parent=""){
   const raw=prompt("Folder name","html");
   if(!raw)return;
 
