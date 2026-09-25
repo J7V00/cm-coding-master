@@ -8,123 +8,123 @@
   <link rel="stylesheet" href="main.css/welcome.css">
 </head>
 <body>
-  <main class="cm-welcome">
+  <main class="welcome">
 
-    <header class="cm-header">
-      <a href="index.html" class="cm-brand">
+    <header class="navbar">
+      <a href="index.html" class="brand">
         <img src="assets/logo.png" alt="Coding Master">
         <span>Coding Master</span>
       </a>
 
-      <div class="cm-header-right">
+      <div class="nav-right">
         <span>WELCOME</span>
-        <button id="helpBtn" class="cm-help" type="button">?</button>
+        <button id="helpBtn" class="help-btn" type="button">?</button>
       </div>
     </header>
 
-    <nav class="cm-toolbar">
-      <div class="cm-toolbar-left">
-        <button id="newFileBtn" class="cm-tool cm-tool-main" type="button">
-          <span>＋</span> New File
-          <kbd>⌘N</kbd>
-        </button>
-        <button id="openFileBtn" class="cm-tool" type="button">
-          <span>↗</span> Open File
-          <kbd>⌘O</kbd>
-        </button>
-        <button id="openFolderBtn" class="cm-tool" type="button">
-          <span>□</span> Open Folder
-        </button>
-      </div>
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow">CODING MASTER</div>
 
-      <button id="continueBtn" class="cm-open-editor" type="button">
-        Open Editor <span>→</span>
-      </button>
-    </nav>
-
-    <section class="cm-main">
-
-      <div class="cm-intro">
-        <div class="cm-eyebrow">YOUR CODING WORKSPACE</div>
-
-        <h1>Welcome to<br><strong>Coding Master.</strong></h1>
+        <h1>Welcome<br><span>to your workspace.</span></h1>
 
         <p>
-          Create your files, write your code, and bring your ideas to life.
+          Learn the basics, write your code, and build your next project in one focused workspace.
         </p>
 
-        <div class="cm-actions">
-          <button id="heroStartBtn" class="cm-start" type="button">
-            Start Coding <span>→</span>
-          </button>
-
-          <button id="heroOpenBtn" class="cm-project" type="button">
-            Open Project
-          </button>
-        </div>
+        <button id="continueBtn" class="open-editor" type="button">
+          Open Editor
+          <span>→</span>
+        </button>
       </div>
 
-      <div class="cm-editor">
-        <div class="cm-editor-head">
-          <div class="cm-dots"><i></i><i></i><i></i></div>
-          <span>index.html</span>
-          <b>HTML</b>
+      <div class="code-box">
+        <div class="code-head">
+          <div class="dots"><i></i><i></i><i></i></div>
+          <span>coding-master</span>
+          <b>READY</b>
         </div>
 
-        <div class="cm-editor-body">
-          <div class="cm-lines" aria-hidden="true">
-            1<br>2<br>3<br>4<br>5<br>6<br>7<br>8
-          </div>
-
-          <pre><code><span class="muted">&lt;!DOCTYPE html&gt;</span>
-<span class="tag">&lt;html</span> <span class="attr">lang</span>=<span class="string">"en"</span><span class="tag">&gt;</span>
-  <span class="tag">&lt;body&gt;</span>
-    <span class="tag">&lt;h1&gt;</span><span class="light">Hello, Coding Master</span><span class="tag">&lt;/h1&gt;</span>
-    <span class="tag">&lt;p&gt;</span><span class="light">Start building.</span><span class="tag">&lt;/p&gt;</span>
-  <span class="tag">&lt;/body&gt;</span>
-<span class="tag">&lt;/html&gt;</span></code></pre>
+        <div class="code-area">
+          <div class="numbers" aria-hidden="true">01<br>02<br>03<br>04<br>05<br>06<br>07</div>
+          <pre><code><span class="gray">&lt;main&gt;</span>
+  <span class="gray">&lt;h1&gt;</span><span class="white">Build your idea.</span><span class="gray">&lt;/h1&gt;</span>
+  <span class="gray">&lt;button&gt;</span>
+    <span class="yellow">Start Coding</span>
+  <span class="gray">&lt;/button&gt;</span>
+<span class="gray">&lt;/main&gt;</span></code></pre>
         </div>
 
-        <div class="cm-editor-foot">
-          <span>● Ready</span>
-          <span>Ln 8, Col 1</span>
+        <div class="code-status">
+          <span>HTML</span>
+          <span>● No errors</span>
         </div>
       </div>
-
     </section>
 
-    <section class="cm-bottom">
-      <div class="cm-bottom-title">
-        <span>START SIMPLE</span>
-        <strong>Everything begins with one line of code.</strong>
+    <section class="quick-box">
+      <div class="quick-heading">
+        <div>
+          <span class="quick-label">START HERE</span>
+          <h2>Choose an action</h2>
+        </div>
+        <span class="quick-number">02</span>
       </div>
 
-      <div class="cm-bottom-links">
-        <div><b>01</b><span>Create</span></div>
-        <div><b>02</b><span>Code</span></div>
-        <div><b>03</b><span>Preview</span></div>
+      <div class="quick-grid">
+        <button id="newFileBtn" class="quick-card" type="button">
+          <div class="quick-icon">＋</div>
+          <div class="quick-text">
+            <strong>New File</strong>
+            <small>Start a clean file</small>
+          </div>
+          <kbd>⌘N</kbd>
+        </button>
+
+        <button id="openFileBtn" class="quick-card" type="button">
+          <div class="quick-icon">↗</div>
+          <div class="quick-text">
+            <strong>Open File</strong>
+            <small>Open an existing file</small>
+          </div>
+          <kbd>⌘O</kbd>
+        </button>
+
+        <button id="openFolderBtn" class="quick-card" type="button">
+          <div class="quick-icon">□</div>
+          <div class="quick-text">
+            <strong>Open Folder</strong>
+            <small>Open an entire project</small>
+          </div>
+        </button>
+      </div>
+    </section>
+
+    <section class="steps">
+      <div>
+        <span>01</span>
+        <strong>Create</strong>
+      </div>
+      <div>
+        <span>02</span>
+        <strong>Code</strong>
+      </div>
+      <div>
+        <span>03</span>
+        <strong>Preview</strong>
       </div>
     </section>
 
     <input id="filePicker" type="file" multiple hidden accept=".html,.htm,.css,.js,.json,.md,.txt,.xml,.svg,.ts,.tsx,.jsx">
     <input id="folderPicker" type="file" webkitdirectory directory multiple hidden>
 
-    <footer class="cm-footer">
+    <footer>
       <span>Learn • Write • Experiment • Build</span>
       <a href="index.html">Coding Master Website</a>
     </footer>
 
   </main>
 
-  <script>
-    document.getElementById("heroStartBtn").addEventListener("click", () => {
-      document.getElementById("continueBtn").click();
-    });
-
-    document.getElementById("heroOpenBtn").addEventListener("click", () => {
-      document.getElementById("openFileBtn").click();
-    });
-  </script>
   <script src="welcome.js"></script>
 </body>
 </html>
