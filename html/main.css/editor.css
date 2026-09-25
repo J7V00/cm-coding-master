@@ -95,3 +95,4 @@ button{cursor:pointer}
 .statusbar{height:22px;background:#171717;display:flex;justify-content:space-between;align-items:center;padding:0 9px;color:#888;font:8px ui-monospace,SFMono-Regular,Menlo,monospace;direction:ltr}
 @media(max-width:950px){.sidebar{width:220px;flex-basis:220px}.center{grid-template-columns:1fr}.preview{display:none}}
 @media(max-width:700px){.sidebar{display:none}.titlebar{grid-template-columns:160px 1fr 70px}.command{width:85%}.toolbar-actions button{padding:0 8px}.toolbar-actions #chromeBtn{display:none}}
+.syn-error .syn-tag,.syn-error .syn-attr,.syn-error .syn-string,.syn-error .syn-keyword,.syn-error .syn-number,.syn-error .syn-property,.syn-error .syn-selector,.syn-error .syn-value,.syn-error .syn-punc{color:var(--red)!important}
