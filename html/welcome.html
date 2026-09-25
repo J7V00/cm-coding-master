@@ -17,102 +17,83 @@
       </a>
 
       <div class="nav-right">
-        <span>WELCOME</span>
-        <button id="helpBtn" class="help-btn" type="button">?</button>
+        <span>CODING MASTER</span>
+        <button id="helpBtn" class="help-btn" type="button" aria-label="Open Editor">?</button>
       </div>
     </header>
 
-    <section class="hero">
-      <div class="hero-copy">
-        <div class="eyebrow">CODING MASTER</div>
+    <section class="welcome-area">
 
-        <h1>Welcome<br><span>to your workspace.</span></h1>
+      <div class="welcome-content">
+        <div class="welcome-label">WELCOME</div>
 
-        <p>
-          Learn the basics, write your code, and build your next project in one focused workspace.
-        </p>
+        <h1>Welcome to<br><strong>Coding Master.</strong></h1>
 
-        <button id="continueBtn" class="open-editor" type="button">
-          Open Editor
-          <span>→</span>
-        </button>
-      </div>
+        <p>Start a file, open a project, and write your code.</p>
 
-      <div class="code-box">
-        <div class="code-head">
-          <div class="dots"><i></i><i></i><i></i></div>
-          <span>coding-master</span>
-          <b>READY</b>
-        </div>
-
-        <div class="code-area">
-          <div class="numbers" aria-hidden="true">01<br>02<br>03<br>04<br>05<br>06<br>07</div>
-          <pre><code><span class="gray">&lt;main&gt;</span>
-  <span class="gray">&lt;h1&gt;</span><span class="white">Build your idea.</span><span class="gray">&lt;/h1&gt;</span>
-  <span class="gray">&lt;button&gt;</span>
-    <span class="yellow">Start Coding</span>
-  <span class="gray">&lt;/button&gt;</span>
-<span class="gray">&lt;/main&gt;</span></code></pre>
-        </div>
-
-        <div class="code-status">
-          <span>HTML</span>
-          <span>● No errors</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="quick-box">
-      <div class="quick-heading">
-        <div>
-          <span class="quick-label">START HERE</span>
-          <h2>Choose an action</h2>
-        </div>
-        <span class="quick-number">02</span>
-      </div>
-
-      <div class="quick-grid">
-        <button id="newFileBtn" class="quick-card" type="button">
-          <div class="quick-icon">＋</div>
-          <div class="quick-text">
-            <strong>New File</strong>
-            <small>Start a clean file</small>
+        <div class="action-box">
+          <div class="action-box-top">
+            <span>GET STARTED</span>
+            <b>01</b>
           </div>
-          <kbd>⌘N</kbd>
-        </button>
 
-        <button id="openFileBtn" class="quick-card" type="button">
-          <div class="quick-icon">↗</div>
-          <div class="quick-text">
-            <strong>Open File</strong>
-            <small>Open an existing file</small>
+          <div class="actions">
+
+            <button id="newFileBtn" class="action-card" type="button">
+              <span class="action-icon">＋</span>
+              <span class="action-copy">
+                <strong>New File</strong>
+                <small>Create a new code file</small>
+              </span>
+              <kbd>⌘N</kbd>
+            </button>
+
+            <button id="openFileBtn" class="action-card" type="button">
+              <span class="action-icon">↗</span>
+              <span class="action-copy">
+                <strong>Open File</strong>
+                <small>Choose a file from your Mac</small>
+              </span>
+              <kbd>⌘O</kbd>
+            </button>
+
+            <button id="openFolderBtn" class="action-card" type="button">
+              <span class="action-icon">□</span>
+              <span class="action-copy">
+                <strong>Open Folder</strong>
+                <small>Open a complete project folder</small>
+              </span>
+              <span class="action-go">→</span>
+            </button>
+
           </div>
-          <kbd>⌘O</kbd>
-        </button>
+        </div>
+      </div>
 
-        <button id="openFolderBtn" class="quick-card" type="button">
-          <div class="quick-icon">□</div>
-          <div class="quick-text">
-            <strong>Open Folder</strong>
-            <small>Open an entire project</small>
-          </div>
-        </button>
-      </div>
-    </section>
+      <div class="welcome-side">
+        <div class="side-line"></div>
 
-    <section class="steps">
-      <div>
-        <span>01</span>
-        <strong>Create</strong>
+        <div class="side-code">
+          <span class="line">01</span>
+          <span class="code-text">&lt;start&gt;</span>
+        </div>
+
+        <div class="side-code">
+          <span class="line">02</span>
+          <span class="code-text">your idea</span>
+        </div>
+
+        <div class="side-code">
+          <span class="line">03</span>
+          <span class="code-text">&lt;/start&gt;</span>
+        </div>
+
+        <div class="side-note">
+          <span>01</span>
+          <p>Open a folder once.<br>Code inside it.</p>
+        </div>
       </div>
-      <div>
-        <span>02</span>
-        <strong>Code</strong>
-      </div>
-      <div>
-        <span>03</span>
-        <strong>Preview</strong>
-      </div>
+
     </section>
 
     <input id="filePicker" type="file" multiple hidden accept=".html,.htm,.css,.js,.json,.md,.txt,.xml,.svg,.ts,.tsx,.jsx">
