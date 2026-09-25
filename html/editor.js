@@ -552,7 +552,26 @@ function moveFileToFolder(source,targetFolder){
   editor.value=files[currentFile]||"";
   breadcrumb.textContent=currentFile.replace(///g," / ");
   renderSyntax();
+}function newFolder(parent=""){
+  const raw=prompt("Folder name","html");
+  if(!raw)return;
+
+  let name=normalizePath(raw.trim());
+  if(!name)return;
+
+  const path=parent&&!name.includes("/")
+    ? normalizePath(parent)+"/"+name
+    : name;
+
+  addFolderAndParents(path);
+  activeFolder=path;
+  saveStore();
+  renderExplorer();
+
+  panelBody.innerHTML='<div>$ coding-master folder</div><p class="success-row">Created '+escapeHtml(path)+'.</p>';
 }
+
+
 function renderTabs(){
   const tabs=document.getElementById("tabs");
 
@@ -661,6 +680,7 @@ async function importFiles(list,targetFolder=""){
 
       if(path){
         files[path]=await file.text();
+        addFolderAndParents(parentFolder(path));
         count++;
       }
 
@@ -754,7 +774,8 @@ function openPreview(){
   }
 }
 
-document.getElementById("newFileBtn").addEventListener("click",()=>newFile());
+document.getElementById("newFileBtn").addEventListener("click",()=>newFile(activeFolder));
+document.getElementById("newFolderBtn").addEventListener("click",()=>newFolder(activeFolder));
 document.getElementById("openFileBtn").addEventListener("click",()=>filePicker.click());
 document.getElementById("openFolderBtn").addEventListener("click",()=>folderPicker.click());
 
