@@ -3,102 +3,172 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Coding Master - Welcome</title>
+  <title>Coding Master — Welcome</title>
   <link rel="icon" href="assets/logo.png" type="image/png">
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="main.css/welcome.css">
 </head>
 <body>
-  <main class="welcome-shell">
+  <main class="welcome-page">
     <header class="topbar">
-      <div class="brand">
+      <a class="brand" href="index.html" aria-label="Coding Master">
         <img src="assets/logo.png" alt="Coding Master">
-        <div>
+        <div class="brand-copy">
           <strong>Coding Master</strong>
-          <span>Code, build, and learn.</span>
+          <span>Build your next idea.</span>
         </div>
-      </div>
-      <div class="top-right">
-        <span>VERSION 0.1</span>
-        <button id="helpBtn" type="button" title="Help">?</button>
+      </a>
+
+      <div class="top-actions">
+        <span class="version">VERSION 0.1</span>
+        <button id="helpBtn" class="icon-btn" type="button" aria-label="Open Editor">?</button>
       </div>
     </header>
 
-    <nav class="actionbar" aria-label="File actions">
-      <button id="newFileBtn" type="button" class="action primary"><span class="action-symbol">＋</span><span>New File</span><kbd>⌘N</kbd></button>
-      <button id="openFileBtn" type="button" class="action"><span class="action-symbol">↗</span><span>Open File</span><kbd>⌘O</kbd></button>
-      <button id="openFolderBtn" type="button" class="action"><span class="action-symbol">□</span><span>Open Folder</span></button>
-      <div class="action-spacer"></div>
-      <button id="continueBtn" type="button" class="action start"><span>Open Editor</span><span class="action-arrow">→</span></button>
+    <nav class="actionbar" aria-label="Workspace actions">
+      <button id="newFileBtn" class="tool-btn active" type="button">
+        <span class="tool-icon">＋</span>
+        <span>New File</span>
+        <kbd>⌘N</kbd>
+      </button>
+
+      <button id="openFileBtn" class="tool-btn" type="button">
+        <span class="tool-icon">↗</span>
+        <span>Open File</span>
+        <kbd>⌘O</kbd>
+      </button>
+
+      <button id="openFolderBtn" class="tool-btn" type="button">
+        <span class="tool-icon">□</span>
+        <span>Open Folder</span>
+      </button>
+
+      <div class="toolbar-space"></div>
+
+      <button id="continueBtn" class="editor-btn" type="button">
+        <span>Open Editor</span>
+        <span class="editor-arrow">→</span>
+      </button>
     </nav>
 
-    <section class="welcome-grid">
-      <section class="welcome-copy">
-        <span class="eyebrow">WELCOME</span>
-        <h1>Welcome to<br><span>Coding Master.</span></h1>
-        <p>A focused workspace for writing code, opening projects, and seeing your work come to life.</p>
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="hero-label">WELCOME TO CODING MASTER</span>
 
-        <div class="walkthrough-card">
-          <div class="section-head">
+        <h1>
+          Write code.<br>
+          <span>Build anything.</span>
+        </h1>
+
+        <p class="hero-text">
+          A focused coding workspace for learning, experimenting, and turning ideas into real projects.
+        </p>
+
+        <div class="hero-actions">
+          <button id="heroStartBtn" class="hero-primary" type="button">
+            Start Coding
+            <span>→</span>
+          </button>
+
+          <button id="heroOpenBtn" class="hero-secondary" type="button">
+            Open a Project
+          </button>
+        </div>
+
+        <div class="quick-points">
+          <div class="quick-point">
+            <span class="point-number">01</span>
             <div>
-              <span class="kicker">WALKTHROUGH</span>
-              <h2>Learn the basics</h2>
+              <strong>Create</strong>
+              <small>Start with a clean file.</small>
             </div>
-            <span class="section-mark">01</span>
           </div>
 
-          <div class="step">
-            <b>01</b>
+          <div class="quick-point">
+            <span class="point-number">02</span>
             <div>
-              <h3>Create a file</h3>
-              <p>Start with HTML, CSS, JavaScript, or any file you need.</p>
+              <strong>Code</strong>
+              <small>Write and organize your project.</small>
             </div>
           </div>
 
-          <div class="step">
-            <b>02</b>
+          <div class="quick-point">
+            <span class="point-number">03</span>
             <div>
-              <h3>Write your code</h3>
-              <p>Use Explorer to move between files and keep your project organized.</p>
-            </div>
-          </div>
-
-          <div class="step last">
-            <b>03</b>
-            <div>
-              <h3>Run and preview</h3>
-              <p>Run your project and check the result without leaving Coding Master.</p>
+              <strong>Run</strong>
+              <small>See your work come to life.</small>
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
-      <aside class="start-panel">
-        <div class="panel-heading">
+      <div class="editor-preview">
+        <div class="preview-top">
+          <div class="window-dots">
+            <span></span><span></span><span></span>
+          </div>
+          <span class="preview-title">index.html</span>
+          <span class="preview-status">READY</span>
+        </div>
+
+        <div class="preview-body">
+          <div class="line-numbers" aria-hidden="true">
+            01<br>02<br>03<br>04<br>05<br>06<br>07<br>08<br>09<br>10<br>11
+          </div>
+
+          <pre><code><span class="code-muted">&lt;!DOCTYPE html&gt;</span>
+<span class="code-tag">&lt;html</span> <span class="code-attr">lang</span>=<span class="code-string">"en"</span><span class="code-tag">&gt;</span>
+  <span class="code-tag">&lt;body&gt;</span>
+    <span class="code-tag">&lt;main</span> <span class="code-attr">class</span>=<span class="code-string">"project"</span><span class="code-tag">&gt;</span>
+      <span class="code-tag">&lt;h1&gt;</span><span class="code-light">Your idea starts here.</span><span class="code-tag">&lt;/h1&gt;</span>
+      <span class="code-tag">&lt;p&gt;</span><span class="code-light">Create. Learn. Build.</span><span class="code-tag">&lt;/p&gt;</span>
+    <span class="code-tag">&lt;/main&gt;</span>
+  <span class="code-tag">&lt;/body&gt;</span>
+<span class="code-tag">&lt;/html&gt;</span></code></pre>
+        </div>
+
+        <div class="preview-footer">
+          <span>HTML</span>
+          <span>11 lines</span>
+          <span>● No errors</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="bottom-panel">
+      <div class="bottom-heading">
+        <div>
+          <span class="section-label">YOUR WORKSPACE</span>
+          <h2>Everything you need to start.</h2>
+        </div>
+        <button id="clearRecentBtn" class="clear-btn" type="button">Clear Recent</button>
+      </div>
+
+      <div class="workspace-grid">
+        <article class="workspace-card">
+          <span class="card-index">A</span>
           <div>
-            <span class="kicker">RECENT</span>
-            <h2>Recent Projects</h2>
+            <strong>Simple workflow</strong>
+            <p>Create a file, write code, and move straight into the editor.</p>
           </div>
-          <button id="clearRecentBtn" type="button">Clear</button>
-        </div>
+        </article>
 
-        <div class="recent-list" id="recentList"></div>
+        <article class="workspace-card">
+          <span class="card-index">B</span>
+          <div>
+            <strong>Project ready</strong>
+            <p>Open a single file or an entire folder and keep your work organized.</p>
+          </div>
+        </article>
 
-        <div class="tips">
-          <div class="tip">
-            <kbd>⌘W</kbd>
-            <div><strong>Close File</strong><small>Close the current tab.</small></div>
+        <article class="workspace-card recent-card">
+          <span class="card-index">C</span>
+          <div class="recent-content">
+            <strong>Recent projects</strong>
+            <div id="recentList"></div>
           </div>
-          <div class="tip">
-            <kbd>⌘S</kbd>
-            <div><strong>Save</strong><small>Save your current work.</small></div>
-          </div>
-          <div class="tip">
-            <kbd>⌘↵</kbd>
-            <div><strong>Run</strong><small>Run and preview the project.</small></div>
-          </div>
-        </div>
-      </aside>
+        </article>
+      </div>
     </section>
 
     <input id="filePicker" type="file" multiple hidden accept=".html,.htm,.css,.js,.json,.md,.txt,.xml,.svg,.ts,.tsx,.jsx">
@@ -109,6 +179,16 @@
       <a href="index.html">Coding Master Website</a>
     </footer>
   </main>
+
+  <script>
+    document.getElementById("heroStartBtn").addEventListener("click", () => {
+      document.getElementById("continueBtn").click();
+    });
+
+    document.getElementById("heroOpenBtn").addEventListener("click", () => {
+      document.getElementById("openFileBtn").click();
+    });
+  </script>
   <script src="welcome.js"></script>
 </body>
 </html>
