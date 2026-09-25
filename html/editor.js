@@ -42,7 +42,7 @@ function saveStore(){try{localStorage.setItem(FILES_KEY,JSON.stringify(files))}c
 function updateLines(){lines.textContent=Array.from({length:Math.max(editor.value.split("\n").length,1)},(_,i)=>i+1).join("\n")}
 function save(){
  files[currentFile]=editor.value;saveStore();
- panelBody.innerHTML="<div>$ coding-master save</div><p>تم حفظ "+currentFile+".</p>";
+ panelBody.innerHTML="<div>$ coding-master save</div><p>Saved "+currentFile+".</p>";
 }
 function renderExplorer(){
  const names=Object.keys(files).filter(Boolean).sort((a,b)=>a==="index.html"?-1:b==="index.html"?1:a.localeCompare(b));
@@ -84,7 +84,7 @@ async function importFiles(list){
  for(const file of [...list]){
    try{addImportedFile(file.name,await file.text());count++}catch{}
  }
- if(count){localStorage.setItem("cm-was-imported","1");panelBody.innerHTML="<div>$ coding-master import</div><p>تم استيراد "+count+" ملف.</p>";}
+ if(count){localStorage.setItem("cm-was-imported","1");panelBody.innerHTML="<div>$ coding-master import</div><p>Imported "+count+" file(s).</p>";}
 }
 function newFile(){
  const name=prompt("اسم الملف الجديد","untitled.html");
@@ -98,7 +98,7 @@ function run(){
  const css=files["style.css"]||"";
  const js=(files["script.js"]||"").replace(/<\/script/gi,"<\\/script");
  preview.srcdoc=html.replace("</head>","<style>"+css+"</style></head>").replace("</body>","<script>"+js+"<\/script></body>");
- panelBody.innerHTML="<div>$ coding-master run</div><p>تم تشغيل المشروع في المعاينة.</p>";
+ panelBody.innerHTML="<div>$ coding-master run</div><p>Project is running in preview.</p>";
 }
 function escapeHtml(v){return String(v).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
 function escapeAttr(v){return escapeHtml(v)}
@@ -113,17 +113,17 @@ document.getElementById("refreshBtn").addEventListener("click",run);
 document.getElementById("previewToggle").addEventListener("click",()=>{const p=document.getElementById("previewPane");p.style.display=p.style.display==="none"?"flex":"none"});
 document.getElementById("welcomeBtn").addEventListener("click",()=>{localStorage.removeItem("cm-welcome-seen");location.href="welcome.html"});
 document.getElementById("commandBtn").addEventListener("click",()=>{panelBody.innerHTML="<div>⌘K</div><p>ملف جديد • فتح ملف • حفظ • تشغيل • معاينة</p>"});
-document.getElementById("settingsBtn").addEventListener("click",()=>{panelBody.innerHTML="<div>⚙ SETTINGS</div><p>الإعدادات ستتم إضافتها تدريجيًا.</p>"});
+document.getElementById("settingsBtn").addEventListener("click",()=>{panelBody.innerHTML="<div>⚙ SETTINGS</div><p>Settings will be added gradually.</p>"});
 document.querySelectorAll(".activity[data-view]").forEach(btn=>btn.addEventListener("click",()=>{
  document.querySelectorAll(".activity[data-view]").forEach(x=>x.classList.remove("active"));btn.classList.add("active");
  const view=btn.dataset.view;
  document.getElementById("sideTitle").textContent=view==="explorer"?"EXPLORER":view.toUpperCase();
  if(view==="explorer"){renderExplorer();return}
- sideContent.innerHTML='<div class="sidebar-note"><b>'+view.toUpperCase()+'</b><span>هذه المساحة جاهزة للتطوير لاحقًا.</span></div>';
+ sideContent.innerHTML='<div class="sidebar-note"><b>'+view.toUpperCase()+'</b><span>This space is ready for development.</span></div>';
 }));
 document.querySelectorAll(".panel-tab").forEach(btn=>btn.addEventListener("click",()=>{
  document.querySelectorAll(".panel-tab").forEach(x=>x.classList.remove("active"));btn.classList.add("active");
- panelBody.innerHTML="<div>"+btn.dataset.panel.toUpperCase()+"</div><p>جاهز.</p>";
+ panelBody.innerHTML="<div>"+btn.dataset.panel.toUpperCase()+"</div><p>Ready.</p>";
 }));
 editor.addEventListener("input",()=>{
  files[currentFile]=editor.value;updateLines();
