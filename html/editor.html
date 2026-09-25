@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>Coding Master</title>
   <link rel="icon" href="assets/logo.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="main.css/editor.css">
 </head>
 <body>
@@ -13,7 +14,7 @@
       <div class="brand"><img src="assets/logo.png" alt=""><span>Coding Master</span></div>
       <button class="command" id="commandBtn" type="button">⌘K <span>البحث عن أمر أو ملف...</span></button>
       <div class="top-actions">
-        <button id="welcomeBtn" type="button" title="التعليمات">?</button>
+        <button id="welcomeBtn" type="button" title="الصفحة الرئيسية">?</button>
         <button id="previewToggle" type="button" title="المعاينة">◫</button>
       </div>
     </header>
@@ -29,23 +30,25 @@
       </aside>
 
       <aside class="sidebar" id="sidebar">
-        <div class="sidebar-head"><span id="sideTitle">EXPLORER</span><button id="newFileBtn" type="button">＋</button></div>
-        <div id="sideContent">
-          <div class="folder">CODING-MASTER <span>⌄</span></div>
-          <button class="file active" data-file="index.html" type="button"><span class="file-icon html">◇</span> index.html</button>
-          <button class="file" data-file="style.css" type="button"><span class="file-icon css">◇</span> style.css</button>
-          <button class="file" data-file="script.js" type="button"><span class="file-icon js">◇</span> script.js</button>
+        <div class="sidebar-head">
+          <span id="sideTitle">EXPLORER</span>
+          <div class="sidebar-actions">
+            <button id="newFileBtn" type="button" title="ملف جديد">＋</button>
+            <button id="openFileBtn" type="button" title="فتح ملف">↗</button>
+          </div>
         </div>
-        <div class="sidebar-note"><b>المشروع</b><span>اكتب ملفاتك هنا، ثم شغّلها من المعاينة.</span></div>
+        <input id="filePicker" type="file" multiple hidden accept=".html,.htm,.css,.js,.json,.md,.txt,.xml,.svg,.ts,.tsx,.jsx">
+        <input id="folderPicker" type="file" webkitdirectory directory multiple hidden>
+        <div id="sideContent"></div>
+        <div class="sidebar-note"><b>المشروع</b><span>يمكنك إدخال ملف من أي مكان في جهازك.</span></div>
       </aside>
 
       <main class="main-editor">
         <div class="tabs" id="tabs"></div>
-
         <div class="center">
           <section class="code-area">
             <div class="editor-toolbar">
-              <span id="breadcrumb">CODING-MASTER / index.html</span>
+              <span id="breadcrumb"></span>
               <div class="toolbar-actions">
                 <button id="saveBtn" type="button">حفظ</button>
                 <button id="runBtn" class="run" type="button">▶ تشغيل</button>
@@ -56,30 +59,22 @@
               <textarea id="codeEditor" spellcheck="false" autocomplete="off" autocapitalize="off" aria-label="محرر الأكواد"></textarea>
             </div>
           </section>
-
           <section class="preview" id="previewPane">
             <div class="preview-head"><div><b>المعاينة</b><small>PREVIEW</small></div><button id="refreshBtn" type="button">↻</button></div>
             <iframe id="preview" title="معاينة المشروع"></iframe>
           </section>
         </div>
-
         <section class="panel">
-          <div class="panel-head">
-            <div class="panel-tabs">
-              <button class="panel-tab active" data-panel="terminal" type="button">TERMINAL</button>
-              <button class="panel-tab" data-panel="problems" type="button">PROBLEMS <span id="problemCount">0</span></button>
-              <button class="panel-tab" data-panel="output" type="button">OUTPUT</button>
-            </div>
-          </div>
+          <div class="panel-head"><div class="panel-tabs">
+            <button class="panel-tab active" data-panel="terminal" type="button">TERMINAL</button>
+            <button class="panel-tab" data-panel="problems" type="button">PROBLEMS <span id="problemCount">0</span></button>
+            <button class="panel-tab" data-panel="output" type="button">OUTPUT</button>
+          </div></div>
           <div class="panel-body" id="panelBody"><div>$ <span>coding-master</span></div><p>جاهز للعمل.</p></div>
         </section>
       </main>
     </div>
-
-    <footer class="statusbar">
-      <span>main</span>
-      <span id="status">Ln 1, Col 1 • HTML • UTF-8</span>
-    </footer>
+    <footer class="statusbar"><span>main</span><span id="status">Ln 1, Col 1 • HTML • UTF-8</span></footer>
   </div>
   <script src="editor.js"></script>
 </body>
