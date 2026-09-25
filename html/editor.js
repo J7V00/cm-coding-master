@@ -38,6 +38,13 @@ function normalizePath(value){
   return String(value||"").replace(/\\/g,"/").replace(/^\.\/+/,"").replace(/^\/+/,"");
 }
 
+try{
+  const savedFolders=JSON.parse(localStorage.getItem(FOLDERS_KEY)||"[]");
+  if(Array.isArray(savedFolders)){
+    savedFolders.filter(Boolean).forEach(folder=>folders.add(normalizePath(folder)));
+  }
+}catch{}
+
 function baseName(path){
   const parts=normalizePath(path).split("/");
   return parts[parts.length-1]||path;
@@ -80,7 +87,25 @@ function saveStore(){
   try{
     localStorage.setItem(FILES_KEY,JSON.stringify(files));
     localStorage.setItem(ROOT_KEY,projectRoot);
+    localStorage.setItem(FOLDERS_KEY,JSON.stringify([...folders]));
   }catch{}
+}
+
+function addFolderAndParents(path){
+  const clean=normalizePath(path);
+  if(!clean)return;
+
+  const parts=clean.split("/").filter(Boolean);
+
+  for(let i=1;i<=parts.length;i++){
+    folders.add(parts.slice(0,i).join("/"));
+  }
+}
+
+function parentFolder(path){
+  const clean=normalizePath(path);
+  const slash=clean.lastIndexOf("/");
+  return slash===-1?"":clean.slice(0,slash);
 }
 
 function escapeHtml(value){
