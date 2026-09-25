@@ -12,35 +12,35 @@
   <div class="workbench">
     <header class="titlebar">
       <div class="brand"><img src="assets/logo.png" alt=""><span>Coding Master</span></div>
-      <button class="command" id="commandBtn" type="button">⌘K <span>البحث عن أمر أو ملف...</span></button>
+      <button class="command" id="commandBtn" type="button">⌘K <span>Search files and commands...</span></button>
       <div class="top-actions">
         <button id="welcomeBtn" type="button" title="الصفحة الرئيسية">?</button>
-        <button id="previewToggle" type="button" title="المعاينة">◫</button>
+        <button id="previewToggle" type="button" title="Preview">◫</button>
       </div>
     </header>
 
     <div class="work-area">
       <aside class="activity-bar">
-        <button class="activity active" data-view="explorer" type="button" title="المستكشف">▤</button>
-        <button class="activity" data-view="search" type="button" title="البحث">⌕</button>
-        <button class="activity" data-view="source" type="button" title="التحكم بالمصدر">⑂</button>
-        <button class="activity" data-view="run" type="button" title="التشغيل">▷</button>
+        <button class="activity active" data-view="explorer" type="button" title="Explorer">▤</button>
+        <button class="activity" data-view="search" type="button" title="Search">⌕</button>
+        <button class="activity" data-view="source" type="button" title="Source Control">⑂</button>
+        <button class="activity" data-view="run" type="button" title="الRun">▷</button>
         <div class="activity-spacer"></div>
-        <button class="activity" id="settingsBtn" type="button" title="الإعدادات">⚙</button>
+        <button class="activity" id="settingsBtn" type="button" title="Settings">⚙</button>
       </aside>
 
       <aside class="sidebar" id="sidebar">
         <div class="sidebar-head">
           <span id="sideTitle">EXPLORER</span>
           <div class="sidebar-actions">
-            <button id="newFileBtn" type="button" title="ملف جديد">＋</button>
-            <button id="openFileBtn" type="button" title="فتح ملف">↗</button>
+            <button id="newFileBtn" type="button" title="New File">＋</button>
+            <button id="openFileBtn" type="button" title="Open File">↗</button>
           </div>
         </div>
         <input id="filePicker" type="file" multiple hidden accept=".html,.htm,.css,.js,.json,.md,.txt,.xml,.svg,.ts,.tsx,.jsx">
         <input id="folderPicker" type="file" webkitdirectory directory multiple hidden>
         <div id="sideContent"></div>
-        <div class="sidebar-note"><b>المشروع</b><span>يمكنك إدخال ملف من أي مكان في جهازك.</span></div>
+        <div class="sidebar-note"><b>Project</b><span>Drop files here or open them from your computer.</span></div>
       </aside>
 
       <main class="main-editor">
@@ -50,8 +50,8 @@
             <div class="editor-toolbar">
               <span id="breadcrumb"></span>
               <div class="toolbar-actions">
-                <button id="saveBtn" type="button">حفظ</button>
-                <button id="runBtn" class="run" type="button">▶ تشغيل</button>
+                <button id="saveBtn" type="button">Save</button>
+                <button id="runBtn" class="run" type="button">▶ Run</button>
               </div>
             </div>
             <div class="editor-grid">
@@ -60,8 +60,8 @@
             </div>
           </section>
           <section class="preview" id="previewPane">
-            <div class="preview-head"><div><b>المعاينة</b><small>PREVIEW</small></div><button id="refreshBtn" type="button">↻</button></div>
-            <iframe id="preview" title="معاينة المشروع"></iframe>
+            <div class="preview-head"><div><b>Preview</b><small>PREVIEW</small></div><button id="refreshBtn" type="button">↻</button></div>
+            <iframe id="preview" title="معاينة Project"></iframe>
           </section>
         </div>
         <section class="panel">
@@ -70,7 +70,7 @@
             <button class="panel-tab" data-panel="problems" type="button">PROBLEMS <span id="problemCount">0</span></button>
             <button class="panel-tab" data-panel="output" type="button">OUTPUT</button>
           </div></div>
-          <div class="panel-body" id="panelBody"><div>$ <span>coding-master</span></div><p>جاهز للعمل.</p></div>
+          <div class="panel-body" id="panelBody"><div>$ <span>coding-master</span></div><p>Ready.</p></div>
         </section>
       </main>
     </div>
