@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -10,20 +10,19 @@
 </head>
 <body>
   <main class="welcome-shell">
-    <header class="top">
+    <header class="topbar">
       <div class="brand">
         <img src="assets/logo.png" alt="Coding Master">
         <div>
           <strong>Coding Master</strong>
-          <span>بيئة كتابة الأكواد</span>
+          <span>Code, build, and learn.</span>
         </div>
       </div>
       <div class="top-right">
-        <span>Coding Master 0.1</span>
-        <button id="helpBtn" type="button" title="التعليمات">?</button>
+        <span>VERSION 0.1</span>
+        <button id="helpBtn" type="button" title="Help">?</button>
       </div>
     </header>
-
 
     <nav class="actionbar" aria-label="File actions">
       <button id="newFileBtn" type="button" class="action primary"><span class="action-symbol">＋</span><span>New File</span><kbd>⌘N</kbd></button>
@@ -35,72 +34,79 @@
 
     <section class="welcome-grid">
       <section class="welcome-copy">
-        <span class="eyebrow">CODING MASTER</span>
-        <h1>ابدأ ببناء<br><span>فكرتك.</span></h1>
-        <p>اكتب، عدّل، جرّب وشاهد النتيجة في مكان واحد.</p>
+        <span class="eyebrow">WELCOME</span>
+        <h1>Welcome to<br><span>Coding Master.</span></h1>
+        <p>A focused workspace for writing code, opening projects, and seeing your work come to life.</p>
 
-        <div class="start-block">
-          <h2>ابدأ</h2>
-          <button class="action-link" id="newFileBtn" type="button"><span class="action-icon">＋</span> ملف جديد...</button>
-          <button class="action-link" id="openFileBtn" type="button"><span class="action-icon">↗</span> فتح ملف...</button>
-          <button class="action-link" id="openFolderBtn" type="button"><span class="action-icon">□</span> فتح مشروع...</button>
-        </div>
+        <div class="walkthrough-card">
+          <div class="section-head">
+            <div>
+              <span class="kicker">WALKTHROUGH</span>
+              <h2>Learn the basics</h2>
+            </div>
+            <span class="section-mark">01</span>
+          </div>
 
-        <div class="shortcuts">
-          <span class="shortcut-label">اختصارات سريعة</span>
-          <div>
-            <span><kbd>⌘ N</kbd> ملف جديد</span>
-            <span><kbd>⌘ O</kbd> فتح ملف</span>
-            <span><kbd>⌘ W</kbd> إغلاق الملف</span>
+          <div class="step">
+            <b>01</b>
+            <div>
+              <h3>Create a file</h3>
+              <p>Start with HTML, CSS, JavaScript, or any file you need.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <b>02</b>
+            <div>
+              <h3>Write your code</h3>
+              <p>Use Explorer to move between files and keep your project organized.</p>
+            </div>
+          </div>
+
+          <div class="step last">
+            <b>03</b>
+            <div>
+              <h3>Run and preview</h3>
+              <p>Run your project and check the result without leaving Coding Master.</p>
+            </div>
           </div>
         </div>
-
-        <input id="filePicker" type="file" multiple hidden
-          accept=".html,.htm,.css,.js,.json,.md,.txt,.xml,.svg,.ts,.tsx,.jsx">
-        <input id="folderPicker" type="file" webkitdirectory directory multiple hidden>
       </section>
 
-      <section class="start-panel">
+      <aside class="start-panel">
         <div class="panel-heading">
           <div>
-            <span class="kicker">START</span>
-            <h2>ابدأ بسرعة</h2>
+            <span class="kicker">RECENT</span>
+            <h2>Recent Projects</h2>
           </div>
-          <span class="panel-mark">CM</span>
+          <button id="clearRecentBtn" type="button">Clear</button>
         </div>
 
-        <button class="big-action" id="continueBtn" type="button">
-          <span class="big-icon">▶</span>
-          <span><b>فتح المحرر</b><small>الدخول مباشرة إلى بيئة الكتابة</small></span>
-          <em>→</em>
-        </button>
-
-        <button class="big-action" id="importBtn" type="button">
-          <span class="big-icon">⇩</span>
-          <span><b>استيراد ملفات</b><small>اجلب ملفاتك من أي مكان في جهازك</small></span>
-          <em>→</em>
-        </button>
-
-        <div class="recent-heading">
-          <span>RECENT</span>
-          <button id="clearRecentBtn" type="button">مسح</button>
-        </div>
         <div class="recent-list" id="recentList"></div>
 
-        <div class="walkthrough">
-          <div>
-            <span class="kicker">WALKTHROUGH</span>
-            <b>تعلم أساسيات Coding Master</b>
-            <small>ابدأ بملف HTML ثم أضف CSS وJavaScript.</small>
+        <div class="tips">
+          <div class="tip">
+            <kbd>⌘W</kbd>
+            <div><strong>Close File</strong><small>Close the current tab.</small></div>
           </div>
-          <button id="learnBtn" type="button">ابدأ الشرح →</button>
+          <div class="tip">
+            <kbd>⌘S</kbd>
+            <div><strong>Save</strong><small>Save your current work.</small></div>
+          </div>
+          <div class="tip">
+            <kbd>⌘↵</kbd>
+            <div><strong>Run</strong><small>Run and preview the project.</small></div>
+          </div>
         </div>
-      </section>
+      </aside>
     </section>
 
+    <input id="filePicker" type="file" multiple hidden accept=".html,.htm,.css,.js,.json,.md,.txt,.xml,.svg,.ts,.tsx,.jsx">
+    <input id="folderPicker" type="file" webkitdirectory directory multiple hidden>
+
     <footer>
-      <span>تعلم • اكتب • جرّب • ابنِ</span>
-      <a href="index.html">موقع Coding Master</a>
+      <span>Learn • Write • Experiment • Build</span>
+      <a href="index.html">Coding Master Website</a>
     </footer>
   </main>
   <script src="welcome.js"></script>
