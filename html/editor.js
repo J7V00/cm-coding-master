@@ -1,5 +1,6 @@
 const FILES_KEY="cm-project-files";
 const ROOT_KEY="cm-project-root";
+const FOLDERS_KEY="cm-project-folders";
 
 const DEFAULT_FILES={
   "index.html":"<!DOCTYPE html>\n<html lang=\"ar\" dir=\"rtl\">\n<head>\n<meta charset=\"UTF-8\">\n<title>Coding Master</title>\n<link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n<main class=\"card\">\n<h1>مرحبًا بك 👋</h1>\n<p>ابدأ بكتابة فكرتك هنا.</p>\n<button onclick=\"hello()\">جرّب JavaScript</button>\n</main>\n<script src=\"script.js\"><\\/script>\n</body>\n</html>",
@@ -8,6 +9,7 @@ const DEFAULT_FILES={
 };
 
 let files={...DEFAULT_FILES};
+let folders=new Set();
 let currentFile="index.html";
 let openFiles=["index.html"];
 let projectRoot=localStorage.getItem(ROOT_KEY)||"CODING-MASTER";
