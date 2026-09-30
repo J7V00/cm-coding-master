@@ -191,10 +191,11 @@
         '<img class="cm-github-avatar" src="'+escapeAttr(avatar)+'" alt="GitHub avatar">'+
         '<div class="cm-github-copy">'+
           '<strong class="cm-github-name">'+escapeHtml(displayName)+'</strong>'+
-          '<span class="cm-github-status connected">● GitHub Connected</span>'+
+          '<span class="cm-github-status connected">● GitHub Integration • Connected</span>'+
         '</div>'+
         '<button class="cm-github-btn" id="cmGithubMenuBtn" type="button" aria-label="GitHub menu">•••</button>'+
         '<div class="cm-github-menu" id="cmGithubMenu">'+
+          '<div class="cm-github-powered">Powered by GitHub Integration</div>'+
           '<a href="'+escapeAttr(profile.html_url || ("https://github.com/"+profile.login))+'" target="_blank" rel="noopener">Open GitHub Profile</a>'+
           '<button type="button" id="cmGithubReposBtn">Repositories</button>'+
           '<button type="button" id="cmGithubSyncBtn">Enable Project Sync</button>'+
@@ -218,8 +219,8 @@
       card.innerHTML=
         '<div class="cm-github-connect-icon">GH</div>'+
         '<div class="cm-github-copy">'+
-          '<strong class="cm-github-name">Connect GitHub</strong>'+
-          '<span class="cm-github-status">Verify your GitHub account</span>'+
+          '<strong class="cm-github-name">GitHub Integration</strong>'+
+          '<span class="cm-github-status">Connect your GitHub account</span>'+
         '</div>'+
         '<button class="cm-github-btn" id="cmGithubConnectBtn" type="button">Connect</button>';
 
