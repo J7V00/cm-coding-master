@@ -9,7 +9,6 @@
   "app": {
     "windows": [
       {
-        
         "title": "Coding Master",
         "url": "welcome.html",
         "width": 1000,
@@ -20,7 +19,8 @@
     ],
     "security": {
       "csp": null
-    }
+    },
+    "withGlobalTauri": true
   },
   "bundle": {
     "active": true,
@@ -32,5 +32,14 @@
       "icons/icon.icns",
       "icons/icon.ico"
     ]
+  },
+  "plugins": {
+    "deep-link": {
+      "desktop": {
+        "schemes": [
+          "codingmaster"
+        ]
+      }
+    }
   }
 }
