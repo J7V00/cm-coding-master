@@ -16,7 +16,7 @@ pub fn run() {
   builder = builder.plugin(tauri_plugin_deep_link::init());
 
   builder = builder.setup(|app| {
-    #[cfg(any(windows, target_os = "linux"))]
+    #[cfg(any(target_os = "linux", all(debug_assertions, windows)))]
     {
       app.deep_link().register_all()?;
     }
