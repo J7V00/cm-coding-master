@@ -6,6 +6,7 @@
   const SUPABASE_ANON_KEY = "sb_publishable_r3BxLBSCV85_7qR6WvYBdw_Bf9qCZe0";
   const PROFILE_KEY = "cm-github-profile";
   const LIBRARY_URL = "https://github.com/J7V00/cm-coding-master";
+  const GITHUB_REPO_KEY = "cm-github-repository";
 
   let client = null;
   let session = null;
@@ -24,6 +25,22 @@
     try{
       if(value) localStorage.setItem(PROFILE_KEY,JSON.stringify(value));
       else localStorage.removeItem(PROFILE_KEY);
+    }catch{}
+  }
+
+  function readRepository(){
+    try{
+      const value=localStorage.getItem(GITHUB_REPO_KEY);
+      return value ? JSON.parse(value) : null;
+    }catch{
+      return null;
+    }
+  }
+
+  function writeRepository(value){
+    try{
+      if(value) localStorage.setItem(GITHUB_REPO_KEY,JSON.stringify(value));
+      else localStorage.removeItem(GITHUB_REPO_KEY);
     }catch{}
   }
 
@@ -275,6 +292,71 @@
     return response.json();
   }
 
+  async function listRepositories(){
+    const repositories=await githubApi("/user/repos?sort=updated&per_page=50&type=all");
+    return Array.isArray(repositories)?repositories:[];
+  }
+
+  async function getRepository(owner,name){
+    return githubApi("/repos/"+encodeURIComponent(owner)+"/"+encodeURIComponent(name));
+  }
+
+  async function getRepositoryTree(owner,name,branch){
+    const repository=await getRepository(owner,name);
+    const ref=branch||repository.default_branch;
+    const data=await githubApi("/repos/"+encodeURIComponent(owner)+"/"+encodeURIComponent(name)+"/git/trees/"+encodeURIComponent(ref)+"?recursive=1");
+    return {repository,branch:ref,tree:Array.isArray(data.tree)?data.tree:[]};
+  }
+
+  async function getRepositoryFile(owner,name,path,branch){
+    const ref=branch||readRepository()?.branch||null;
+    return githubApi("/repos/"+encodeURIComponent(owner)+"/"+encodeURIComponent(name)+"/contents/"+path.split("/").map(encodeURIComponent).join("/")+ (ref?"?ref="+encodeURIComponent(ref):""));
+  }
+
+  async function saveRepositoryFile(owner,name,path,content,message,branch,sha){
+    const active=await (async()=>{
+      const saved=readRepository();
+      const repository=await getRepository(owner,name);
+      return {repository,branch:branch||saved?.branch||repository.default_branch};
+    })();
+
+    const result=await githubApi("/repos/"+encodeURIComponent(owner)+"/"+encodeURIComponent(name)+"/contents/"+path.split("/").map(encodeURIComponent).join("/"),{
+      method:"PUT",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        message:message||("Update "+path+" from Coding Master"),
+        content:btoa(unescape(encodeURIComponent(content))),
+        sha:sha||undefined,
+        branch:active.branch
+      })
+    });
+
+    writeRepository({
+      owner,
+      name,
+      branch:active.branch,
+      full_name:owner+"/"+name,
+      html_url:active.repository.html_url||("https://github.com/"+owner+"/"+name)
+    });
+
+    return result;
+  }
+
+  function selectRepository(repository){
+    if(!repository?.full_name)return null;
+    const parts=repository.full_name.split("/");
+    const selected={
+      owner:parts[0],
+      name:parts[1],
+      branch:repository.default_branch||"main",
+      full_name:repository.full_name,
+      html_url:repository.html_url||("https://github.com/"+repository.full_name)
+    };
+    writeRepository(selected);
+    window.dispatchEvent(new CustomEvent("cm:github:repository-selected",{detail:selected}));
+    return selected;
+  }
+
   window.CMGitHub={
     refresh,
     connect,
@@ -282,6 +364,12 @@
     disconnect,
     getProfile:()=>profile,
     getSession:()=>session,
+    getSelectedRepository:()=>readRepository(),
+    listRepositories,
+    getRepositoryTree,
+    getRepositoryFile,
+    saveRepositoryFile,
+    selectRepository,
     api:githubApi,
     isConnected:()=>Boolean(profile?.login),
     repositoryUrl:LIBRARY_URL
