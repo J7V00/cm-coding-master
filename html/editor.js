@@ -815,6 +815,46 @@ document.getElementById("settingsBtn").addEventListener("click",()=>{
   panelBody.innerHTML="<div>⚙ SETTINGS</div><p>Workspace settings are ready.</p>";
 });
 
+window.addEventListener("cm:github:repositories",async()=>{
+  try{
+    if(!window.CMGitHub?.isConnected()){
+      panelBody.innerHTML="<p class=\"problem-row\">Connect your GitHub account first.</p>";
+      return;
+    }
+
+    const repositories=await CMGitHub.api("/user/repos?sort=updated&per_page=20");
+    const items=Array.isArray(repositories)?repositories:[];
+
+    document.querySelectorAll(".activity[data-view]").forEach(item=>item.classList.remove("active"));
+    const githubActivity=document.querySelector('.activity[data-view="github"]');
+    githubActivity?.classList.add("active");
+    document.getElementById("sideTitle").textContent="GITHUB";
+
+    sideContent.innerHTML=items.length
+      ? '<div class="project-root">⌄ YOUR REPOSITORIES</div>'+
+        items.map(repo=>{
+          const icon=repo.private?"◆":"◇";
+          return '<button class="tree-file github-repo" type="button" data-repo-url="'+
+            escapeAttr(repo.html_url||"")+'">'+
+            '<span class="file-icon text">'+icon+'</span>'+
+            '<span>'+escapeHtml(repo.name||"Repository")+'</span>'+
+            '</button>';
+        }).join("")
+      : '<div class="sidebar-note"><b>No repositories</b><span>No repositories were returned by GitHub.</span></div>';
+
+    sideContent.querySelectorAll(".github-repo").forEach(button=>{
+      button.addEventListener("click",()=>{
+        const url=button.dataset.repoUrl;
+        if(url)window.open(url,"_blank","noopener,noreferrer");
+      });
+    });
+
+    panelBody.innerHTML='<div>$ github repositories</div><p class="success-row">Loaded '+items.length+" repository(s).</p>";
+  }catch(error){
+    panelBody.innerHTML='<p class="problem-row">'+escapeHtml(error.message||"GitHub request failed.")+"</p>";
+  }
+});
+
 document.querySelectorAll(".activity[data-view]").forEach(button=>{
   button.addEventListener("click",()=>{
     document.querySelectorAll(".activity[data-view]").forEach(item=>item.classList.remove("active"));
@@ -822,6 +862,11 @@ document.querySelectorAll(".activity[data-view]").forEach(button=>{
 
     const view=button.dataset.view;
     document.getElementById("sideTitle").textContent=view==="explorer"?"EXPLORER":view.toUpperCase();
+
+    if(view==="github"){
+      window.dispatchEvent(new CustomEvent("cm:github:repositories"));
+      return;
+    }
 
     if(view==="explorer"){
       renderExplorer();
