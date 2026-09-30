@@ -188,3 +188,54 @@
 .github-remote-file{
   cursor:pointer!important;
 }
+
+.cm-github-repo-controls{
+  margin:7px 9px 5px;
+  padding:9px;
+  background:#121212;
+  border:1px solid #292929;
+  border-radius:7px;
+}
+.cm-github-control-title{
+  color:#5f5f5f;
+  font:700 8px ui-monospace,SFMono-Regular,Menlo,monospace;
+  letter-spacing:.1em;
+}
+.cm-github-control-name{
+  margin-top:5px;
+  color:#dddddd;
+  font-size:9px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.cm-github-control-row{
+  display:flex;
+  gap:5px;
+  margin-top:7px;
+}
+.cm-github-branch{
+  min-width:0;
+  flex:1;
+  height:27px;
+  border:1px solid #2d2d2d;
+  border-radius:5px;
+  background:#0d0d0d;
+  color:#aaaaaa;
+  font:9px ui-monospace,SFMono-Regular,Menlo,monospace;
+  outline:0;
+}
+.cm-github-small-btn{
+  height:27px;
+  padding:0 9px;
+  border:1px solid #353535;
+  border-radius:5px;
+  background:#1a1a1a;
+  color:#bbbbbb;
+  font-size:9px;
+  font-weight:900;
+}
+.cm-github-small-btn:hover{
+  background:#242424;
+  color:#ffffff;
+}
