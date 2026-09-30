@@ -44,11 +44,79 @@
     }catch{}
   }
 
+  function isTauriDesktop(){
+    return Boolean(window.__TAURI__?.deepLink);
+  }
+
   function currentRedirect(){
+    if(isTauriDesktop()){
+      return "codingmaster://auth/callback";
+    }
+
     if(location.protocol === "http:" || location.protocol === "https:"){
       return location.href;
     }
+
     return null;
+  }
+
+  async function handleTauriAuthUrl(rawUrl){
+    try{
+      const url=new URL(rawUrl);
+
+      if(url.protocol !== "codingmaster:") return;
+      if(url.hostname !== "auth" && url.pathname !== "/auth/callback") return;
+
+      const code=url.searchParams.get("code");
+      const error=url.searchParams.get("error");
+      const errorDescription=url.searchParams.get("error_description");
+
+      if(error){
+        console.error("GitHub OAuth error:",errorDescription||error);
+        return;
+      }
+
+      if(code){
+        const sb=ensureClient();
+        if(!sb) return;
+
+        const result=await sb.auth.exchangeCodeForSession(code);
+
+        if(result.error){
+          console.error("GitHub OAuth exchange failed:",result.error.message);
+          return;
+        }
+
+        await refresh();
+      }
+    }catch(error){
+      console.error("Invalid Coding Master deep link:",error);
+    }
+  }
+
+  async function setupTauriDeepLink(){
+    const deepLink=window.__TAURI__?.deepLink;
+    if(!deepLink) return;
+
+    try{
+      const startUrls=await deepLink.getCurrent();
+
+      if(Array.isArray(startUrls)){
+        for(const url of startUrls){
+          await handleTauriAuthUrl(url);
+        }
+      }
+
+      await deepLink.onOpenUrl(async urls=>{
+        if(Array.isArray(urls)){
+          for(const url of urls){
+            await handleTauriAuthUrl(url);
+          }
+        }
+      });
+    }catch(error){
+      console.error("Coding Master deep-link setup failed:",error);
+    }
   }
 
   function getMetadata(user){
@@ -375,7 +443,7 @@
     repositoryUrl:LIBRARY_URL
   };
 
-  document.addEventListener("DOMContentLoaded",()=>{
+  document.addEventListener("DOMContentLoaded",async()=>{
     const sb=ensureClient();
 
     if(sb){
@@ -384,6 +452,7 @@
       });
     }
 
-    refresh();
+    await setupTauriDeepLink();
+    await refresh();
   });
 })();
