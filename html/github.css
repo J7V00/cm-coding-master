@@ -239,3 +239,11 @@
   background:#242424;
   color:#ffffff;
 }
+
+.cm-github-powered{
+  padding:7px 10px 6px;
+  color:#666666;
+  font:700 7px ui-monospace,SFMono-Regular,Menlo,monospace;
+  letter-spacing:.08em;
+  border-bottom:1px solid #262626;
+}
