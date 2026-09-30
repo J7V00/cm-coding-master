@@ -7,6 +7,8 @@
   <link rel="icon" href="assets/logo.png" type="image/png">
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="main.css/editor.css">
+  <link rel="stylesheet" href="github.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
   <div class="workbench">
@@ -25,6 +27,7 @@
         <button class="activity" data-view="search" type="button" title="Search">⌕</button>
         <button class="activity" data-view="source" type="button" title="Source Control">⑂</button>
         <button class="activity" data-view="run" type="button" title="Run">▷</button>
+        <button class="activity" data-view="github" type="button" title="GitHub">GH</button>
         <div class="activity-spacer"></div>
         <button class="activity" id="settingsBtn" type="button" title="Settings">⚙</button>
       </aside>
@@ -106,5 +109,6 @@
   </div>
 
   <script src="editor.js"></script>
+  <script src="github.js"></script>
 </body>
 </html>
