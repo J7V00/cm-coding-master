@@ -1,16 +1,38 @@
+use tauri_plugin_deep_link::DeepLinkExt;
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-  tauri::Builder::default()
-    .setup(|app| {
-      if cfg!(debug_assertions) {
-        app.handle().plugin(
-          tauri_plugin_log::Builder::default()
-            .level(log::LevelFilter::Info)
-            .build(),
-        )?;
-      }
-      Ok(())
-    })
+  let mut builder = tauri::Builder::default();
+
+  #[cfg(desktop)]
+  {
+    builder = builder.plugin(
+      tauri_plugin_single_instance::init(|_app, _args, _cwd| {
+        // Deep-link URL delivery is handled by the deep-link plugin.
+      })
+    );
+  }
+
+  builder = builder.plugin(tauri_plugin_deep_link::init());
+
+  builder = builder.setup(|app| {
+    #[cfg(any(windows, target_os = "linux"))]
+    {
+      app.deep_link().register_all()?;
+    }
+
+    if cfg!(debug_assertions) {
+      app.handle().plugin(
+        tauri_plugin_log::Builder::default()
+          .level(log::LevelFilter::Info)
+          .build(),
+      )?;
+    }
+
+    Ok(())
+  });
+
+  builder
     .run(tauri::generate_context!())
     .expect("error while running tauri application");
 }
