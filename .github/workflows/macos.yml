@@ -21,16 +21,19 @@ jobs:
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
 
-      - name: Build macOS DMG
+      - name: Install Rust macOS targets
+        run: rustup target add aarch64-apple-darwin x86_64-apple-darwin
+
+      - name: Build macOS Universal DMG
         uses: tauri-apps/tauri-action@v0
         with:
-          args: --bundles dmg
+          args: --bundles dmg --target universal-apple-darwin
 
       - name: Replace macOS download file
         shell: bash
         run: |
           set -e
-          DMG="$(find src-tauri/target/release/bundle/dmg -maxdepth 1 -type f -name '*.dmg' | head -n 1)"
+          DMG="$(find src-tauri/target/universal-apple-darwin/release/bundle/dmg -maxdepth 1 -type f -name '*.dmg' | head -n 1)"
           if [ -z "$DMG" ]; then
             echo "macOS DMG was not found."
             exit 1
