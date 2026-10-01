@@ -266,6 +266,8 @@
     }));
   }
 
+  const WEB_APP_URL="https://j7v00.github.io/cm-coding-master/welcome.html";
+
   async function connect(){
     const sb=ensureClient();
 
@@ -274,10 +276,22 @@
       return;
     }
 
+    if(!isTauriDesktop()){
+      const onHostedSite =
+        location.protocol==="https:" &&
+        location.hostname==="j7v00.github.io" &&
+        location.pathname.endsWith("/cm-coding-master/welcome.html");
+
+      if(!onHostedSite){
+        window.location.assign(WEB_APP_URL+"?cmgithub=connect");
+        return;
+      }
+    }
+
     const redirectTo=currentRedirect();
 
     if(!redirectTo){
-      alert("GitHub login needs the hosted Coding Master website. Open Coding Master from its website first.");
+      alert("GitHub login could not determine a redirect URL.");
       return;
     }
 
@@ -289,6 +303,19 @@
     });
 
     if(error) alert(error.message);
+  }
+
+  async function autoStartHostedLogin(){
+    if(isTauriDesktop()) return;
+
+    const params=new URLSearchParams(location.search);
+    if(params.get("cmgithub")!=="connect") return;
+
+    params.delete("cmgithub");
+    const clean=location.pathname+(params.toString()?"?"+params.toString():"");
+    window.history.replaceState({},document.title,clean);
+
+    await connect();
   }
 
   async function connectWithRepoAccess(){
