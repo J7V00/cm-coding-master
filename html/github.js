@@ -54,7 +54,7 @@
     }
 
     if(location.protocol === "http:" || location.protocol === "https:"){
-      return location.href;
+      return "https://j7v00.github.io/cm-coding-master/welcome.html";
     }
 
     return null;
