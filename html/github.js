@@ -482,5 +482,6 @@
 
     await setupTauriDeepLink();
     await refresh();
+    await autoStartHostedLogin();
   });
 })();
