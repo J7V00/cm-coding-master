@@ -14,6 +14,9 @@ pub fn run() {
   }
 
   builder = builder.plugin(tauri_plugin_deep_link::init());
+  builder = builder.plugin(tauri_plugin_dialog::init());
+  builder = builder.plugin(tauri_plugin_fs::init());
+  builder = builder.plugin(tauri_plugin_shell::init());
 
   builder = builder.setup(|app| {
     #[cfg(any(target_os = "linux", all(debug_assertions, windows)))]
