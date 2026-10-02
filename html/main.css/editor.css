@@ -99,3 +99,18 @@ button{cursor:pointer}
 @media(max-width:950px){.sidebar{width:220px;flex-basis:220px}.center{grid-template-columns:1fr}.preview{display:none}}
 @media(max-width:700px){.sidebar{display:none}.titlebar{grid-template-columns:160px 1fr 70px}.command{width:85%}.toolbar-actions button{padding:0 8px}.toolbar-actions #chromeBtn{display:none}}
 .syn-error .syn-tag,.syn-error .syn-attr,.syn-error .syn-string,.syn-error .syn-keyword,.syn-error .syn-number,.syn-error .syn-property,.syn-error .syn-selector,.syn-error .syn-value,.syn-error .syn-punc{color:var(--red)!important}
+
+.cm-terminal{min-height:100%;display:flex;flex-direction:column}
+.cm-terminal-history{min-height:0;overflow:auto;flex:1;padding-bottom:8px}
+.cm-terminal-row{white-space:pre-wrap;word-break:break-word}
+.cm-terminal-row.command{color:#e7e7e7}
+.cm-terminal-row.output{color:#8f8f8f}
+.cm-terminal-row.error{color:#ff6b6b}
+.cm-terminal-row.status{color:#606060}
+.cm-terminal-line{display:flex;align-items:center;gap:8px;border-top:1px solid #202020;padding-top:7px}
+.cm-terminal-prompt{color:#9bd76d;font-weight:900}
+.cm-terminal-input{width:100%;min-width:0;border:0;outline:0;background:#0d0d0d;color:#eee;font:10px ui-monospace,SFMono-Regular,Menlo,monospace;padding:6px 0}
+.cm-command-palette{display:flex;flex-direction:column;gap:4px;max-width:520px}
+.cm-command-palette button{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:7px 9px;border:1px solid #222;border-radius:6px;background:#111;color:#aaa;font:10px ui-monospace,SFMono-Regular,Menlo,monospace;text-align:left}
+.cm-command-palette button:hover{background:#191919;color:#fff;border-color:#333}
+.cm-command-palette kbd{padding:2px 5px;border:1px solid #303030;border-radius:4px;background:#181818;color:#777;font-size:8px}
