@@ -1,6 +1,8 @@
 const FILES_KEY="cm-project-files";
 const ROOT_KEY="cm-project-root";
 const FOLDERS_KEY="cm-project-folders";
+const NATIVE_PATHS_KEY="cm-native-file-paths";
+const NATIVE_ROOT_KEY="cm-native-root-path";
 
 const DEFAULT_FILES={
   "index.html":"<!DOCTYPE html>\n<html lang=\"ar\" dir=\"rtl\">\n<head>\n<meta charset=\"UTF-8\">\n<title>Coding Master</title>\n<link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n<main class=\"card\">\n<h1>مرحبًا بك 👋</h1>\n<p>ابدأ بكتابة فكرتك هنا.</p>\n<button onclick=\"hello()\">جرّب JavaScript</button>\n</main>\n<script src=\"script.js\"><\\/script>\n</body>\n</html>",
@@ -14,12 +16,19 @@ let activeFolder="";
 let currentFile="index.html";
 let openFiles=["index.html"];
 let projectRoot=localStorage.getItem(ROOT_KEY)||"CODING-MASTER";
+let projectRootPath=localStorage.getItem(NATIVE_ROOT_KEY)||"";
+let nativePaths={};
 
 try{
   const saved=JSON.parse(localStorage.getItem(FILES_KEY));
   if(saved&&typeof saved==="object"&&Object.keys(saved).length){
     files={...DEFAULT_FILES,...saved};
   }
+}catch{}
+
+try{
+  const savedNative=JSON.parse(localStorage.getItem(NATIVE_PATHS_KEY)||"{}");
+  if(savedNative&&typeof savedNative==="object") nativePaths=savedNative;
 }catch{}
 
 const editor=document.getElementById("codeEditor");
@@ -89,6 +98,9 @@ function saveStore(){
     localStorage.setItem(FILES_KEY,JSON.stringify(files));
     localStorage.setItem(ROOT_KEY,projectRoot);
     localStorage.setItem(FOLDERS_KEY,JSON.stringify([...folders]));
+    localStorage.setItem(NATIVE_PATHS_KEY,JSON.stringify(nativePaths));
+    if(projectRootPath) localStorage.setItem(NATIVE_ROOT_KEY,projectRootPath);
+    else localStorage.removeItem(NATIVE_ROOT_KEY);
   }catch{}
 }
 
@@ -417,8 +429,18 @@ function renderSyntax(){
   updateStatus();
 }
 
-function save(){
+async function save(){
   files[currentFile]=editor.value;
+
+  try{
+    if(window.CMDesktop?.isTauri() && nativePaths[currentFile]){
+      await CMDesktop.writeText(nativePaths[currentFile],editor.value);
+    }
+  }catch(error){
+    panelBody.innerHTML='<p class="problem-row">'+escapeHtml(error.message||"Could not save the file.")+"</p>";
+    return;
+  }
+
   saveStore();
   renderExplorer();
   renderTabs();
@@ -555,7 +577,7 @@ function moveFileToFolder(source,targetFolder){
   renderSyntax();
 }
 
-function newFolder(parent=""){
+async function newFolder(parent=""){
   const raw=prompt("Folder name","html");
   if(!raw)return;
 
@@ -565,6 +587,15 @@ function newFolder(parent=""){
   const path=parent&&!name.includes("/")
     ? normalizePath(parent)+"/"+name
     : name;
+
+  if(window.CMDesktop?.isTauri() && projectRootPath){
+    try{
+      await CMDesktop.makeDirectory(await CMDesktop.join(projectRootPath,path));
+    }catch(error){
+      panelBody.innerHTML='<p class="problem-row">'+escapeHtml(error.message||"Could not create the folder.")+"</p>";
+      return;
+    }
+  }
 
   addFolderAndParents(path);
   activeFolder=path;
@@ -645,7 +676,7 @@ function closeTab(file){
   openFile(currentFile);
 }
 
-function newFile(targetFolder=""){
+async function newFile(targetFolder=""){
   const raw=prompt("File name","index.html");
   if(!raw)return;
 
@@ -662,6 +693,18 @@ function newFile(targetFolder=""){
   }
 
   files[name]="";
+
+  if(window.CMDesktop?.isTauri() && projectRootPath){
+    try{
+      nativePaths[name]=await CMDesktop.join(projectRootPath,name);
+      await CMDesktop.writeText(nativePaths[name],"");
+    }catch(error){
+      delete nativePaths[name];
+      panelBody.innerHTML='<p class="problem-row">'+escapeHtml(error.message||"Could not create the file.")+"</p>";
+      return;
+    }
+  }
+
   saveStore();
   openFile(name);
 }
@@ -711,6 +754,66 @@ async function importFiles(list,targetFolder=""){
   editor.focus();
 }
 
+async function importNativeFile(){
+  if(!window.CMDesktop?.isTauri()) return false;
+
+  const picked=await CMDesktop.openFile();
+  if(!picked)return true;
+
+  const name=normalizePath(picked.name);
+  files[name]=picked.content;
+  nativePaths[name]=picked.path;
+  folders=new Set();
+  projectRootPath=await CMDesktop.join(picked.path,"..");
+  projectRoot=baseName(projectRootPath);
+
+  saveStore();
+  currentFile=name;
+  openFiles=[name];
+  renderExplorer();
+  renderTabs();
+  editor.value=files[name]||"";
+  breadcrumb.textContent=name;
+  renderSyntax();
+  panelBody.innerHTML='<div>$ coding-master open</div><p class="success-row">Opened '+escapeHtml(name)+".</p>";
+  editor.focus();
+  return true;
+}
+
+async function importNativeFolder(){
+  if(!window.CMDesktop?.isTauri()) return false;
+
+  const project=await CMDesktop.openFolder();
+  if(!project)return true;
+
+  if(!Object.keys(project.files).length){
+    panelBody.innerHTML='<p class="problem-row">No supported code files were found in this folder.</p>';
+    return true;
+  }
+
+  files=project.files;
+  nativePaths=project.nativePaths;
+  folders=new Set(project.folders||[]);
+  projectRoot=project.rootName||"CODING-MASTER";
+  projectRootPath=project.rootPath||"";
+
+  saveStore();
+
+  const preferred=firstIndexFile();
+  currentFile=preferred;
+  openFiles=[preferred];
+
+  renderExplorer();
+  renderTabs();
+  editor.value=files[preferred]||"";
+  breadcrumb.textContent=preferred.replace(/\//g," / ");
+  renderSyntax();
+
+  panelBody.innerHTML='<div>$ coding-master folder</div><p class="success-row">Opened '+escapeHtml(projectRoot)+".</p>";
+  editor.focus();
+  return true;
+}
+
 function findProjectFile(reference){
   const clean=normalizePath(reference).split("?")[0].split("#")[0];
 
@@ -755,6 +858,104 @@ function buildPreviewHtml(){
   return html;
 }
 
+let terminalVisible=false;
+let terminalOutput=[];
+
+function setTerminalVisible(visible){
+  terminalVisible=Boolean(visible);
+  const panel=document.querySelector(".panel");
+  if(panel)panel.classList.toggle("terminal-open",terminalVisible);
+
+  if(terminalVisible){
+    renderTerminal();
+    document.querySelector(".cm-terminal-input")?.focus();
+  }
+}
+
+function toggleTerminal(){
+  setTerminalVisible(!terminalVisible);
+}
+
+function appendTerminal(textValue,kind="output"){
+  terminalOutput.push({text:String(textValue||""),kind});
+  if(terminalOutput.length>120)terminalOutput=terminalOutput.slice(-120);
+}
+
+function renderTerminal(){
+  panelBody.innerHTML=
+    '<div class="cm-terminal">'+
+      '<div class="cm-terminal-history" id="cmTerminalHistory"></div>'+
+      '<div class="cm-terminal-line">'+
+        '<span class="cm-terminal-prompt">$</span>'+
+        '<input class="cm-terminal-input" type="text" autocomplete="off" spellcheck="false" placeholder="Type a command...">'+
+      '</div>'+
+    '</div>';
+
+  const history=document.getElementById("cmTerminalHistory");
+  terminalOutput.forEach(item=>{
+    const row=document.createElement("div");
+    row.className="cm-terminal-row "+item.kind;
+    row.textContent=item.text;
+    history.appendChild(row);
+  });
+
+  const input=panelBody.querySelector(".cm-terminal-input");
+
+  input?.addEventListener("keydown",async event=>{
+    if(event.key!=="Enter")return;
+
+    const command=input.value.trim();
+    if(!command)return;
+
+    input.value="";
+    appendTerminal("$ "+command,"command");
+    renderTerminal();
+
+    if(!window.CMDesktop?.isTauri()){
+      appendTerminal("Terminal commands are available in the Coding Master desktop app.","error");
+      renderTerminal();
+      return;
+    }
+
+    try{
+      const result=await CMDesktop.runCommand(command,projectRootPath||undefined);
+      if(result.stdout)appendTerminal(result.stdout.trimEnd(),"output");
+      if(result.stderr)appendTerminal(result.stderr.trimEnd(),"error");
+      appendTerminal("Process exited with code "+String(result.code??0)+".","status");
+    }catch(error){
+      appendTerminal(error.message||"Command failed.","error");
+    }
+
+    renderTerminal();
+  });
+}
+
+function openCommandPalette(){
+  panelBody.innerHTML=
+    '<div class="cm-command-palette">'+
+      '<button type="button" data-cmd="new">New File <kbd>⌘N</kbd></button>'+
+      '<button type="button" data-cmd="open">Open File <kbd>⌘O</kbd></button>'+
+      '<button type="button" data-cmd="folder">Open Folder <kbd>⌘⇧O</kbd></button>'+
+      '<button type="button" data-cmd="save">Save <kbd>⌘S</kbd></button>'+
+      '<button type="button" data-cmd="run">Run Preview <kbd>⌘↵</kbd></button>'+
+      '<button type="button" data-cmd="preview">Open in Browser <kbd>⌘L</kbd></button>'+
+      '<button type="button" data-cmd="terminal">Toggle Terminal <kbd>⌘ + Backtick</kbd></button>'+
+    '</div>';
+
+  panelBody.querySelectorAll("[data-cmd]").forEach(button=>{
+    button.addEventListener("click",()=>{
+      const cmd=button.dataset.cmd;
+      if(cmd==="new")newFile(activeFolder);
+      if(cmd==="open")document.getElementById("openFileBtn").click();
+      if(cmd==="folder")document.getElementById("openFolderBtn").click();
+      if(cmd==="save")save();
+      if(cmd==="run")run();
+      if(cmd==="preview")openPreview();
+      if(cmd==="terminal")toggleTerminal();
+    });
+  });
+}
+
 function run(){
   save();
 
@@ -779,8 +980,22 @@ function openPreview(){
 
 document.getElementById("newFileBtn").addEventListener("click",()=>newFile(activeFolder));
 document.getElementById("newFolderBtn").addEventListener("click",()=>newFolder(activeFolder));
-document.getElementById("openFileBtn").addEventListener("click",()=>filePicker.click());
-document.getElementById("openFolderBtn").addEventListener("click",()=>folderPicker.click());
+
+document.getElementById("openFileBtn").addEventListener("click",async()=>{
+  if(window.CMDesktop?.isTauri()){
+    await importNativeFile();
+  }else{
+    filePicker.click();
+  }
+});
+
+document.getElementById("openFolderBtn").addEventListener("click",async()=>{
+  if(window.CMDesktop?.isTauri()){
+    await importNativeFolder();
+  }else{
+    folderPicker.click();
+  }
+});
 
 filePicker.addEventListener("change",event=>{
   importFiles(event.target.files);
@@ -807,9 +1022,7 @@ document.getElementById("welcomeBtn").addEventListener("click",()=>{
   location.href="welcome.html";
 });
 
-document.getElementById("commandBtn").addEventListener("click",()=>{
-  panelBody.innerHTML="<div>⌘K</div><p>New File • Open File • Open Folder • Save • Run • Preview</p>";
-});
+document.getElementById("commandBtn").addEventListener("click",openCommandPalette);
 
 document.getElementById("settingsBtn").addEventListener("click",()=>{
   panelBody.innerHTML="<div>⚙ SETTINGS</div><p>Workspace settings are ready.</p>";
@@ -884,6 +1097,11 @@ document.querySelectorAll(".panel-tab").forEach(button=>{
     document.querySelectorAll(".panel-tab").forEach(item=>item.classList.remove("active"));
     button.classList.add("active");
 
+    if(button.dataset.panel==="terminal"){
+      setTerminalVisible(true);
+      return;
+    }
+
     if(button.dataset.panel==="problems"){
       const lint=lintCode(editor.value,language(currentFile));
 
@@ -943,14 +1161,27 @@ editor.addEventListener("keydown",event=>{
     openPreview();
   }
 
-  if(mod&&event.key.toLowerCase()==="o"){
+  if(mod&&event.key.toLowerCase()==="o"&&event.shiftKey){
     event.preventDefault();
-    filePicker.click();
+    document.getElementById("openFolderBtn").click();
+  }else if(mod&&event.key.toLowerCase()==="o"){
+    event.preventDefault();
+    document.getElementById("openFileBtn").click();
   }
 
   if(mod&&event.key.toLowerCase()==="n"){
     event.preventDefault();
     newFile();
+  }
+
+  if(mod&&event.key.toLowerCase()==="k"){
+    event.preventDefault();
+    openCommandPalette();
+  }
+
+  if(mod&&event.code==="Backquote"){
+    event.preventDefault();
+    toggleTerminal();
   }
 
   if(mod&&event.key.toLowerCase()==="w"){
