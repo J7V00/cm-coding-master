@@ -61,13 +61,55 @@ document.getElementById("heroOpenBtn")?.addEventListener("click",()=>{
   filePicker.click();
 });
 
-document.getElementById("openFileBtn")?.addEventListener("click",()=>{
-  filePicker.click();
-});
+async function openNativeFile(){
+  if(!window.CMDesktop?.isTauri()){
+    filePicker?.click();
+    return;
+  }
 
-document.getElementById("openFolderBtn")?.addEventListener("click",()=>{
-  folderPicker.click();
-});
+  const picked=await CMDesktop.openFile();
+  if(!picked)return;
+
+  localStorage.setItem("cm-project-files",JSON.stringify({
+    [picked.name]:picked.content
+  }));
+  localStorage.setItem("cm-native-file-paths",JSON.stringify({
+    [picked.name]:picked.path
+  }));
+  localStorage.setItem("cm-native-root-path",await CMDesktop.join(picked.path,".."));
+  localStorage.setItem("cm-project-root",String(picked.path).replace(/\\/g,"/").split("/").pop()||"CODING-MASTER");
+  localStorage.setItem("cm-project-folders",JSON.stringify([]));
+  localStorage.setItem(STARTUP_KEY,"1");
+  localStorage.setItem("cm-was-imported","1");
+  window.location.href="editor.html";
+}
+
+async function openNativeFolder(){
+  if(!window.CMDesktop?.isTauri()){
+    folderPicker?.click();
+    return;
+  }
+
+  const project=await CMDesktop.openFolder();
+  if(!project)return;
+
+  if(!Object.keys(project.files).length){
+    alert("No supported code files were found in this folder.");
+    return;
+  }
+
+  localStorage.setItem("cm-project-files",JSON.stringify(project.files));
+  localStorage.setItem("cm-native-file-paths",JSON.stringify(project.nativePaths));
+  localStorage.setItem("cm-native-root-path",project.rootPath||"");
+  localStorage.setItem("cm-project-root",project.rootName||"CODING-MASTER");
+  localStorage.setItem("cm-project-folders",JSON.stringify(project.folders||[]));
+  localStorage.setItem(STARTUP_KEY,"1");
+  localStorage.setItem("cm-was-imported","1");
+  window.location.href="editor.html";
+}
+
+document.getElementById("openFileBtn")?.addEventListener("click",openNativeFile);
+document.getElementById("openFolderBtn")?.addEventListener("click",openNativeFolder);
 
 document.getElementById("newFileBtn")?.addEventListener("click",()=>{
   localStorage.removeItem(STARTUP_KEY);
@@ -90,9 +132,12 @@ document.getElementById("helpBtn")?.addEventListener("click",goEditor);
 document.addEventListener("keydown",event=>{
   const mod=event.metaKey||event.ctrlKey;
 
-  if(mod&&event.key.toLowerCase()==="o"){
+  if(mod&&event.key.toLowerCase()==="o"&&event.shiftKey){
     event.preventDefault();
-    filePicker?.click();
+    openNativeFolder();
+  }else if(mod&&event.key.toLowerCase()==="o"){
+    event.preventDefault();
+    openNativeFile();
   }
 
   if(mod&&event.key.toLowerCase()==="n"){
