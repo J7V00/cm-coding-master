@@ -8,6 +8,39 @@
   "permissions": [
     "core:default",
     "deep-link:default",
-    "core:event:default"
+    "core:event:default",
+    "dialog:allow-open",
+    "fs:allow-read-dir",
+    "fs:allow-read-text-file",
+    "fs:allow-write-text-file",
+    "fs:allow-mkdir",
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "name": "cm-shell",
+          "cmd": "sh",
+          "sidecar": false,
+          "args": [
+            "-lc",
+            {
+              "validator": "[\\\\s\\\\S]*"
+            }
+          ]
+        },
+        {
+          "name": "cm-powershell",
+          "cmd": "powershell.exe",
+          "sidecar": false,
+          "args": [
+            "-NoProfile",
+            "-Command",
+            {
+              "validator": "[\\\\s\\\\S]*"
+            }
+          ]
+        }
+      ]
+    }
   ]
 }
