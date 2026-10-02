@@ -956,8 +956,8 @@ function openCommandPalette(){
   });
 }
 
-function run(){
-  save();
+async function run(){
+  await save();
 
   const html=buildPreviewHtml();
   preview.srcdoc=html;
