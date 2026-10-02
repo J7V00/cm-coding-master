@@ -214,11 +214,22 @@
       document.getElementById("cmGithubSyncBtn").addEventListener("click",connectWithRepoAccess);
     }else{
       card.innerHTML=
-        '<button class="cm-github-circle cm-github-disconnected" id="cmGithubConnectBtn" type="button" aria-label="Connect GitHub" title="Connect GitHub">'+
-          '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .5A11.5 11.5 0 0 0 8.364 22.91c.575.106.786-.25.786-.555 0-.273-.01-1.001-.015-1.965-3.197.695-3.872-1.541-3.872-1.541-.523-1.327-1.277-1.68-1.277-1.68-1.044-.713.079-.699.079-.699 1.154.081 1.761 1.185 1.761 1.185 1.026 1.759 2.692 1.252 3.349.958.104-.744.402-1.252.731-1.54-2.553-.29-5.237-1.277-5.237-5.683 0-1.256.449-2.282 1.184-3.087-.119-.29-.513-1.458.112-3.04 0 0 .966-.309 3.166 1.179A10.99 10.99 0 0 1 12 6.067a10.99 10.99 0 0 1 2.884.389c2.2-1.488 3.165-1.179 3.165-1.179.626 1.582.232 2.75.113 3.04.735.805 1.183 1.831 1.183 3.087 0 4.418-2.689 5.389-5.251 5.674.413.356.781 1.063.781 2.144 0 1.547-.014 2.794-.014 3.176 0 .308.208.667.792.554A11.503 11.503 0 0 0 12 .5Z"/></svg>'+
-        '</button>';
+        '<button class="cm-github-circle cm-github-disconnected" id="cmGithubLoginCircle" type="button" aria-label="GitHub" title="GitHub">'+
+          '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .5A11.5 11.5 0 0 0 8.364 22.91c.575.106.786-.25.786-.555 0-.273-.01-1.001-.015-1.965-3.197.695-3.872-1.541-3.872-1.541-.523-1.327-1.277-1.68-1.277-1.68-1.044-.713.079-.699.079-.699 1.154.081 1.761 1.185 1.761 1.185 1.026 1.759 2.692 1.252 3.349.958.104-.744.402-1.252.731-1.54-.119-.29-.513-1.458.112-3.04 0 0 .966-.309 3.166 1.179A10.99 10.99 0 0 1 12 6.067a10.99 10.99 0 0 1 2.884.389c2.2-1.488 3.165-1.179 3.165-1.179.626 1.582.232 2.75.113 3.04.735.805 1.183 1.831 1.183 3.087 0 4.418-2.689 5.389-5.251 5.674.413.356.781 1.063.781 2.144 0 1.547-.014 2.794-.014 3.176 0 .308.208.667.792.554A11.503 11.503 0 0 0 12 .5Z"/></svg>'+
+        '</button>'+
+        '<div class="cm-github-menu cm-github-login-menu" id="cmGithubLoginMenu">'+
+          '<button type="button" id="cmGithubConnectBtn">Sign in with GitHub</button>'+
+        '</div>';
 
-      document.getElementById("cmGithubConnectBtn").addEventListener("click",connect);
+      document.getElementById("cmGithubConnectBtn").addEventListener("click",()=>{
+        document.getElementById("cmGithubLoginMenu")?.classList.remove("open");
+        connect();
+      });
+
+      document.getElementById("cmGithubLoginCircle").addEventListener("click",(event)=>{
+        event.stopPropagation();
+        document.getElementById("cmGithubLoginMenu")?.classList.toggle("open");
+      });
     }
   }
 
