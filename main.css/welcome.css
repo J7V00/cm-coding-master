@@ -1,0 +1,447 @@
+/* إعدادات عامة ومتغيرات الألوان */
+:root {
+    --bg-dark: #0a0a0c;
+    --bg-panel: #111318;
+    --bg-card: #181a20;
+    --bg-hover: #22252d;
+    --text-main: #ffffff;
+    --text-muted: #8b92a5;
+    --border-color: #2a2d36;
+    --accent-color: #3b82f6;
+    --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: var(--font-family);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* الشريط العلوي */
+.app-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--bg-dark);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0 15px;
+    height: 45px;
+}
+
+.tabs {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    overflow-x: auto;
+}
+
+.tab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 15px;
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-bottom: none;
+    border-radius: 6px 6px 0 0;
+    height: 100%;
+    font-size: 13px;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+.tab.active {
+    background-color: var(--bg-panel);
+    border-color: var(--border-color);
+    color: var(--text-main);
+}
+
+.tab .close-tab {
+    font-size: 10px;
+    margin-left: 10px;
+    border-radius: 50%;
+    padding: 2px;
+}
+
+.tab .close-tab:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.add-tab {
+    color: var(--text-muted);
+    padding: 0 15px;
+    cursor: pointer;
+}
+
+.window-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.window-controls .lang {
+    font-size: 12px;
+    border: 1px solid var(--border-color);
+    padding: 2px 5px;
+    border-radius: 4px;
+}
+
+/* الحاوية الرئيسية */
+.app-container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* مساحة محرر الأكواد */
+#editor-container {
+    flex: 1;
+    background-color: var(--bg-dark);
+    display: flex;
+    flex-direction: column;
+}
+
+#code-editor {
+    flex: 1;
+    background-color: transparent;
+    color: #e5e5e5;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 15px;
+    line-height: 1.6;
+    padding: 20px;
+    border: none;
+    resize: none;
+    outline: none;
+    width: 100%;
+}
+
+/* شاشة الترحيب */
+.hero-section {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.logo-text {
+    font-size: 100px;
+    font-weight: 800;
+    color: #4a5568;
+    background: -webkit-linear-gradient(#8b92a5, #4a5568);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+    margin-bottom: 10px;
+}
+
+.app-title {
+    font-size: 32px;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.app-subtitle {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.action-cards {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 80px;
+}
+
+.card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 25px 30px;
+    width: 200px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.card:hover {
+    background-color: var(--bg-hover);
+    border-color: #4a5568;
+}
+
+.card i {
+    font-size: 24px;
+    color: var(--text-muted);
+    margin-bottom: 15px;
+}
+
+.card h3 {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.card p {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.footer-msg {
+    position: absolute;
+    bottom: 40px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 12px;
+    width: 100%;
+}
+
+.line-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.line-divider::before,
+.line-divider::after {
+    content: '';
+    height: 1px;
+    background-color: var(--border-color);
+    width: 100px;
+}
+
+.line-divider span {
+    padding: 0 15px;
+    color: #4a5568;
+}
+
+/* الشريط الجانبي */
+.sidebar {
+    width: 350px;
+    background-color: var(--bg-panel);
+    border-left: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.sidebar section {
+    padding: 25px;
+}
+
+.sidebar h3 {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.section-desc {
+    color: var(--text-muted);
+    font-size: 12px;
+    margin-bottom: 20px;
+}
+
+.divider {
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 0 25px;
+}
+
+.steps-list {
+    list-style: none;
+}
+
+.steps-list li {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.step-num {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    flex-shrink: 0;
+}
+
+.step-info h4 {
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 3px;
+}
+
+.step-info p {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.shortcut-list {
+    list-style: none;
+    margin-top: 15px;
+}
+
+.shortcut-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 12px;
+}
+
+.keys {
+    width: 120px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--text-muted);
+}
+
+kbd {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 3px 6px;
+    font-family: inherit;
+    font-size: 11px;
+    color: var(--text-main);
+}
+
+.shortcut-list span {
+    color: var(--text-muted);
+}
+
+.terminal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+
+.terminal-content {
+    font-family: monospace;
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+.code-block {
+    background-color: var(--bg-dark);
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px 0;
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+}
+
+/* --- تنسيقات زر وقائمة الحساب في الزاوية اليسرى السفلية --- */
+.github-wrapper {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* القائمة المنبثقة */
+.github-menu {
+    background-color: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 8px 0;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.2s ease;
+}
+
+/* إظهار القائمة */
+.github-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.github-menu a {
+    display: block;
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 13px;
+    padding: 8px 20px;
+    white-space: nowrap;
+    transition: background-color 0.2s;
+}
+
+.github-menu a i {
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+.github-menu a:hover {
+    background-color: var(--bg-hover);
+    color: var(--accent-color);
+}
+
+/* الزر الدائري (الصورة) */
+.github-profile-btn {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+.github-profile-btn:hover {
+    transform: scale(1.05);
+}
+
+/* تنسيق الدائرة لصورة الشعار (J7V00) */
+.circle-image {
+    width: 48px;
+    /* حجم الدائرة */
+    height: 48px;
+    border-radius: 50%;
+    /* لجعلها دائرة */
+    overflow: hidden;
+    /* لقص الصورة الزائدة */
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+    /* إطار خفيف جداً */
+}
+
+.circle-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* لملء الدائرة بالصورة بشكل مثالي */
+}

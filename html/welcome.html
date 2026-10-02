@@ -1,114 +1,878 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Coding Master - Welcome</title>
-  <link rel="icon" href="assets/logo.png" type="image/png">
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="main.css/welcome.css">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #070709;
+      color: #e4e4e7;
+      overflow: hidden;
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #27272a;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #3f3f46;
+    }
+
+    .bg-wave {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 40vh;
+      background: radial-gradient(ellipse at bottom,
+          rgba(30, 35, 45, 0.4) 0%,
+          transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .glass-panel {
+      background: rgba(18, 19, 22, 0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .text-metallic {
+      background: linear-gradient(180deg,
+          #ffffff 0%,
+          #a1a1aa 100%);
+
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .github-button {
+      transition: all 0.2s ease;
+    }
+
+    .github-button:hover {
+      background: #18191c;
+      border-color: #3f4046;
+      transform: translateY(-1px);
+    }
+
+    .github-button:active {
+      transform: translateY(0);
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #71717a;
+    }
+
+    .status-dot.connected {
+      background: #d4d4d8;
+      box-shadow: 0 0 8px rgba(212, 212, 216, 0.35);
+    }
+  </style>
 </head>
-<body>
-  <main class="welcome-shell">
-    <header class="topbar">
-      <div class="brand">
-        <img src="assets/logo.png" alt="Coding Master">
-        <div>
-          <strong>Coding Master</strong>
-          <span>Code, build, and learn.</span>
+
+<body class="h-screen flex text-sm">
+
+  <main class="flex-1 flex flex-col relative border-r border-[#1f2024] bg-[#09090b]">
+
+    <div class="bg-wave"></div>
+
+    <!-- TOP HEADER -->
+    <header class="flex justify-between items-end px-4 pt-3 border-b border-[#1f2024] z-10">
+
+      <div class="flex">
+        <div
+          class="flex items-center gap-3 bg-[#18191c] px-4 py-2 rounded-t-lg border border-b-0 border-[#2a2b30] text-gray-200">
+
+          <i class="fa-solid fa-house text-xs text-gray-400"></i>
+
+          <span class="font-medium text-xs">
+            Welcome
+          </span>
+
+          <button class="ml-4 hover:text-white text-gray-500 rounded-md p-0.5 hover:bg-[#2a2b30] transition-colors">
+            <i class="fa-solid fa-xmark text-xs"></i>
+          </button>
+        </div>
+
+        <button class="flex items-center justify-center px-4 py-2 text-gray-500 hover:text-gray-300">
+          <i class="fa-solid fa-plus text-xs"></i>
+        </button>
+      </div>
+
+      <div class="flex items-center gap-4 pb-2 text-gray-400">
+
+        <button class="hover:text-gray-200">
+          <i class="fa-regular fa-sun"></i>
+        </button>
+
+        <div
+          class="border border-[#2a2b30] rounded-md px-2 py-0.5 text-xs font-medium cursor-pointer hover:bg-[#1f2024]">
+          EN
+        </div>
+
+        <div class="flex gap-4 items-center ml-2">
+
+          <button class="hover:text-gray-200">
+            <i class="fa-solid fa-minus text-xs"></i>
+          </button>
+
+          <button class="hover:text-gray-200">
+            <i class="fa-regular fa-square text-xs"></i>
+          </button>
+
+          <button class="hover:text-red-400">
+            <i class="fa-solid fa-xmark text-sm"></i>
+          </button>
+
         </div>
       </div>
-      <div class="top-right">
-        <span>VERSION 0.1</span>
-        <button id="helpBtn" type="button" title="Help">?</button>
-      </div>
+
     </header>
 
-    <nav class="actionbar" aria-label="File actions">
-      <button id="newFileBtn" type="button" class="action primary"><span class="action-symbol">＋</span><span>New File</span><kbd>⌘N</kbd></button>
-      <button id="openFileBtn" type="button" class="action"><span class="action-symbol">↗</span><span>Open File</span><kbd>⌘O</kbd></button>
-      <button id="openFolderBtn" type="button" class="action"><span class="action-symbol">□</span><span>Open Folder</span></button>
-      <div class="action-spacer"></div>
-      <button id="continueBtn" type="button" class="action start"><span>Open Editor</span><span class="action-arrow">→</span></button>
-    </nav>
 
-    <section class="welcome-grid">
-      <section class="welcome-copy">
-        <span class="eyebrow">WELCOME</span>
-        <h1>Welcome to<br><span>Coding Master.</span></h1>
-        <p>A focused workspace for writing code, opening projects, and seeing your work come to life.</p>
+    <!-- WELCOME CONTENT -->
+    <div class="flex-1 flex flex-col items-center justify-center z-10 relative">
 
-        <div class="walkthrough-card">
-          <div class="section-head">
-            <div>
-              <span class="kicker">WALKTHROUGH</span>
-              <h2>Learn the basics</h2>
-            </div>
-            <span class="section-mark">01</span>
-          </div>
+      <!-- LOGO -->
+      <div class="text-center mb-12">
 
-          <div class="step">
-            <b>01</b>
-            <div>
-              <h3>Create a file</h3>
-              <p>Start with HTML, CSS, JavaScript, or any file you need.</p>
-            </div>
-          </div>
+        <h1 class="text-8xl font-bold mb-4 tracking-tighter text-metallic">
+          CM
+        </h1>
 
-          <div class="step">
-            <b>02</b>
-            <div>
-              <h3>Write your code</h3>
-              <p>Use Explorer to move between files and keep your project organized.</p>
-            </div>
-          </div>
+        <h2 class="text-3xl font-semibold mb-3 tracking-wide">
+          Coding Master
+        </h2>
 
-          <div class="step last">
-            <b>03</b>
-            <div>
-              <h3>Run and preview</h3>
-              <p>Run your project and check the result without leaving Coding Master.</p>
-            </div>
-          </div>
+        <p class="text-gray-400 text-sm tracking-[0.2em] uppercase">
+          Learn
+          <span class="mx-2">•</span>
+          Build
+          <span class="mx-2">•</span>
+          Create
+        </p>
+
+      </div>
+
+
+      <!-- ACTION CARDS -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-3xl w-full px-8">
+
+        <!-- NEW FILE -->
+        <button id="newFileButton"
+          class="glass-panel border border-[#2a2b30] rounded-xl p-8 flex flex-col items-center justify-center gap-3 hover:bg-[#1e1f24] hover:border-[#3f4046] transition-all group shadow-lg">
+
+          <i class="fa-regular fa-file-lines text-2xl text-gray-300 group-hover:text-white transition-colors mb-2"></i>
+
+          <h3 class="font-medium text-base">
+            New File
+          </h3>
+
+          <p class="text-xs text-gray-500">
+            Create a new file
+          </p>
+
+        </button>
+
+
+        <!-- OPEN FILE -->
+        <button id="openFileButton"
+          class="glass-panel border border-[#2a2b30] rounded-xl p-8 flex flex-col items-center justify-center gap-3 hover:bg-[#1e1f24] hover:border-[#3f4046] transition-all group shadow-lg">
+
+          <i class="fa-regular fa-file text-2xl text-gray-300 group-hover:text-white transition-colors mb-2"></i>
+
+          <h3 class="font-medium text-base">
+            Open File
+          </h3>
+
+          <p class="text-xs text-gray-500">
+            Open an existing file
+          </p>
+
+        </button>
+
+
+        <!-- OPEN FOLDER -->
+        <button id="openFolderButton"
+          class="glass-panel border border-[#2a2b30] rounded-xl p-8 flex flex-col items-center justify-center gap-3 hover:bg-[#1e1f24] hover:border-[#3f4046] transition-all group shadow-lg">
+
+          <i class="fa-regular fa-folder text-2xl text-gray-300 group-hover:text-white transition-colors mb-2"></i>
+
+          <h3 class="font-medium text-base">
+            Open Folder
+          </h3>
+
+          <p class="text-xs text-gray-500">
+            Open a project folder
+          </p>
+
+        </button>
+
+      </div>
+
+
+      <!-- BOTTOM TEXT -->
+      <div class="mt-16 text-center">
+
+        <p class="text-gray-400 text-sm mb-6">
+          Start building something amazing
+        </p>
+
+        <div class="flex items-center justify-center gap-4 opacity-50">
+
+          <div class="h-[1px] w-16 bg-gradient-to-r from-transparent to-gray-500"></div>
+
+          <span class="text-xs font-semibold tracking-widest text-gray-400">
+            CM
+          </span>
+
+          <div class="h-[1px] w-16 bg-gradient-to-l from-transparent to-gray-500"></div>
+
         </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- DARA -->
+    <button
+      class="absolute bottom-6 left-6 z-20 glass-panel border border-[#333] hover:border-[#555] hover:bg-[#1c1d22] rounded-xl w-24 h-24 flex flex-col items-center justify-center gap-2 transition-all shadow-xl group">
+
+      <i class="fa-regular fa-building text-2xl text-gray-300 group-hover:text-white"></i>
+
+      <span class="font-bold text-lg text-gray-200" dir="rtl">
+        دارة
+      </span>
+
+    </button>
+
+  </main>
+
+
+  <!-- RIGHT SIDEBAR -->
+  <aside class="w-[380px] bg-[#0c0d10] flex flex-col h-full border-l border-[#1f2024] overflow-y-auto">
+
+    <div class="p-6 flex-1 flex flex-col gap-8">
+
+
+      <!-- QUICK START -->
+      <section>
+
+        <h3 class="text-base font-semibold text-gray-100 mb-1">
+          Quick Start
+        </h3>
+
+        <p class="text-xs text-gray-400 mb-6">
+          Follow these steps to start coding
+        </p>
+
+
+        <div class="flex flex-col gap-6">
+
+          <!-- STEP 1 -->
+          <div class="flex gap-4 items-start">
+
+            <div
+              class="w-6 h-6 shrink-0 rounded-full bg-[#18191c] border border-[#2a2b30] flex items-center justify-center text-xs text-gray-400 font-medium">
+              1
+            </div>
+
+            <div>
+              <h4 class="text-sm font-medium text-gray-200 mb-1">
+                Open a folder
+              </h4>
+
+              <p class="text-xs text-gray-500 leading-relaxed">
+                Click on Open Folder or drag & drop your project folder.
+              </p>
+            </div>
+
+          </div>
+
+
+          <!-- STEP 2 -->
+          <div class="flex gap-4 items-start">
+
+            <div
+              class="w-6 h-6 shrink-0 rounded-full bg-[#18191c] border border-[#2a2b30] flex items-center justify-center text-xs text-gray-400 font-medium">
+              2
+            </div>
+
+            <div>
+              <h4 class="text-sm font-medium text-gray-200 mb-1">
+                Create a file
+              </h4>
+
+              <p class="text-xs text-gray-500 leading-relaxed">
+                Use New File or the plus icon to create files.
+              </p>
+            </div>
+
+          </div>
+
+
+          <!-- STEP 3 -->
+          <div class="flex gap-4 items-start">
+
+            <div
+              class="w-6 h-6 shrink-0 rounded-full bg-[#18191c] border border-[#2a2b30] flex items-center justify-center text-xs text-gray-400 font-medium">
+              3
+            </div>
+
+            <div>
+              <h4 class="text-sm font-medium text-gray-200 mb-1">
+                Write your code
+              </h4>
+
+              <p class="text-xs text-gray-500 leading-relaxed">
+                Open index.html and start coding.
+              </p>
+            </div>
+
+          </div>
+
+
+          <!-- STEP 4 -->
+          <div class="flex gap-4 items-start">
+
+            <div
+              class="w-6 h-6 shrink-0 rounded-full bg-[#18191c] border border-[#2a2b30] flex items-center justify-center text-xs text-gray-400 font-medium">
+              4
+            </div>
+
+            <div>
+              <h4 class="text-sm font-medium text-gray-200 mb-1">
+                Run the preview
+              </h4>
+
+              <p class="text-xs text-gray-500 leading-relaxed">
+                Press ⌘ + Enter or click Preview to see your result.
+              </p>
+            </div>
+
+          </div>
+
+
+          <!-- STEP 5 -->
+          <div class="flex gap-4 items-start">
+
+            <div
+              class="w-6 h-6 shrink-0 rounded-full bg-[#18191c] border border-[#2a2b30] flex items-center justify-center text-xs text-gray-400 font-medium">
+              5
+            </div>
+
+            <div>
+              <h4 class="text-sm font-medium text-gray-200 mb-1">
+                Use the terminal
+              </h4>
+
+              <p class="text-xs text-gray-500 leading-relaxed">
+                Open the terminal to run commands or install packages.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
       </section>
 
-      <aside class="start-panel">
-        <div class="panel-heading">
+
+      <!-- DIVIDER -->
+      <div class="h-px w-full bg-[#1f2024]"></div>
+
+
+      <!-- KEYBOARD SHORTCUTS -->
+      <section>
+
+        <h3 class="text-sm font-medium text-gray-200 mb-4">
+          Keyboard Shortcuts
+        </h3>
+
+        <div class="flex flex-col gap-3">
+
+          <div class="flex items-center gap-4">
+            <div class="w-24 text-right">
+              <kbd
+                class="bg-[#18191c] border border-[#2a2b30] rounded-md px-2.5 py-1 text-xs text-gray-300 shadow-sm inline-block font-sans">
+                ⌘ + N
+              </kbd>
+            </div>
+            <span class="text-xs text-gray-400">
+              New File
+            </span>
+          </div>
+
+          <div class="flex items-center gap-4">
+            <div class="w-24 text-right">
+              <kbd
+                class="bg-[#18191c] border border-[#2a2b30] rounded-md px-2.5 py-1 text-xs text-gray-300 shadow-sm inline-block font-sans">
+                ⌘ + O
+              </kbd>
+            </div>
+            <span class="text-xs text-gray-400">
+              Open File
+            </span>
+          </div>
+
+          <div class="flex items-center gap-4">
+            <div class="w-24 text-right">
+              <kbd
+                class="bg-[#18191c] border border-[#2a2b30] rounded-md px-2.5 py-1 text-xs text-gray-300 shadow-sm inline-block font-sans">
+                ⌘ + S
+              </kbd>
+            </div>
+            <span class="text-xs text-gray-400">
+              Save File
+            </span>
+          </div>
+
+          <div class="flex items-center gap-4">
+            <div class="w-24 text-right">
+              <kbd
+                class="bg-[#18191c] border border-[#2a2b30] rounded-md px-2.5 py-1 text-xs text-gray-300 shadow-sm inline-block font-sans">
+                ⌘ + Enter
+              </kbd>
+            </div>
+            <span class="text-xs text-gray-400">
+              Run Preview
+            </span>
+          </div>
+
+          <div class="flex items-center gap-4">
+            <div class="w-24 text-right">
+              <kbd
+                class="bg-[#18191c] border border-[#2a2b30] rounded-md px-2.5 py-1 text-xs text-gray-300 shadow-sm inline-block font-sans">
+                ⌘ + L
+              </kbd>
+            </div>
+            <span class="text-xs text-gray-400">
+              Open in Browser
+            </span>
+          </div>
+
+          <div class="flex items-center gap-4">
+            <div class="w-24 text-right">
+              <kbd
+                class="bg-[#18191c] border border-[#2a2b30] rounded-md px-2.5 py-1 text-xs text-gray-300 shadow-sm inline-block font-sans">
+                ⌘ + `
+              </kbd>
+            </div>
+            <span class="text-xs text-gray-400">
+              Toggle Terminal
+            </span>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- GITHUB -->
+      <section>
+
+        <div class="flex items-center justify-between mb-4">
+
           <div>
-            <span class="kicker">RECENT</span>
-            <h2>Recent Projects</h2>
+            <h3 class="text-sm font-medium text-gray-200">
+              GitHub
+            </h3>
+
+            <p class="text-xs text-gray-500 mt-1">
+              Manage your project with GitHub
+            </p>
           </div>
-          <button id="clearRecentBtn" type="button">Clear</button>
+
+          <div class="flex items-center gap-2 text-xs text-gray-500">
+            <span id="githubStatusDot" class="status-dot"></span>
+            <span id="githubStatusText">
+              Not connected
+            </span>
+          </div>
+
         </div>
 
-        <div class="recent-list" id="recentList"></div>
 
-        <div class="tips">
-          <div class="tip">
-            <kbd>⌘W</kbd>
-            <div><strong>Close File</strong><small>Close the current tab.</small></div>
-          </div>
-          <div class="tip">
-            <kbd>⌘S</kbd>
-            <div><strong>Save</strong><small>Save your current work.</small></div>
-          </div>
-          <div class="tip">
-            <kbd>⌘↵</kbd>
-            <div><strong>Run</strong><small>Run and preview the project.</small></div>
-          </div>
+        <div class="grid grid-cols-2 gap-2">
+
+          <!-- CLONE -->
+          <button id="cloneButton"
+            class="github-button flex items-center gap-2 bg-[#121317] border border-[#2a2b30] rounded-lg px-3 py-2.5 text-xs text-gray-300">
+
+            <i class="fa-solid fa-code-branch text-gray-400"></i>
+
+            <span>
+              Clone
+            </span>
+
+          </button>
+
+
+          <!-- OPEN GITHUB -->
+          <button id="githubButton"
+            class="github-button flex items-center gap-2 bg-[#121317] border border-[#2a2b30] rounded-lg px-3 py-2.5 text-xs text-gray-300">
+
+            <i class="fa-brands fa-github text-gray-300"></i>
+
+            <span>
+              GitHub
+            </span>
+
+          </button>
+
+
+          <!-- PULL -->
+          <button id="pullButton"
+            class="github-button flex items-center gap-2 bg-[#121317] border border-[#2a2b30] rounded-lg px-3 py-2.5 text-xs text-gray-300">
+
+            <i class="fa-solid fa-arrow-down text-gray-400"></i>
+
+            <span>
+              Pull
+            </span>
+
+          </button>
+
+
+          <!-- PUSH -->
+          <button id="pushButton"
+            class="github-button flex items-center gap-2 bg-[#121317] border border-[#2a2b30] rounded-lg px-3 py-2.5 text-xs text-gray-300">
+
+            <i class="fa-solid fa-arrow-up text-gray-400"></i>
+
+            <span>
+              Push
+            </span>
+
+          </button>
+
+
+          <!-- COMMIT -->
+          <button id="commitButton"
+            class="github-button col-span-2 flex items-center justify-center gap-2 bg-[#121317] border border-[#2a2b30] rounded-lg px-3 py-2.5 text-xs text-gray-300">
+
+            <i class="fa-solid fa-check text-gray-400"></i>
+
+            <span>
+              Commit Changes
+            </span>
+
+          </button>
+
         </div>
-      </aside>
-    </section>
 
-    <input id="filePicker" type="file" multiple hidden accept=".html,.htm,.css,.js,.json,.md,.txt,.xml,.svg,.ts,.tsx,.jsx">
-    <input id="folderPicker" type="file" webkitdirectory directory multiple hidden>
 
-    <footer>
-      <span>Learn • Write • Experiment • Build</span>
-      <a href="index.html">Coding Master Website</a>
-    </footer>
-  </main>
-  <script src="welcome.js"></script>
+        <div id="githubMessage"
+          class="hidden mt-3 bg-[#18191c] border border-[#2a2b30] rounded-lg px-3 py-2 text-xs text-gray-400">
+        </div>
+
+      </section>
+
+    </div>
+
+
+    <!-- TERMINAL -->
+    <div class="border-t border-[#1f2024] bg-[#0f1013] mt-auto">
+
+      <div class="flex items-center justify-between px-4 py-3 border-b border-[#1f2024]">
+
+        <div class="flex items-center gap-2 text-gray-200">
+
+          <i class="fa-solid fa-terminal text-xs"></i>
+
+          <span class="text-sm font-medium">
+            Terminal
+          </span>
+
+        </div>
+
+        <button class="text-gray-500 hover:text-gray-300">
+          <i class="fa-solid fa-chevron-up text-xs"></i>
+        </button>
+
+      </div>
+
+
+      <div class="p-4 font-mono text-xs">
+
+        <div class="flex items-start gap-2 mb-2 text-gray-400">
+
+          <i class="fa-solid fa-chevron-right text-[10px] mt-1 text-gray-500"></i>
+
+          <p>
+            Open the terminal to run commands.
+          </p>
+
+        </div>
+
+
+        <div class="flex items-start gap-2 mb-3 text-gray-400">
+
+          <i class="fa-solid fa-chevron-right text-[10px] mt-1 text-gray-500"></i>
+
+          <p>
+            Example:
+          </p>
+
+        </div>
+
+
+        <div class="bg-[#18191c] border border-[#2a2b30] rounded-md p-3 text-gray-300 ml-4 shadow-inner">
+          npm install
+        </div>
+
+
+        <div class="mt-6 text-gray-500 text-[11px] font-sans">
+          Press
+          <kbd class="font-sans">
+            ⌘ + `
+          </kbd>
+          to toggle terminal
+        </div>
+
+      </div>
+
+    </div>
+
+  </aside>
+
+
+  <!-- JAVASCRIPT -->
+  <script>
+
+    const githubMessage = document.getElementById("githubMessage");
+    const githubStatusDot = document.getElementById("githubStatusDot");
+    const githubStatusText = document.getElementById("githubStatusText");
+
+
+    function showGithubMessage(message) {
+
+      githubMessage.textContent = message;
+
+      githubMessage.classList.remove("hidden");
+
+      setTimeout(() => {
+        githubMessage.classList.add("hidden");
+      }, 3500);
+    }
+
+
+    function connectGithub() {
+
+      githubStatusDot.classList.add("connected");
+
+      githubStatusText.textContent = "Ready";
+
+      showGithubMessage("GitHub tools are ready.");
+
+    }
+
+
+    document.getElementById("githubButton").addEventListener("click", () => {
+
+      window.open(
+        "https://github.com/",
+        "_blank"
+      );
+
+      connectGithub();
+
+    });
+
+
+    document.getElementById("cloneButton").addEventListener("click", async () => {
+
+      const repository = prompt(
+        "Enter GitHub repository URL:"
+      );
+
+      if (!repository) {
+        return;
+      }
+
+      const command = `git clone ${repository}`;
+
+      try {
+
+        await navigator.clipboard.writeText(command);
+
+        showGithubMessage(
+          `Copied: ${command}`
+        );
+
+      } catch (error) {
+
+        showGithubMessage(
+          command
+        );
+
+      }
+
+    });
+
+
+    document.getElementById("pullButton").addEventListener("click", async () => {
+
+      const command = "git pull";
+
+      try {
+
+        await navigator.clipboard.writeText(command);
+
+        showGithubMessage(
+          "Copied: git pull"
+        );
+
+      } catch (error) {
+
+        showGithubMessage(
+          command
+        );
+
+      }
+
+    });
+
+
+    document.getElementById("pushButton").addEventListener("click", async () => {
+
+      const command = "git add . && git commit -m \"Update project\" && git push";
+
+      try {
+
+        await navigator.clipboard.writeText(command);
+
+        showGithubMessage(
+          "GitHub Push command copied."
+        );
+
+      } catch (error) {
+
+        showGithubMessage(
+          command
+        );
+
+      }
+
+    });
+
+
+    document.getElementById("commitButton").addEventListener("click", async () => {
+
+      const message = prompt(
+        "Enter commit message:"
+      );
+
+      if (!message) {
+        return;
+      }
+
+      const command =
+        `git add . && git commit -m "${message}"`;
+
+      try {
+
+        await navigator.clipboard.writeText(command);
+
+        showGithubMessage(
+          "Commit command copied."
+        );
+
+      } catch (error) {
+
+        showGithubMessage(
+          command
+        );
+
+      }
+
+    });
+
+
+    /* KEYBOARD SHORTCUTS */
+
+    document.addEventListener("keydown", (event) => {
+
+      const cmd = event.metaKey || event.ctrlKey;
+
+
+      if (!cmd) {
+        return;
+      }
+
+
+      if (event.key.toLowerCase() === "n") {
+
+        event.preventDefault();
+
+        document
+          .getElementById("newFileButton")
+          .click();
+
+      }
+
+
+      if (event.key.toLowerCase() === "o") {
+
+        event.preventDefault();
+
+        document
+          .getElementById("openFileButton")
+          .click();
+
+      }
+
+
+      if (event.key.toLowerCase() === "s") {
+
+        event.preventDefault();
+
+        showGithubMessage(
+          "Save command triggered."
+        );
+
+      }
+
+
+      if (event.key.toLowerCase() === "p") {
+
+        event.preventDefault();
+
+        document
+          .getElementById("pushButton")
+          .click();
+
+      }
+
+    });
+
+  </script>
+
 </body>
+
 </html>
