@@ -1,0 +1,243 @@
+:root,
+html[data-theme="dark"] {
+  --bg-main: #060709;
+  --bg-card: #14151c;
+  --bg-elevated: #1c1f27;
+  --text-white: #ffffff;
+  --text-gray: #9ea3ac;
+  --border-light: rgba(255, 255, 255, 0.1);
+  --nav-pill-bg: #ffffff;
+  --nav-pill-text: #000000;
+  --nav-pill-active-bg: #000000;
+  --nav-pill-active-text: #ffffff;
+  --btn-border: rgba(255, 255, 255, 0.4);
+  --hero-muted: #9ea3ac;
+  --footer-bg: #222529;
+  --footer-text: #adb5bd;
+  --footer-heading: #ffffff;
+  --shadow-soft: 0 20px 50px rgba(0, 0, 0, 0.35);
+  color-scheme: dark;
+}
+
+html[data-theme="light"] {
+  --bg-main: #f4f6fb;
+  --bg-card: #ffffff;
+  --bg-elevated: #eef1f7;
+  --text-white: #12141a;
+  --text-gray: #5b6170;
+  --border-light: rgba(18, 20, 26, 0.1);
+  --nav-pill-bg: #12141a;
+  --nav-pill-text: #ffffff;
+  --nav-pill-active-bg: #ffffff;
+  --nav-pill-active-text: #12141a;
+  --btn-border: rgba(18, 20, 26, 0.2);
+  --hero-muted: #5b6170;
+  --footer-bg: #e8ecf4;
+  --footer-text: #4b5160;
+  --footer-heading: #12141a;
+  --shadow-soft: 0 18px 40px rgba(18, 20, 26, 0.08);
+  color-scheme: light;
+}
+
+html {
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+body {
+  background-color: var(--bg-main) !important;
+  color: var(--text-white) !important;
+}
+
+.navbar,
+.welcome header.navbar {
+  background: color-mix(in srgb, var(--bg-main) 92%, transparent) !important;
+  border-bottom-color: var(--border-light) !important;
+  backdrop-filter: blur(12px);
+  padding-block: 16px !important;
+  gap: 12px;
+}
+
+.close-menu-btn {
+  color: var(--text-white) !important;
+}
+
+.logo,
+.logo span,
+.brand span {
+  color: var(--text-white) !important;
+}
+
+.nav-pill,
+.desktop-nav {
+  background: var(--nav-pill-bg) !important;
+}
+
+.nav-link {
+  color: var(--nav-pill-text) !important;
+}
+
+.nav-link.active {
+  background: var(--nav-pill-active-bg) !important;
+  color: var(--nav-pill-active-text) !important;
+}
+
+.en-btn,
+.theme-btn {
+  background: transparent !important;
+  border: 1px solid var(--btn-border) !important;
+  color: var(--text-white) !important;
+  padding: 8px 16px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: 0.2s ease;
+}
+
+.theme-btn:hover,
+.en-btn:hover {
+  transform: translateY(-1px);
+  border-color: var(--text-white) !important;
+}
+
+.theme-btn [data-theme-icon] {
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.mobile-menu-overlay,
+.mobile-menu-overlay.active {
+  background: var(--bg-main) !important;
+}
+
+.mobile-nav-links a {
+  color: var(--text-white) !important;
+}
+
+.hero-subtext,
+.why-heading p,
+.card-details p,
+.block-title,
+.section-label,
+.faq-item p,
+.sidebar-note span {
+  color: var(--text-gray);
+}
+
+.card,
+.solution-card,
+.why-card,
+.faq-card,
+.feature-card,
+.download-card,
+.login-card,
+.modal-card,
+.contact-card {
+  background: var(--bg-card) !important;
+  border-color: var(--border-light) !important;
+  box-shadow: var(--shadow-soft);
+  color: var(--text-white);
+}
+
+.footer-wave,
+footer.site-footer,
+.site-footer {
+  background: var(--footer-bg) !important;
+  color: var(--footer-text) !important;
+}
+
+.footer-wave__heading,
+.footer-wave h3,
+.footer-wave h4 {
+  color: var(--footer-heading) !important;
+}
+
+.footer-divider,
+.footer-divider svg {
+  background-color: var(--bg-main) !important;
+  fill: var(--footer-bg) !important;
+}
+
+html[data-theme="light"] .hero-highlight,
+html[data-theme="light"] h1,
+html[data-theme="light"] h2,
+html[data-theme="light"] h3 {
+  color: var(--text-white);
+}
+
+html[data-theme="light"] .hero,
+html[data-theme="light"] .solutions,
+html[data-theme="light"] .why-section,
+html[data-theme="light"] .faq-section,
+html[data-theme="light"] .start-section,
+html[data-theme="light"] .master-section,
+html[data-theme="light"] .cta-section {
+  background: var(--bg-main) !important;
+  color: var(--text-white);
+}
+
+html[data-theme="light"] .hero-line,
+html[data-theme="light"] hr {
+  border-color: var(--border-light) !important;
+  background: var(--border-light) !important;
+}
+
+.mobile-theme-btn {
+  margin: 12px auto 8px;
+  display: inline-flex;
+}
+
+.nav-left-icons .theme-btn {
+  order: -1;
+}
+
+html[data-theme="light"] .tag-pill {
+  background: var(--bg-elevated) !important;
+  color: var(--text-white) !important;
+  border-color: var(--border-light) !important;
+}
+
+html[data-theme="light"] input,
+html[data-theme="light"] textarea,
+html[data-theme="light"] select {
+  background: var(--bg-elevated) !important;
+  color: var(--text-white) !important;
+  border-color: var(--border-light) !important;
+}
+
+.nav-left-icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.mobile-menu-overlay:not(.active) [data-theme-toggle] {
+  visibility: hidden;
+}
+
+@media (max-width: 900px) {
+  .theme-btn [data-theme-label] {
+    display: none;
+  }
+
+  .nav-left-icons .theme-btn {
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .desktop-lang #btnLangText {
+    display: none;
+  }
+
+  .desktop-lang {
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    justify-content: center;
+  }
+}

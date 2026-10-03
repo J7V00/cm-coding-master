@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta name="theme-color" content="#060709">
+
+<script>
+(() => {
+  try {
+    const theme = localStorage.getItem("CMTheme") ||
+      (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+    document.documentElement.dataset.theme = theme;
+    const lang = localStorage.getItem("CMLang") || "ar";
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+  } catch (_) {}
+})();
+</script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coding Master — Welcome</title>
+  <link rel="icon" href="/assets/logo.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <main class="welcome">
+    <header class="navbar">
+      <a href="index.html" class="brand">
+        <img src="/assets/logo.png" alt="Coding Master">
+        <span>Coding Master</span>
+      </a>
+      <div class="nav-right">
+        <span>CODING MASTER</span>
+        <button id="helpBtn" class="help-btn" type="button" aria-label="Open Editor">?</button>
+      </div>
+    </header>
+
+    <section class="welcome-area">
+      <div class="welcome-content">
+        <div class="welcome-label">WELCOME</div>
+        <h1>Welcome to<br><strong>Coding Master.</strong></h1>
+        <p>Start a file, open a project, and write your code.</p>
+        <div class="action-box">
+          <div class="action-box-top">
+            <span>GET STARTED</span>
+            <b>01</b>
+          </div>
+          <div class="actions">
+            <button id="newFileBtn" class="action-card" type="button">
+              <span class="action-icon">＋</span>
+              <span class="action-copy">
+                <strong>New File</strong>
+                <small>Create a new code file</small>
+              </span>
+              <kbd>⌘N</kbd>
+            </button>
+            <button id="openFileBtn" class="action-card" type="button">
+              <span class="action-icon">↗</span>
+              <span class="action-copy">
+                <strong>Open File</strong>
+                <small>Choose a file from your computer</small>
+              </span>
+              <kbd>⌘O</kbd>
+            </button>
+            <button id="openFolderBtn" class="action-card" type="button">
+              <span class="action-icon">□</span>
+              <span class="action-copy">
+                <strong>Open Folder</strong>
+                <small>Open a complete project folder</small>
+              </span>
+              <kbd>⌘⇧O</kbd>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="welcome-side">
+        <div class="side-line"></div>
+        <div class="side-code"><span class="line">01</span><span class="code-text">&lt;start&gt;</span></div>
+        <div class="side-code"><span class="line">02</span><span class="code-text">your idea</span></div>
+        <div class="side-code"><span class="line">03</span><span class="code-text">&lt;/start&gt;</span></div>
+        <div class="side-note"><span>01</span><p>Open a folder once.<br>Code inside it.</p></div>
+      </div>
+    </section>
+
+    <input id="filePicker" type="file" multiple hidden accept=".html,.htm,.css,.js,.json,.md,.txt,.xml,.svg,.ts,.tsx,.jsx">
+    <input id="folderPicker" type="file" webkitdirectory directory multiple hidden>
+
+    <footer>
+      <span>Learn • Write • Experiment • Build</span>
+      <a href="index.html">Coding Master Website</a>
+    </footer>
+  </main>
+
+  <script type="module" src="/src/app/welcome-main.ts"></script>
+</body>
+</html>

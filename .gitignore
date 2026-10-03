@@ -1,9 +1,21 @@
 .DS_Store
 **/.DS_Store
 
-src-tauri/target/
 node_modules/
+dist/
+src-tauri/target/
+
+.env
+.env.local
 
 make-circle.swift.save
 
 *.textClipping
+
+# Installers belong on GitHub Releases, not in git
+downloads/*.exe
+downloads/*.dmg
+downloads/*.AppImage
+public/downloads/*.exe
+public/downloads/*.dmg
+public/downloads/*.AppImage

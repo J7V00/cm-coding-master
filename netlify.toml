@@ -1,2 +1,3 @@
 [build]
-  publish = "html"
+  command = "npm ci && npm run build"
+  publish = "dist"
