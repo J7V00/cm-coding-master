@@ -13,7 +13,7 @@
     "windows": [
       {
         "title": "Coding Master",
-        "url": "welcome.html",
+        "url": "html/welcome.html",
         "width": 1000,
         "height": 700,
         "resizable": true,
