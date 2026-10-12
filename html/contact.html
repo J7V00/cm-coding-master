@@ -246,16 +246,7 @@
                                 placeholder="أدخل بريدك الإلكتروني بصيغة صحيحة...">
                         </div>
 
-                        <!-- 3. رمز الحساب المخفي -->
-                        <div class="input-group">
-                            <label>الرمز السري / رمز الحساب</label>
-                            <div class="password-container">
-                                <input type="password" id="accountCodeInput" name="account_code" required="required"
-                                    placeholder="أدخل الرمز...">
-                                <i class="fas fa-eye toggle-icon" id="toggleCodeBtn"
-                                    onclick="toggleCodeVisibility()"></i>
-                            </div>
-                        </div>
+                        
 
                         <!-- 4. رقم الهاتف + كود البلد -->
                         <div class="input-group">
@@ -327,7 +318,15 @@
         // ================= إعدادات Supabase =================
         const SUPABASE_URL = "https://wkoyeiydytlgtoknypkd.supabase.co";
         const SUPABASE_ANON_KEY = "sb_publishable_r3BxLBSCV85_7qR6WvYBdw_Bf9qCZe0";
-        const _supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        // جلسة منفصلة للتحقق من الحساب دون لمس جلسة GitHub في بقية الموقع.
+        const _supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+            auth: {
+                storageKey: 'cm-contact-auth',
+                persistSession: false,
+                autoRefreshToken: false,
+                detectSessionInUrl: false
+            }
+        });
 
         function openMobileMenu() { document.getElementById('mobileMenuOverlay').classList.add('active'); }
         function closeMobileMenu() { document.getElementById('mobileMenuOverlay').classList.remove('active'); }
@@ -338,12 +337,12 @@
             { ar: 'كيف يمكننا مساعدتك؟', en: 'How can we help you?' },
             { ar: 'فريقنا متواجد دائماً للرد على استفساراتك البرمجية والدعم الفني.', en: 'Our team is always available for your coding inquiries and technical support.' },
             { ar: 'أرسل لنا رسالة', en: 'Send us a message' }, { ar: 'الاسم الكامل', en: 'Full Name' },
-            { ar: 'البريد الإلكتروني', en: 'Email Address' }, { ar: 'الرمز السري / رمز الحساب', en: 'Account Code / Secret PIN' }, { ar: 'رقم الهاتف', en: 'Phone Number' },
+            { ar: 'البريد الإلكتروني', en: 'Email Address' }, { ar: 'رقم الهاتف', en: 'Phone Number' },
             { ar: 'الرسالة (إلزامي)', en: 'Message (Required)' },
             { ar: 'إرسال الرسالة', en: 'Send Message' }, { ar: 'نحن نصمم بيئات برمجية وأدوات حديثة لمساعدة مشاريعك وأفكارك على التميز والنجاح.', en: 'We create beautiful, modern coding environments to help your projects stand out.' },
             { ar: 'جميع الحقوق محفوظة.', en: 'All Rights Reserved.' },
             { ar: 'أدخل اسمك هنا...', en: 'Enter your name here...' }, { ar: 'أدخل بريدك الإلكتروني بصيغة صحيحة...', en: 'Enter a valid email address...' },
-            { ar: 'أدخل الرمز...', en: 'Enter code...' }, { ar: 'أدخل رقم هاتفك بدون كود البلد...', en: 'Enter phone number without country code...' },
+            { ar: 'أدخل رقم هاتفك بدون كود البلد...', en: 'Enter phone number without country code...' },
             { ar: 'اكتب رسالتك وتفاصيلها هنا...', en: 'Write your message and details here...' }
         ];
 
@@ -389,20 +388,6 @@
             if (localStorage.getItem('CMLang') === 'en') applyLanguage('en');
         });
 
-        function toggleCodeVisibility() {
-            const input = document.getElementById("accountCodeInput");
-            const icon = document.getElementById("toggleCodeBtn");
-            if (input.type === "password") {
-                input.type = "text";
-                icon.classList.remove("fa-eye");
-                icon.classList.add("fa-eye-slash");
-            } else {
-                input.type = "password";
-                icon.classList.remove("fa-eye-slash");
-                icon.classList.add("fa-eye");
-            }
-        }
-
         function isValidEmail(email) {
             return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
         }
@@ -436,71 +421,82 @@
             document.getElementById('notificationModal').classList.remove('active');
         }
 
-        // ================= دالة الحفظ في Supabase =================
+        // ================= حفظ رسالة التواصل =================
         async function sendEmail(event) {
             event.preventDefault();
+
+            const form = document.getElementById('contactForm');
             const btn = document.getElementById('btnSubmit');
-            let currentLang = localStorage.getItem('CMLang') || 'ar';
+            const currentLang = localStorage.getItem('CMLang') || 'ar';
 
-            const name = document.getElementById('nameInput').value;
-            const email = document.getElementById('emailInput').value;
-            const accountCode = document.getElementById('accountCodeInput').value;
+            const name = document.getElementById('nameInput').value.trim();
+            const email = document.getElementById('emailInput').value.trim();
             const countryCode = document.getElementById('countryCodeSelect').value;
-            const phone = document.getElementById('phoneInput').value;
-            const message = document.getElementById('messageInput').value;
+            const phone = document.getElementById('phoneInput').value.trim();
+            const message = document.getElementById('messageInput').value.trim();
 
-            // فحص صحة الإيميل
-            if (!isValidEmail(email)) {
-                showNotificationModal(
-                    'error',
-                    currentLang === 'ar' ? 'خطأ في البيانات' : 'Validation Error',
-                    currentLang === 'ar' ? 'الرجاء إدخال بريد إلكتروني صحيح (مثال: name@gmail.com)' : 'Please enter a valid email address.'
-                );
+            if (!name || !email || !phone || !message) {
+                showNotificationModal('error',
+                    currentLang === 'ar' ? 'بيانات ناقصة' : 'Missing information',
+                    currentLang === 'ar' ? 'يرجى تعبئة جميع الحقول المطلوبة.' : 'Please complete all required fields.');
                 return;
             }
 
-            btn.innerHTML = currentLang === 'ar' ? 'جاري الإرسال...' : 'Sending...';
+            if (name.length > 120 || message.length > 5000 || phone.length > 40 || !isValidEmail(email)) {
+                showNotificationModal('error',
+                    currentLang === 'ar' ? 'تحقق من البيانات' : 'Check your details',
+                    currentLang === 'ar'
+                        ? 'تحقق من صحة البريد الإلكتروني وطول الاسم ورقم الهاتف والرسالة.'
+                        : 'Check the email address and the length of your name, phone number and message.');
+                return;
+            }
+
+            if (!window.supabase || typeof _supabase?.from !== 'function') {
+                showNotificationModal('error',
+                    currentLang === 'ar' ? 'تعذر الاتصال' : 'Connection error',
+                    currentLang === 'ar' ? 'تعذر تحميل خدمة الرسائل. حدّث الصفحة وحاول مجددًا.' : 'The message service could not load. Refresh and try again.');
+                return;
+            }
+
             btn.disabled = true;
+            btn.innerHTML = currentLang === 'ar' ? 'جارٍ إرسال الرسالة...' : 'Sending message...';
 
             try {
-                // إدراج الصف في جدول messages في Supabase
-                const { data, error } = await _supabase
+                const { error } = await _supabase
                     .from('messages')
-                    .insert([
-                        {
-                            name: name,
-                            email: email,
-                            account_code: accountCode,
-                            phone: `${countryCode} ${phone}`,
-                            message: message
-                        }
-                    ]);
+                    .insert([{
+                        name: name,
+                        email: email,
+                        phone: countryCode + ' ' + phone,
+                        message: message
+                    }]);
 
-                btn.disabled = false;
-                btn.innerHTML = currentLang === 'ar' ? 'إرسال الرسالة' : 'Send Message';
+                if (error) throw error;
 
-                if (error) {
-                    showNotificationModal(
-                        'error',
-                        currentLang === 'ar' ? 'فشل الإرسال' : 'Error',
-                        currentLang === 'ar' ? 'تعذر الحفظ في قاعدة البيانات: ' + error.message : 'Database error: ' + error.message
-                    );
-                } else {
-                    event.target.reset();
-                    showNotificationModal(
-                        'success',
-                        currentLang === 'ar' ? 'تم الإرسال بنجاح!' : 'Success!',
-                        currentLang === 'ar' ? 'تم حفظ بياناتك بنجاح في قاعدة البيانات وسنرد عليك قريباً.' : 'Data saved successfully to Supabase.'
-                    );
-                }
+                form.reset();
+                showNotificationModal('success',
+                    currentLang === 'ar' ? 'تم إرسال الرسالة بنجاح' : 'Message sent successfully',
+                    currentLang === 'ar'
+                        ? 'وصلت رسالتك إلى فريق Code Master. شكرًا لتواصلك معنا.'
+                        : 'Your message has been delivered to the Code Master team. Thank you.');
+
             } catch (err) {
+                console.error('Contact message submission failed:', err);
+                const isNetworkError = err instanceof TypeError || /failed to fetch|networkerror|load failed/i.test(String(err?.message || ''));
+                showNotificationModal('error',
+                    currentLang === 'ar'
+                        ? (isNetworkError ? 'تعذر الاتصال بالخادم' : 'فشل إرسال الرسالة')
+                        : (isNetworkError ? 'Server connection failed' : 'Message sending failed'),
+                    currentLang === 'ar'
+                        ? (isNetworkError
+                            ? 'تعذر الوصول إلى قاعدة البيانات. تحقق من الإنترنت وحالة Supabase ثم أعد المحاولة.'
+                            : 'لم نتمكن من حفظ رسالتك. حاول مرة أخرى، وإذا استمرت المشكلة فأخبرنا.')
+                        : (isNetworkError
+                            ? 'Could not reach the database. Check your internet and Supabase status, then retry.'
+                            : 'We could not save your message. Retry, and let us know if the issue continues.'));
+            } finally {
                 btn.disabled = false;
                 btn.innerHTML = currentLang === 'ar' ? 'إرسال الرسالة' : 'Send Message';
-                showNotificationModal(
-                    'error',
-                    currentLang === 'ar' ? 'فشل الاتصال' : 'Connection Error',
-                    currentLang === 'ar' ? 'يرجى التأكد من ربط مفاتيح Supabase الصحيحة.' : 'Please verify your Supabase keys.'
-                );
             }
         }
     </script>
