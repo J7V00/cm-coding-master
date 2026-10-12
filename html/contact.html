@@ -248,7 +248,7 @@
 
                         <!-- 3. رمز الحساب المخفي -->
                         <div class="input-group">
-                            <label>الرمز السري / رمز الحساب</label>
+                            <label>رمز الحساب (للتحقق فقط — لن يتم حفظه مع الرسالة)</label>
                             <div class="password-container">
                                 <input type="password" id="accountCodeInput" name="account_code" required="required"
                                     placeholder="أدخل الرمز...">
@@ -327,7 +327,15 @@
         // ================= إعدادات Supabase =================
         const SUPABASE_URL = "https://wkoyeiydytlgtoknypkd.supabase.co";
         const SUPABASE_ANON_KEY = "sb_publishable_r3BxLBSCV85_7qR6WvYBdw_Bf9qCZe0";
-        const _supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        // جلسة منفصلة للتحقق من الحساب دون لمس جلسة GitHub في بقية الموقع.
+        const _supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+            auth: {
+                storageKey: 'cm-contact-auth',
+                persistSession: false,
+                autoRefreshToken: false,
+                detectSessionInUrl: false
+            }
+        });
 
         function openMobileMenu() { document.getElementById('mobileMenuOverlay').classList.add('active'); }
         function closeMobileMenu() { document.getElementById('mobileMenuOverlay').classList.remove('active'); }
@@ -436,71 +444,108 @@
             document.getElementById('notificationModal').classList.remove('active');
         }
 
-        // ================= دالة الحفظ في Supabase =================
+        // ================= التحقق من الحساب وحفظ الرسالة =================
         async function sendEmail(event) {
             event.preventDefault();
-            const btn = document.getElementById('btnSubmit');
-            let currentLang = localStorage.getItem('CMLang') || 'ar';
 
-            const name = document.getElementById('nameInput').value;
-            const email = document.getElementById('emailInput').value;
+            const form = document.getElementById('contactForm');
+            const btn = document.getElementById('btnSubmit');
+            const currentLang = localStorage.getItem('CMLang') || 'ar';
+
+            const name = document.getElementById('nameInput').value.trim();
+            const email = document.getElementById('emailInput').value.trim();
             const accountCode = document.getElementById('accountCodeInput').value;
             const countryCode = document.getElementById('countryCodeSelect').value;
-            const phone = document.getElementById('phoneInput').value;
-            const message = document.getElementById('messageInput').value;
+            const phone = document.getElementById('phoneInput').value.trim();
+            const message = document.getElementById('messageInput').value.trim();
 
-            // فحص صحة الإيميل
-            if (!isValidEmail(email)) {
-                showNotificationModal(
-                    'error',
-                    currentLang === 'ar' ? 'خطأ في البيانات' : 'Validation Error',
-                    currentLang === 'ar' ? 'الرجاء إدخال بريد إلكتروني صحيح (مثال: name@gmail.com)' : 'Please enter a valid email address.'
-                );
+            if (!name || !email || !accountCode || !phone || !message) {
+                showNotificationModal('error',
+                    currentLang === 'ar' ? 'بيانات ناقصة' : 'Missing information',
+                    currentLang === 'ar' ? 'يرجى تعبئة جميع الحقول المطلوبة.' : 'Please complete all required fields.');
                 return;
             }
 
-            btn.innerHTML = currentLang === 'ar' ? 'جاري الإرسال...' : 'Sending...';
+            if (!isValidEmail(email)) {
+                showNotificationModal('error',
+                    currentLang === 'ar' ? 'البريد الإلكتروني غير صحيح' : 'Invalid email',
+                    currentLang === 'ar' ? 'أدخل بريدًا إلكترونيًا صحيحًا.' : 'Please enter a valid email address.');
+                return;
+            }
+
+            if (!window.supabase || typeof _supabase?.auth?.signInWithPassword !== 'function') {
+                showNotificationModal('error',
+                    currentLang === 'ar' ? 'تعذر الاتصال' : 'Connection error',
+                    currentLang === 'ar' ? 'تعذر تحميل خدمة تسجيل الدخول. حدّث الصفحة وحاول مجددًا.' : 'The sign-in service could not load. Refresh and try again.');
+                return;
+            }
+
             btn.disabled = true;
+            btn.innerHTML = currentLang === 'ar' ? 'جارٍ التحقق والإرسال...' : 'Verifying and sending...';
 
             try {
-                // إدراج الصف في جدول messages في Supabase
-                const { data, error } = await _supabase
-                    .from('messages')
-                    .insert([
-                        {
-                            name: name,
-                            email: email,
-                            account_code: accountCode,
-                            phone: `${countryCode} ${phone}`,
-                            message: message
-                        }
-                    ]);
+                // رمز الحساب يُستخدم للتحقق فقط ولا يُرسل إلى جدول الرسائل.
+                const authResult = await _supabase.auth.signInWithPassword({
+                    email: email,
+                    password: accountCode
+                });
 
-                btn.disabled = false;
-                btn.innerHTML = currentLang === 'ar' ? 'إرسال الرسالة' : 'Send Message';
-
-                if (error) {
-                    showNotificationModal(
-                        'error',
-                        currentLang === 'ar' ? 'فشل الإرسال' : 'Error',
-                        currentLang === 'ar' ? 'تعذر الحفظ في قاعدة البيانات: ' + error.message : 'Database error: ' + error.message
-                    );
-                } else {
-                    event.target.reset();
-                    showNotificationModal(
-                        'success',
-                        currentLang === 'ar' ? 'تم الإرسال بنجاح!' : 'Success!',
-                        currentLang === 'ar' ? 'تم حفظ بياناتك بنجاح في قاعدة البيانات وسنرد عليك قريباً.' : 'Data saved successfully to Supabase.'
-                    );
+                if (authResult.error || !authResult.data?.user) {
+                    throw new Error('CONTACT_AUTH_FAILED');
                 }
+
+                const { error: insertError } = await _supabase
+                    .from('messages')
+                    .insert([{
+                        name: name,
+                        email: email,
+                        phone: countryCode + ' ' + phone,
+                        message: message
+                    }]);
+
+                if (insertError) {
+                    throw new Error(insertError.message || 'MESSAGE_INSERT_FAILED');
+                }
+
+                form.reset();
+                showNotificationModal('success',
+                    currentLang === 'ar' ? 'تم إرسال الرسالة بنجاح' : 'Message sent successfully',
+                    currentLang === 'ar'
+                        ? 'وصلت رسالتك إلى لوحة الإدارة. شكرًا لتواصلك معنا.'
+                        : 'Your message has been delivered to the admin inbox. Thank you.');
+
             } catch (err) {
+                const isAuthError = err?.message === 'CONTACT_AUTH_FAILED';
+                const isNetworkError = err instanceof TypeError || /failed to fetch|networkerror|load failed/i.test(String(err?.message || ''));
+
+                let title;
+                let messageText;
+
+                if (isAuthError) {
+                    title = currentLang === 'ar' ? 'تعذر التحقق من الحساب' : 'Account verification failed';
+                    messageText = currentLang === 'ar'
+                        ? 'تأكد من صحة البريد الإلكتروني ورمز الحساب، ثم حاول مرة أخرى.'
+                        : 'Check your email and account code, then try again.';
+                } else if (isNetworkError) {
+                    title = currentLang === 'ar' ? 'تعذر الاتصال بالخادم' : 'Server connection failed';
+                    messageText = currentLang === 'ar'
+                        ? 'لم نتمكن من الوصول إلى Supabase. تأكد من اتصال الإنترنت وحالة المشروع ثم أعد المحاولة.'
+                        : 'Could not reach Supabase. Check your internet connection and project status, then retry.';
+                } else {
+                    title = currentLang === 'ar' ? 'فشل إرسال الرسالة' : 'Message sending failed';
+                    messageText = currentLang === 'ar'
+                        ? 'تعذر حفظ الرسالة. حاول مرة أخرى. إذا استمرت المشكلة، تواصل مع المسؤول.'
+                        : 'The message could not be saved. Try again or contact the administrator.';
+                    console.error('Contact message submission failed:', err);
+                }
+
+                showNotificationModal('error', title, messageText);
+
+            } finally {
+                // هذا العميل لا يحفظ الجلسة، ومع ذلك ننظف حالته بعد إرسال الرسالة.
+                try { await _supabase.auth.signOut({ scope: 'local' }); } catch (_) {}
                 btn.disabled = false;
                 btn.innerHTML = currentLang === 'ar' ? 'إرسال الرسالة' : 'Send Message';
-                showNotificationModal(
-                    'error',
-                    currentLang === 'ar' ? 'فشل الاتصال' : 'Connection Error',
-                    currentLang === 'ar' ? 'يرجى التأكد من ربط مفاتيح Supabase الصحيحة.' : 'Please verify your Supabase keys.'
-                );
             }
         }
     </script>
