@@ -246,16 +246,7 @@
                                 placeholder="أدخل بريدك الإلكتروني بصيغة صحيحة...">
                         </div>
 
-                        <!-- 3. رمز الحساب المخفي -->
-                        <div class="input-group">
-                            <label>رمز الحساب (للتحقق فقط — لن يتم حفظه مع الرسالة)</label>
-                            <div class="password-container">
-                                <input type="password" id="accountCodeInput" name="account_code" required="required"
-                                    placeholder="أدخل الرمز...">
-                                <i class="fas fa-eye toggle-icon" id="toggleCodeBtn"
-                                    onclick="toggleCodeVisibility()"></i>
-                            </div>
-                        </div>
+                        
 
                         <!-- 4. رقم الهاتف + كود البلد -->
                         <div class="input-group">
@@ -346,12 +337,12 @@
             { ar: 'كيف يمكننا مساعدتك؟', en: 'How can we help you?' },
             { ar: 'فريقنا متواجد دائماً للرد على استفساراتك البرمجية والدعم الفني.', en: 'Our team is always available for your coding inquiries and technical support.' },
             { ar: 'أرسل لنا رسالة', en: 'Send us a message' }, { ar: 'الاسم الكامل', en: 'Full Name' },
-            { ar: 'البريد الإلكتروني', en: 'Email Address' }, { ar: 'الرمز السري / رمز الحساب', en: 'Account Code / Secret PIN' }, { ar: 'رقم الهاتف', en: 'Phone Number' },
+            { ar: 'البريد الإلكتروني', en: 'Email Address' }, { ar: 'رقم الهاتف', en: 'Phone Number' },
             { ar: 'الرسالة (إلزامي)', en: 'Message (Required)' },
             { ar: 'إرسال الرسالة', en: 'Send Message' }, { ar: 'نحن نصمم بيئات برمجية وأدوات حديثة لمساعدة مشاريعك وأفكارك على التميز والنجاح.', en: 'We create beautiful, modern coding environments to help your projects stand out.' },
             { ar: 'جميع الحقوق محفوظة.', en: 'All Rights Reserved.' },
             { ar: 'أدخل اسمك هنا...', en: 'Enter your name here...' }, { ar: 'أدخل بريدك الإلكتروني بصيغة صحيحة...', en: 'Enter a valid email address...' },
-            { ar: 'أدخل الرمز...', en: 'Enter code...' }, { ar: 'أدخل رقم هاتفك بدون كود البلد...', en: 'Enter phone number without country code...' },
+            { ar: 'أدخل رقم هاتفك بدون كود البلد...', en: 'Enter phone number without country code...' },
             { ar: 'اكتب رسالتك وتفاصيلها هنا...', en: 'Write your message and details here...' }
         ];
 
@@ -397,20 +388,6 @@
             if (localStorage.getItem('CMLang') === 'en') applyLanguage('en');
         });
 
-        function toggleCodeVisibility() {
-            const input = document.getElementById("accountCodeInput");
-            const icon = document.getElementById("toggleCodeBtn");
-            if (input.type === "password") {
-                input.type = "text";
-                icon.classList.remove("fa-eye");
-                icon.classList.add("fa-eye-slash");
-            } else {
-                input.type = "password";
-                icon.classList.remove("fa-eye-slash");
-                icon.classList.add("fa-eye");
-            }
-        }
-
         function isValidEmail(email) {
             return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
         }
@@ -444,7 +421,7 @@
             document.getElementById('notificationModal').classList.remove('active');
         }
 
-        // ================= التحقق من الحساب وحفظ الرسالة =================
+        // ================= حفظ رسالة التواصل =================
         async function sendEmail(event) {
             event.preventDefault();
 
@@ -454,47 +431,38 @@
 
             const name = document.getElementById('nameInput').value.trim();
             const email = document.getElementById('emailInput').value.trim();
-            const accountCode = document.getElementById('accountCodeInput').value;
             const countryCode = document.getElementById('countryCodeSelect').value;
             const phone = document.getElementById('phoneInput').value.trim();
             const message = document.getElementById('messageInput').value.trim();
 
-            if (!name || !email || !accountCode || !phone || !message) {
+            if (!name || !email || !phone || !message) {
                 showNotificationModal('error',
                     currentLang === 'ar' ? 'بيانات ناقصة' : 'Missing information',
                     currentLang === 'ar' ? 'يرجى تعبئة جميع الحقول المطلوبة.' : 'Please complete all required fields.');
                 return;
             }
 
-            if (!isValidEmail(email)) {
+            if (name.length > 120 || message.length > 5000 || phone.length > 40 || !isValidEmail(email)) {
                 showNotificationModal('error',
-                    currentLang === 'ar' ? 'البريد الإلكتروني غير صحيح' : 'Invalid email',
-                    currentLang === 'ar' ? 'أدخل بريدًا إلكترونيًا صحيحًا.' : 'Please enter a valid email address.');
+                    currentLang === 'ar' ? 'تحقق من البيانات' : 'Check your details',
+                    currentLang === 'ar'
+                        ? 'تحقق من صحة البريد الإلكتروني وطول الاسم ورقم الهاتف والرسالة.'
+                        : 'Check the email address and the length of your name, phone number and message.');
                 return;
             }
 
-            if (!window.supabase || typeof _supabase?.auth?.signInWithPassword !== 'function') {
+            if (!window.supabase || typeof _supabase?.from !== 'function') {
                 showNotificationModal('error',
                     currentLang === 'ar' ? 'تعذر الاتصال' : 'Connection error',
-                    currentLang === 'ar' ? 'تعذر تحميل خدمة تسجيل الدخول. حدّث الصفحة وحاول مجددًا.' : 'The sign-in service could not load. Refresh and try again.');
+                    currentLang === 'ar' ? 'تعذر تحميل خدمة الرسائل. حدّث الصفحة وحاول مجددًا.' : 'The message service could not load. Refresh and try again.');
                 return;
             }
 
             btn.disabled = true;
-            btn.innerHTML = currentLang === 'ar' ? 'جارٍ التحقق والإرسال...' : 'Verifying and sending...';
+            btn.innerHTML = currentLang === 'ar' ? 'جارٍ إرسال الرسالة...' : 'Sending message...';
 
             try {
-                // رمز الحساب يُستخدم للتحقق فقط ولا يُرسل إلى جدول الرسائل.
-                const authResult = await _supabase.auth.signInWithPassword({
-                    email: email,
-                    password: accountCode
-                });
-
-                if (authResult.error || !authResult.data?.user) {
-                    throw new Error('CONTACT_AUTH_FAILED');
-                }
-
-                const { error: insertError } = await _supabase
+                const { error } = await _supabase
                     .from('messages')
                     .insert([{
                         name: name,
@@ -503,47 +471,30 @@
                         message: message
                     }]);
 
-                if (insertError) {
-                    throw new Error(insertError.message || 'MESSAGE_INSERT_FAILED');
-                }
+                if (error) throw error;
 
                 form.reset();
                 showNotificationModal('success',
                     currentLang === 'ar' ? 'تم إرسال الرسالة بنجاح' : 'Message sent successfully',
                     currentLang === 'ar'
-                        ? 'وصلت رسالتك إلى لوحة الإدارة. شكرًا لتواصلك معنا.'
-                        : 'Your message has been delivered to the admin inbox. Thank you.');
+                        ? 'وصلت رسالتك إلى فريق Code Master. شكرًا لتواصلك معنا.'
+                        : 'Your message has been delivered to the Code Master team. Thank you.');
 
             } catch (err) {
-                const isAuthError = err?.message === 'CONTACT_AUTH_FAILED';
+                console.error('Contact message submission failed:', err);
                 const isNetworkError = err instanceof TypeError || /failed to fetch|networkerror|load failed/i.test(String(err?.message || ''));
-
-                let title;
-                let messageText;
-
-                if (isAuthError) {
-                    title = currentLang === 'ar' ? 'تعذر التحقق من الحساب' : 'Account verification failed';
-                    messageText = currentLang === 'ar'
-                        ? 'تأكد من صحة البريد الإلكتروني ورمز الحساب، ثم حاول مرة أخرى.'
-                        : 'Check your email and account code, then try again.';
-                } else if (isNetworkError) {
-                    title = currentLang === 'ar' ? 'تعذر الاتصال بالخادم' : 'Server connection failed';
-                    messageText = currentLang === 'ar'
-                        ? 'لم نتمكن من الوصول إلى Supabase. تأكد من اتصال الإنترنت وحالة المشروع ثم أعد المحاولة.'
-                        : 'Could not reach Supabase. Check your internet connection and project status, then retry.';
-                } else {
-                    title = currentLang === 'ar' ? 'فشل إرسال الرسالة' : 'Message sending failed';
-                    messageText = currentLang === 'ar'
-                        ? 'تعذر حفظ الرسالة. حاول مرة أخرى. إذا استمرت المشكلة، تواصل مع المسؤول.'
-                        : 'The message could not be saved. Try again or contact the administrator.';
-                    console.error('Contact message submission failed:', err);
-                }
-
-                showNotificationModal('error', title, messageText);
-
+                showNotificationModal('error',
+                    currentLang === 'ar'
+                        ? (isNetworkError ? 'تعذر الاتصال بالخادم' : 'فشل إرسال الرسالة')
+                        : (isNetworkError ? 'Server connection failed' : 'Message sending failed'),
+                    currentLang === 'ar'
+                        ? (isNetworkError
+                            ? 'تعذر الوصول إلى قاعدة البيانات. تحقق من الإنترنت وحالة Supabase ثم أعد المحاولة.'
+                            : 'لم نتمكن من حفظ رسالتك. حاول مرة أخرى، وإذا استمرت المشكلة فأخبرنا.')
+                        : (isNetworkError
+                            ? 'Could not reach the database. Check your internet and Supabase status, then retry.'
+                            : 'We could not save your message. Retry, and let us know if the issue continues.'));
             } finally {
-                // هذا العميل لا يحفظ الجلسة، ومع ذلك ننظف حالته بعد إرسال الرسالة.
-                try { await _supabase.auth.signOut({ scope: 'local' }); } catch (_) {}
                 btn.disabled = false;
                 btn.innerHTML = currentLang === 'ar' ? 'إرسال الرسالة' : 'Send Message';
             }
