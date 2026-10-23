@@ -299,3 +299,62 @@
   background:#222222;
   border-color:#414141;
 }
+
+
+
+/* Code Master: black + navy palette for GitHub panel and alerts */
+.cm-github-card {
+    background: #080D18 !important;
+    border-color: #26385F !important;
+}
+.cm-github-circle {
+    background: #101A31 !important;
+    color: #FFFFFF !important;
+}
+.cm-github-circle:hover {
+    background: #172554 !important;
+    color: #FFFFFF !important;
+}
+.cm-github-avatar, .cm-github-connect-icon {
+    background: #101A31 !important;
+    border-color: #26385F !important;
+}
+.cm-github-menu, .cm-github-login-menu {
+    background: #080D18 !important;
+    border-color: #26385F !important;
+}
+.cm-github-btn, .cm-github-small-btn, .github-back-btn,
+.cm-github-login-menu button {
+    background: #101A31 !important;
+    border-color: #26385F !important;
+    color: #DCE6FF !important;
+}
+.cm-github-btn:hover, .cm-github-small-btn:hover,
+.github-back-btn:hover, .cm-github-login-menu button:hover {
+    background: #172554 !important;
+    border-color: #4768AD !important;
+    color: #FFFFFF !important;
+}
+.github-push-btn {
+    background: #172554 !important;
+    color: #FFFFFF !important;
+    border-color: #304776 !important;
+}
+.github-push-btn:hover {
+    background: #243D74 !important;
+    color: #FFFFFF !important;
+    border-color: #4868A6 !important;
+}
+.github-push-btn:disabled {
+    background: #101A31 !important;
+    color: #95A7CC !important;
+    border-color: #26385F !important;
+}
+.github-panel-title, .cm-github-powered {
+    color: #8FA4CA !important;
+    border-color: #26385F !important;
+}
+.cm-github-error {
+    color: #FF8F8F !important;
+}
+
