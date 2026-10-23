@@ -1,41 +1,41 @@
 :root,
 html[data-theme="dark"] {
-  --bg-main: #060709;
-  --bg-card: #14151c;
-  --bg-elevated: #1c1f27;
-  --text-white: #ffffff;
-  --text-gray: #9ea3ac;
-  --border-light: rgba(255, 255, 255, 0.1);
-  --nav-pill-bg: #ffffff;
-  --nav-pill-text: #000000;
-  --nav-pill-active-bg: #000000;
-  --nav-pill-active-text: #ffffff;
-  --btn-border: rgba(255, 255, 255, 0.4);
-  --hero-muted: #9ea3ac;
-  --footer-bg: #222529;
-  --footer-text: #adb5bd;
-  --footer-heading: #ffffff;
-  --shadow-soft: 0 20px 50px rgba(0, 0, 0, 0.35);
+  --bg-main: #05070D;
+  --bg-card: #0F1A33;
+  --bg-elevated: #132448;
+  --text-white: #F7FAFF;
+  --text-gray: #B7C4DC;
+  --border-light: #26385F;
+  --nav-pill-bg: #101A31;
+  --nav-pill-text: #F4F7FF;
+  --nav-pill-active-bg: #172554;
+  --nav-pill-active-text: #FFFFFF;
+  --btn-border: #304776;
+  --hero-muted: #B7C4DC;
+  --footer-bg: #05070D;
+  --footer-text: #DCE6FF;
+  --footer-heading: #FFFFFF;
+  --shadow-soft: 0 20px 50px #02040A;
   color-scheme: dark;
 }
 
 html[data-theme="light"] {
-  --bg-main: #f4f6fb;
-  --bg-card: #ffffff;
-  --bg-elevated: #eef1f7;
-  --text-white: #12141a;
-  --text-gray: #5b6170;
-  --border-light: rgba(18, 20, 26, 0.1);
-  --nav-pill-bg: #12141a;
-  --nav-pill-text: #ffffff;
-  --nav-pill-active-bg: #ffffff;
-  --nav-pill-active-text: #12141a;
-  --btn-border: rgba(18, 20, 26, 0.2);
-  --hero-muted: #5b6170;
-  --footer-bg: #e8ecf4;
-  --footer-text: #4b5160;
-  --footer-heading: #12141a;
-  --shadow-soft: 0 18px 40px rgba(18, 20, 26, 0.08);
+  --bg-main: #F4F7FC;
+  --bg-card: #FFFFFF;
+  --bg-elevated: #E8EFFB;
+  --text-white: #14213D;
+  --text-gray: #4B5D7A;
+  --border-light: #D3DFF2;
+  --nav-pill-bg: #FFFFFF;
+  --nav-pill-text: #172554;
+  --nav-pill-active-bg: #172554;
+  --nav-pill-active-text: #FFFFFF;
+  --btn-border: #304776;
+  --hero-muted: #4B5D7A;
+  --footer-bg: #081127;
+  --footer-text: #DCE6FF;
+  --footer-heading: #FFFFFF;
+  --shadow-soft: 0 18px 40px #D8E1F1;
   color-scheme: light;
 }
 
@@ -50,9 +50,8 @@ body {
 
 .navbar,
 .welcome header.navbar {
-  background: color-mix(in srgb, var(--bg-main) 92%, transparent) !important;
-  border-bottom-color: var(--border-light) !important;
-  backdrop-filter: blur(12px);
+  background: var(--bg-main) !important;
+  border-bottom: 1px solid var(--border-light) !important;
   padding-block: 16px !important;
   gap: 12px;
 }
@@ -83,7 +82,7 @@ body {
 
 .en-btn,
 .theme-btn {
-  background: transparent !important;
+  background: var(--bg-elevated) !important;
   border: 1px solid var(--btn-border) !important;
   color: var(--text-white) !important;
   padding: 8px 16px;
@@ -240,4 +239,191 @@ html[data-theme="light"] select {
     padding: 0;
     justify-content: center;
   }
+}
+
+/* Code Master: shared black and royal-navy theme */
+html[data-theme="dark"] body {
+  background: #05070D !important;
+  color: #F7FAFF !important;
+}
+
+.navbar,
+.welcome header.navbar {
+  background: var(--bg-main) !important;
+  border-bottom-color: var(--border-light) !important;
+}
+
+.nav-pill,
+.desktop-nav {
+  background: var(--nav-pill-bg) !important;
+  border: 1px solid var(--border-light) !important;
+}
+
+.nav-link {
+  color: var(--nav-pill-text) !important;
+}
+
+.nav-link.active {
+  background: #172554 !important;
+  color: #FFFFFF !important;
+}
+
+.en-btn,
+.theme-btn,
+.mobile-lang-btn {
+  background: var(--bg-elevated) !important;
+  color: var(--text-white) !important;
+  border: 1px solid var(--btn-border) !important;
+}
+
+.hero-block,
+.about-hero,
+.hero-section {
+  background: linear-gradient(135deg, #05070D 0%, #0F1A33 100%) !important;
+  color: var(--text-white) !important;
+}
+
+html[data-theme="light"] .hero-block,
+html[data-theme="light"] .about-hero,
+html[data-theme="light"] .hero-section {
+  background: linear-gradient(135deg, #F4F7FC 0%, #E8EFFB 100%) !important;
+  color: var(--text-white) !important;
+}
+
+.hero-highlight,
+.hero-divider {
+  border-color: #304776 !important;
+}
+
+.hero-highlight {
+  color: var(--text-white) !important;
+}
+
+.card,
+.solution-card,
+.why-card,
+.faq-card,
+.feature-card,
+.download-card,
+.login-card,
+.modal-card,
+.contact-card,
+.contact-form-wrapper,
+.faq-item,
+.start-card,
+.master-feature-card,
+.final-cta-content {
+  background: var(--bg-card) !important;
+  border-color: var(--border-light) !important;
+  color: var(--text-white) !important;
+  box-shadow: var(--shadow-soft) !important;
+}
+
+.tag-pill,
+.badge,
+.why-icon,
+.start-icon,
+.master-feature-icon,
+.card-img-box {
+  background: #172554 !important;
+  border-color: #304776 !important;
+  color: #FFFFFF !important;
+}
+
+.cta-button,
+.submit-btn,
+.modal-btn,
+.card-btn,
+.download-btn,
+.download-link,
+.contact-form button[type="submit"],
+button.primary,
+a.primary {
+  background: #172554 !important;
+  border: 1px solid #304776 !important;
+  color: #FFFFFF !important;
+}
+
+.cta-button:hover,
+.submit-btn:hover,
+.modal-btn:hover,
+.card-btn:hover,
+.download-btn:hover,
+.download-link:hover,
+.contact-form button[type="submit"]:hover,
+button.primary:hover,
+a.primary:hover {
+  background: #243D74 !important;
+  border-color: #45649C !important;
+  color: #FFFFFF !important;
+}
+
+input,
+textarea,
+select,
+.country-code {
+  background: var(--bg-elevated) !important;
+  border-color: var(--border-light) !important;
+  color: var(--text-white) !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-gray) !important;
+}
+
+.modal-overlay {
+  background: #05070D !important;
+}
+
+.modal-card h3,
+.modal-card p,
+.contact-header h1,
+.contact-header p,
+.contact-form-wrapper h3 {
+  color: var(--text-white) !important;
+}
+
+.modal-icon.success {
+  background: #123B2E !important;
+  color: #6EE7B7 !important;
+  border-color: #218466 !important;
+}
+
+.modal-icon.error {
+  background: #3A1422 !important;
+  color: #FCA5A5 !important;
+  border-color: #B91C1C !important;
+}
+
+.footer-wave,
+footer.site-footer,
+.site-footer,
+.modern-footer {
+  background: var(--footer-bg) !important;
+  color: var(--footer-text) !important;
+  border-color: var(--border-light) !important;
+}
+
+.footer-wave__heading,
+.footer-wave h3,
+.footer-wave h4,
+.modern-footer h3 {
+  color: var(--footer-heading) !important;
+}
+
+.footer-links a,
+.footer-bottom p,
+.modern-footer p {
+  color: var(--footer-text) !important;
+}
+
+::selection {
+  background: #172554;
+  color: #FFFFFF;
+}
+
+:focus-visible {
+  outline: 2px solid #45649C !important;
+  outline-offset: 3px;
 }
