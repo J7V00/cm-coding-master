@@ -1,9 +1,9 @@
 :root {
-    --bg-main: #060709;
-    --bg-card: rgba(20, 22, 28, 0.6);
-    --text-white: #ffffff;
-    --text-gray: #a1a6b0;
-    --border-light: rgba(255, 255, 255, 0.1);
+    --bg-main: #05070D;
+    --bg-card: #0F1A33;
+    --text-white: #FFFFFF;
+    --text-gray: #B7C4DC;
+    --border-light: #26385F;
 }
 
 * {
@@ -60,7 +60,7 @@ img {
 
 .nav-pill {
     display: flex;
-    background: #ffffff !important;
+    background: #101A31 !important;
     padding: 5px;
     border-radius: 40px;
     border: none;
@@ -68,7 +68,7 @@ img {
 
 .nav-link {
     text-decoration: none;
-    color: #000000 !important;
+    color: #F4F7FF !important;
     padding: 8px 25px;
     border-radius: 30px;
     font-weight: 700;
@@ -77,7 +77,7 @@ img {
 }
 
 .nav-link.active {
-    background: #000000 !important;
+    background: #172554 !important;
     color: #ffffff !important;
 }
 
@@ -89,7 +89,7 @@ img {
 
 .en-btn {
     background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    border: 1px solid #304776;
     color: #ffffff !important;
     padding: 8px 20px;
     border-radius: 30px;
@@ -102,8 +102,8 @@ img {
 }
 
 .en-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: #ffffff;
+    background: #132448;
+    border-color: #45649C;
 }
 
 .mobile-dots-btn {
@@ -187,7 +187,7 @@ img {
 .about-hero {
     text-align: center;
     padding: 100px 0 60px;
-    background: radial-gradient(circle at 50% 0%, #15181e 0%, var(--bg-main) 100%);
+    background: radial-gradient(circle at 50% 0%, #0F1A33 0%, var(--bg-main) 100%);
     border-bottom: 1px solid var(--border-light);
 }
 
@@ -213,7 +213,7 @@ img {
     font-size: 1.3rem;
     display: inline-block;
     margin-top: 10px;
-    border-bottom: 2px solid #ffffff;
+    border-bottom: 2px solid #304776;
     padding-bottom: 6px;
 }
 
@@ -238,7 +238,7 @@ img {
     border-radius: 24px;
     overflow: hidden;
     border: 1px solid var(--border-light);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 20px 40px #02040A;
 }
 
 .about-image-box img {
@@ -259,8 +259,8 @@ img {
 }
 
 .badge {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #132448;
+    border: 1px solid #304776;
     padding: 8px 20px;
     border-radius: 30px;
     font-size: 0.9rem;
@@ -286,7 +286,7 @@ img {
 /* ================== قسم الأسئلة الشائعة ================== */
 .faq-section {
     padding: 80px 0;
-    background: #0b0c10;
+    background: #081127;
     border-top: 1px solid var(--border-light);
 }
 
@@ -327,7 +327,7 @@ img {
 
 /* ================== الفوتر الجديد (Modern Footer) ================== */
 .modern-footer {
-    background-color: #060709;
+    background-color: #05070D;
     padding: 60px 0 20px;
     border-top: 1px solid var(--border-light);
 }
@@ -380,7 +380,7 @@ img {
 }
 
 .footer-bottom {
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid #26385F;
     padding-top: 20px;
     text-align: center;
 }
