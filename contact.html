@@ -338,10 +338,6 @@
 
     <script>
         // ================= إعدادات Supabase =================
-        const SUPABASE_URL = "https://wkoyeiydytlgtoknypkd.supabase.co";
-        const SUPABASE_ANON_KEY = "sb_publishable_r3BxLBSCV85_7qR6WvYBdw_Bf9qCZe0";
-        const _supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
         function openMobileMenu() { document.getElementById('mobileMenuOverlay').classList.add('active'); }
         function closeMobileMenu() { document.getElementById('mobileMenuOverlay').classList.remove('active'); }
 
@@ -450,74 +446,10 @@
         }
 
         // ================= دالة الحفظ في Supabase =================
-        async function sendEmail(event) {
-            event.preventDefault();
-            const btn = document.getElementById('btnSubmit');
-            let currentLang = localStorage.getItem('CMLang') || 'ar';
-
-            const name = document.getElementById('nameInput').value;
-            const email = document.getElementById('emailInput').value;
-            const accountCode = document.getElementById('accountCodeInput').value;
-            const countryCode = document.getElementById('countryCodeSelect').value;
-            const phone = document.getElementById('phoneInput').value;
-            const message = document.getElementById('messageInput').value;
-
-            // فحص صحة الإيميل
-            if (!isValidEmail(email)) {
-                showNotificationModal(
-                    'error',
-                    currentLang === 'ar' ? 'خطأ في البيانات' : 'Validation Error',
-                    currentLang === 'ar' ? 'الرجاء إدخال بريد إلكتروني صحيح (مثال: name@gmail.com)' : 'Please enter a valid email address.'
-                );
-                return;
-            }
-
-            btn.innerHTML = currentLang === 'ar' ? 'جاري الإرسال...' : 'Sending...';
-            btn.disabled = true;
-
-            try {
-                // إدراج الصف في جدول messages في Supabase
-                const { data, error } = await _supabase
-                    .from('messages')
-                    .insert([
-                        {
-                            name: name,
-                            email: email,
-                            account_code: accountCode,
-                            phone: `${countryCode} ${phone}`,
-                            message: message
-                        }
-                    ]);
-
-                btn.disabled = false;
-                btn.innerHTML = currentLang === 'ar' ? 'إرسال الرسالة' : 'Send Message';
-
-                if (error) {
-                    showNotificationModal(
-                        'error',
-                        currentLang === 'ar' ? 'فشل الإرسال' : 'Error',
-                        currentLang === 'ar' ? 'تعذر الحفظ في قاعدة البيانات: ' + error.message : 'Database error: ' + error.message
-                    );
-                } else {
-                    event.target.reset();
-                    showNotificationModal(
-                        'success',
-                        currentLang === 'ar' ? 'تم الإرسال بنجاح!' : 'Success!',
-                        currentLang === 'ar' ? 'تم حفظ بياناتك بنجاح في قاعدة البيانات وسنرد عليك قريباً.' : 'Data saved successfully to Supabase.'
-                    );
-                }
-            } catch (err) {
-                btn.disabled = false;
-                btn.innerHTML = currentLang === 'ar' ? 'إرسال الرسالة' : 'Send Message';
-                showNotificationModal(
-                    'error',
-                    currentLang === 'ar' ? 'فشل الاتصال' : 'Connection Error',
-                    currentLang === 'ar' ? 'يرجى التأكد من ربط مفاتيح Supabase الصحيحة.' : 'Please verify your Supabase keys.'
-                );
-            }
-        }
+        
     </script>
 <script type="module" src="/src/web/site.ts"></script>
+<script type="module" src="/src/web/contact-form.ts"></script>
 </body>
 
 </html>

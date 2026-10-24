@@ -55,7 +55,7 @@ export function createCmEditor(
         languageExtension(options.file),
         updateListener,
         EditorView.theme({
-          "&": { height: "100%", fontSize: "13px" },
+          "&": { height: "100%", fontSize: "var(--editor-font, 13px)" },
           ".cm-scroller": { fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace", overflow: "auto" },
         }),
       ],
@@ -86,7 +86,7 @@ export function createCmEditor(
             languageExtension(file),
             updateListener,
             EditorView.theme({
-              "&": { height: "100%", fontSize: "13px" },
+              "&": { height: "100%", fontSize: "var(--editor-font, 13px)" },
               ".cm-scroller": {
                 fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
                 overflow: "auto",

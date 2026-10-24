@@ -1,13 +1,13 @@
 :root{
-  --bg:#070707;
-  --panel:#101010;
-  --panel2:#141414;
-  --line:#252525;
-  --line2:#363636;
-  --text:#f5f5f5;
-  --muted:#858585;
-  --dim:#555;
-  --yellow:#ffd400;
+  --bg:var(--bg-main, #05070d);
+  --panel:var(--bg-card, #0f1a33);
+  --panel2:var(--bg-elevated, #132448);
+  --line:var(--border-light, #26385f);
+  --line2:var(--btn, #34558a);
+  --text:var(--text-white, #ffffff);
+  --muted:var(--text-gray, #b7c4dc);
+  --dim:#7a8aaa;
+  --yellow:var(--btn, #34558a);
 }
 
 *{box-sizing:border-box}
@@ -17,7 +17,7 @@ html,body{
   min-height:100%;
   background:var(--bg);
   color:var(--text);
-  font-family:Arial,Helvetica,sans-serif;
+  font-family:"Tajawal",Arial,Helvetica,sans-serif;
 }
 
 body{min-height:100vh}
@@ -39,6 +39,14 @@ button{cursor:pointer}
   display:flex;
   align-items:center;
   justify-content:space-between;
+}
+
+html[dir="rtl"] .navbar .brand{
+  order:2;
+}
+
+html[dir="rtl"] .navbar .nav-right{
+  order:1;
 }
 
 .brand{
@@ -322,6 +330,23 @@ footer a{
 }
 
 footer a:hover{color:#ddd}
+
+.footer-actions{display:flex;align-items:center;gap:12px}
+.ai-foot-btn{
+  height:28px;padding:0 10px;border:1px solid var(--line);border-radius:8px;
+  background:var(--panel2);color:var(--text);font-size:11px;font-weight:800;
+}
+.ai-foot-btn:hover{background:var(--btn);border-color:var(--btn)}
+.recent-box{margin-top:18px;padding:12px;border:1px solid var(--line);border-radius:11px;background:var(--panel)}
+.recent-list{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.recent-item{
+  display:flex;flex-direction:column;align-items:flex-start;gap:2px;width:100%;
+  padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--panel2);color:var(--text);text-align:start;
+}
+.recent-item:hover{border-color:var(--btn);background:var(--btn)}
+.recent-item small{color:var(--muted);font-size:11px}
+.action-box,.action-card{background:var(--panel)!important;border-color:var(--line)!important}
+.action-card:hover{background:var(--panel2)!important;border-color:var(--btn)!important}
 
 @media(max-width:1000px){
   .welcome-area{

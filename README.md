@@ -7,9 +7,14 @@ Arabic-first coding workspace: marketing site + browser/desktop editor (Tauri 2)
 - **Vite + TypeScript** frontend
 - **CodeMirror 6** editor
 - **IndexedDB** project storage (`idb-keyval`)
-- **Supabase** auth (GitHub OAuth) with anon key only
-- **Tauri 2 / Rust** desktop shell
+- **Supabase** auth (GitHub OAuth) + Contact messages
+- **Tauri 2 / Rust** desktop shell (starts on `welcome.html`)
+- **AI assistant** via secure proxy (`VITE_AI_PROXY_URL`) — shortcut `⌥⇧A`
 - **Vitest** unit tests
+
+## Brand
+
+Dark professional palette: `#05070D`, cards `#0F1A33`, buttons `#34558A`. Avoid CSS transparency (`rgba`, `opacity`, `backdrop-filter`).
 
 ## Quick start
 

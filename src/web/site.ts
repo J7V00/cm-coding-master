@@ -1,5 +1,6 @@
 import "../styles/theme.css";
 import "../styles/github.css";
+import "../styles/ai-assistant.css";
 import { mountSharedNav } from "../shared/nav";
 import { installGitHub } from "../shared/github";
 import { initI18n } from "../shared/i18n";

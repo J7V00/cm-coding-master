@@ -1,18 +1,18 @@
 :root,
 html[data-theme="dark"]{
-  --bg:#080808;
-  --bar:#0d0d0d;
-  --side:#101010;
-  --editor:#0b0b0b;
-  --panel:#0e0e0e;
-  --line:#292929;
-  --line2:#3a3a3a;
-  --text:#ededed;
-  --muted:#828282;
-  --dim:#5d5d5d;
+  --bg:#05070d;
+  --bar:#101a31;
+  --side:#0f1a33;
+  --editor:#05070d;
+  --panel:#0f1a33;
+  --line:#26385f;
+  --line2:#34558a;
+  --text:#ffffff;
+  --muted:#b7c4dc;
+  --dim:#7a8aaa;
   --white:#fff;
   --blue:#67b7ff;
-  --yellow:#ffd400;
+  --yellow:#4169a8;
   --green:#8fd66b;
   --red:#ff5c5c;
   --purple:#c49bff;
@@ -128,6 +128,23 @@ button{cursor:pointer}
 .cm-command-palette button{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:7px 9px;border:1px solid #222;border-radius:6px;background:#111;color:#aaa;font:10px ui-monospace,SFMono-Regular,Menlo,monospace;text-align:left}
 .cm-command-palette button:hover{background:#191919;color:#fff;border-color:#333}
 .cm-command-palette kbd{padding:2px 5px;border:1px solid #303030;border-radius:4px;background:#181818;color:#777;font-size:8px}
+.editor-host .cm-scroller,.editor-host .cm-content,.editor-host .cm-gutters{font-size:var(--editor-font,13px)!important}
+html[data-word-wrap="1"] .editor-host .cm-content{white-space:pre-wrap;overflow-wrap:anywhere}
+.ide-pad{display:flex;flex-direction:column;gap:8px;padding:10px}
+.ide-input{width:100%;height:30px;border:1px solid var(--line2);border-radius:6px;background:#151515;color:var(--text);padding:0 8px;font:11px ui-monospace,SFMono-Regular,Menlo,monospace}
+.ide-btn{height:30px;border:1px solid #333;border-radius:6px;background:#161616;color:#ddd;font-size:11px}
+.ide-btn.primary{background:#fff;color:#111;border-color:#fff;font-weight:800}
+.ide-muted{color:#777;font-size:11px;line-height:1.5}
+.ide-list{display:flex;flex-direction:column;gap:4px}
+.ide-hit{display:flex;flex-direction:column;align-items:flex-start;gap:2px;width:100%;padding:7px 8px;border:0;border-radius:6px;background:transparent;color:#ccc;text-align:left}
+.ide-hit:hover{background:#1b1b1b}
+.ide-hit b{font-size:10px;color:#9ecbff}
+.ide-hit span{font-size:11px;color:#aaa}
+.ide-ext{display:flex;gap:8px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #222;color:#ddd;font-size:12px}
+.ide-ext small,.ide-field{display:block;color:#888;font-size:11px}
+.ide-field{display:flex;flex-direction:column;gap:4px}
+html[data-theme="light"] .ide-input,html[data-theme="light"] .ide-btn{background:#fff;color:#111;border-color:#d7dbe6}
+html[data-theme="light"] .ide-hit:hover{background:#eef1f7}
 
 
 .editor-grid{min-height:0;flex:1;display:block;direction:ltr;background:var(--editor);position:relative}

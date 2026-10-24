@@ -1,21 +1,27 @@
-# Supabase security notes
+# Supabase for Code Master
 
-Frontend may only use the **anon** key via `VITE_SUPABASE_*` env vars.
+## Contact → Admin
 
-## Required RLS mindset
-
-- Enable RLS on every table that stores user data.
-- Policies should scope rows by `auth.uid()`.
-- Never put the service-role key in the website, Tauri app, or git.
-
-## GitHub token proxy (optional)
-
-Sensitive GitHub operations that should not expose a long-lived token in the browser can go through `supabase/functions/github-proxy`.
-
-Deploy:
+1. Apply `migrations/001_messages.sql`.
+2. Deploy Edge Functions:
 
 ```bash
-supabase functions deploy github-proxy
+supabase functions deploy admin-messages
+supabase functions deploy ai-proxy
 ```
 
-Set secrets in the Supabase dashboard (not in the repo).
+3. Set secrets (dashboard / CLI), never in frontend:
+
+- `ADMIN_GATE` — same value as local `VITE_ADMIN_GATE`
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `OPENAI_API_KEY` or `AI_API_KEY`
+
+4. Frontend `.env`:
+
+```env
+VITE_ADMIN_GATE=...
+VITE_ADMIN_API_URL=https://<project>.supabase.co/functions/v1/admin-messages
+VITE_AI_PROXY_URL=https://<project>.supabase.co/functions/v1/ai-proxy
+```
+
+Anon key may insert contact rows only. Reading messages goes through `admin-messages` with the admin gate header.

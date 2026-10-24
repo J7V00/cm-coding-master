@@ -311,6 +311,15 @@
 
         <!-- ================== بطاقات التنزيل ================== -->
 
+        <section class="launch-app">
+            <h2 data-ar="افتح التطبيق على أي جهاز" data-en="Open the app on any device">افتح التطبيق على أي جهاز</h2>
+            <p data-ar="بعد التثبيت يفتح Coding Master كمحرر كامل: ملفات، تعديل، تشغيل، طرفية، إضافات، إعدادات، وثيم." data-en="After install, Coding Master opens as a full editor: files, edit, run, terminal, extensions, settings, and theme.">بعد التثبيت يفتح Coding Master كمحرر كامل: ملفات، تعديل، تشغيل، طرفية، إضافات، إعدادات، وثيم.</p>
+            <div class="launch-actions">
+                <a id="openAppBtn" class="card-btn" href="editor.html">فتح المحرر الآن</a>
+                <button id="installAppBtn" class="card-btn" type="button">تثبيت كتطبيق</button>
+            </div>
+        </section>
+
         <section class="downloads-grid">
 
 
@@ -356,7 +365,7 @@
 
                     <a
                         id="btnMac"
-                        href="/cm-coding-masterhttps://github.com/J7V00/cm-coding-master/releases/latest/download/Coding-Master-macOS.dmg"
+                        href="https://github.com/J7V00/cm-coding-master/releases/latest/download/Coding-Master-macOS.dmg"
                         class="card-btn"
                         download
                         onclick="return protectDownload('mac')">
@@ -420,7 +429,7 @@
 
                     <a
                         id="btnWin"
-                        href="/cm-coding-masterhttps://github.com/J7V00/cm-coding-master/releases/latest/download/Coding-Master-Windows.exe"
+                        href="https://github.com/J7V00/cm-coding-master/releases/latest/download/Coding-Master-Windows.exe"
                         class="card-btn"
                         download
                         onclick="return protectDownload('windows')">
@@ -484,7 +493,7 @@
 
                     <a
                         id="btnLin"
-                        href="/cm-coding-masterhttps://github.com/J7V00/cm-coding-master/releases/latest/download/Coding-Master-Linux.AppImage"
+                        href="https://github.com/J7V00/cm-coding-master/releases/latest/download/Coding-Master-Linux.AppImage"
                         class="card-btn"
                         download="Coding-Master-Linux.AppImage"
                         onclick="return protectDownload('linux')">
@@ -502,6 +511,28 @@
 
                 </div>
 
+            </div>
+
+            <div class="download-card" id="card-android">
+                <div class="card-top">
+                    <div class="card-img-box"><i class="fab fa-android"></i></div>
+                    <div class="card-info">
+                        <div class="card-header-title"><i class="fab fa-android"></i><h3>Android</h3></div>
+                        <p data-ar="يثبّت كتطبيق على الشاشة الرئيسية ويفتح المحرر مباشرة." data-en="Installs to the home screen and opens the editor directly.">يثبّت كتطبيق على الشاشة الرئيسية ويفتح المحرر مباشرة.</p>
+                    </div>
+                </div>
+                <a class="card-btn" href="editor.html"><i class="fa-solid fa-mobile-screen"></i> فتح على Android</a>
+            </div>
+
+            <div class="download-card" id="card-ios">
+                <div class="card-top">
+                    <div class="card-img-box"><i class="fab fa-app-store-ios"></i></div>
+                    <div class="card-info">
+                        <div class="card-header-title"><i class="fab fa-apple"></i><h3>iPhone / iPad</h3></div>
+                        <p data-ar="من سفاري: مشاركة ثم إضافة إلى الشاشة الرئيسية." data-en="In Safari: Share, then Add to Home Screen.">من سفاري: مشاركة ثم إضافة إلى الشاشة الرئيسية.</p>
+                    </div>
+                </div>
+                <a class="card-btn" href="editor.html"><i class="fa-solid fa-mobile-screen"></i> فتح على iPhone</a>
             </div>
 
         </section>
@@ -851,7 +882,8 @@
 
             let detectedId = "";
 
-
+            if (/android/.test(ua)) detectedId = "card-android";
+            else if (/iphone|ipad|ipod/.test(ua)) detectedId = "card-ios";
 
             /* Mac */
 
@@ -974,6 +1006,9 @@
                     ? navigator.platform.toLowerCase()
                     : "";
 
+            if (/android/.test(userAgent)) return "android";
+            if (/iphone|ipad|ipod/.test(userAgent)) return "ios";
+
 
 
             /* Windows */
@@ -1030,41 +1065,19 @@
             const deviceOS =
                 getDeviceOS();
 
-
-
-            /* الجهاز غير معروف */
-
-            if (
-                deviceOS === "unknown"
-            ) {
-
-                alert(
-                    "❌ تعذر التحقق من نظام جهازك."
-                );
-
+            if (deviceOS === "android" || deviceOS === "ios") {
+                location.href = "editor.html";
                 return false;
-
             }
 
-
-
-            /* النسخة غير متوافقة */
-
             if (
+                deviceOS !== "unknown" &&
                 deviceOS !== requiredOS
             ) {
-
-                alert(
-                    "❌ هذا التطبيق غير متوافق مع جهازك."
-                );
-
+                const openWeb = confirm("هذه النسخة لنظام آخر. هل تريد فتح التطبيق في المتصفح؟");
+                if (openWeb) location.href = "editor.html";
                 return false;
-
             }
-
-
-
-            /* النسخة متوافقة */
 
             return true;
 
@@ -1099,6 +1112,7 @@
 
     </script>
 <script type="module" src="/src/web/site.ts"></script>
+<script type="module" src="/src/web/install-app.ts"></script>
 </body>
 
 </html>

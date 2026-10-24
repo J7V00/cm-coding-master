@@ -4,7 +4,7 @@
   "description": "تطبيق Coding Master لتعلّم البرمجة وكتابة الأكواد",
   "lang": "ar",
   "dir": "rtl",
-  "start_url": "/index.html",
+  "start_url": "/editor.html",
   "scope": "/",
   "display": "standalone",
   "background_color": "#080808",

@@ -239,10 +239,12 @@
                             <tr>
                                 <th>#</th>
                                 <th>الاسم</th>
-                                <th>البريد الإلكتروني</th>
+                                <th>البريد</th>
+                                <th>العنوان</th>
                                 <th>رمز الحساب</th>
-                                <th>رقم الهاتف</th>
+                                <th>الهاتف</th>
                                 <th>الرسالة</th>
+                                <th>الحالة</th>
                                 <th>التاريخ</th>
                                 <th>إجراء</th>
                             </tr>
@@ -265,102 +267,6 @@
     </footer>
 
     <script>
-        // ================= إعدادات Supabase =================
-        const SUPABASE_URL = "https://wkoyeiydytlgtoknypkd.supabase.co"; // ضع رابط مشروع سوبابيس هنا
-        const SUPABASE_ANON_KEY = "sb_publishable_r3BxLBSCV85_7qR6WvYBdw_Bf9qCZe0"; // ضع مفتاح anon هنا
-
-        const _supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-        // كلمة مرور الأدمن الافتراضية (يمكنك تغييرها)
-        const ADMIN_PASSWORD = "123456";
-
-        function openMobileMenu() { document.getElementById('mobileMenuOverlay').classList.add('active'); }
-        function closeMobileMenu() { document.getElementById('mobileMenuOverlay').classList.remove('active'); }
-
-        // التحقق من كلمة مرور الإدارة
-        function checkAdminPass() {
-            const inputPass = document.getElementById('adminPassInput').value;
-            if (inputPass === ADMIN_PASSWORD) {
-                document.getElementById('loginCard').style.display = 'none';
-                document.getElementById('dashboardContainer').style.display = 'block';
-                fetchMessages();
-            } else {
-                alert('كلمة المرور غير صحيحة!');
-            }
-        }
-
-        // جلب الرسائل من Supabase
-        async function fetchMessages() {
-            const tbody = document.getElementById('messagesTableBody');
-            tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding: 30px;">جاري تحميل الرسائل...</td></tr>';
-
-            try {
-                const { data, error } = await _supabase
-                    .from('messages')
-                    .select('*')
-                    .order('created_at', { ascending: false });
-
-                if (error) {
-                    tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; color:#ef4444;">خطأ في الجلب: ${error.message}</td></tr>`;
-                    return;
-                }
-
-                document.getElementById('totalMsgCount').innerText = data.length;
-
-                if (data.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding: 30px;">لا يوجد رسائل حتى الآن.</td></tr>';
-                    return;
-                }
-
-                tbody.innerHTML = '';
-                data.forEach((msg, index) => {
-                    const dateFormatted = new Date(msg.created_at || Date.now()).toLocaleString('ar-SA');
-                    const row = document.createElement('tr');
-
-                    row.innerHTML = `
-                        <td>${index + 1}</td>
-                        <td><strong>${escapeHtml(msg.name || '')}</strong></td>
-                        <td>${escapeHtml(msg.email || '')}</td>
-                        <td><span class="secret-code">${escapeHtml(msg.account_code || '---')}</span></td>
-                        <td><span dir="ltr">${escapeHtml(msg.phone || '')}</span></td>
-                        <td class="msg-text-cell">${escapeHtml(msg.message || '')}</td>
-                        <td style="font-size:0.85rem; color:#a1a6b0;">${dateFormatted}</td>
-                        <td>
-                            <button class="delete-btn" onclick="deleteMessage(${msg.id})">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    `;
-                    tbody.appendChild(row);
-                });
-
-            } catch (err) {
-                tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; color:#ef4444;">تعذر الاتصال بـ Supabase. تأكد من إعداد المفاتيح.</td></tr>';
-            }
-        }
-
-        // حذف رسالة من Supabase
-        async function deleteMessage(id) {
-            if (!confirm('هل أنت تأكد من رغبتك في حذف هذه الرسالة؟')) return;
-
-            const { error } = await _supabase
-                .from('messages')
-                .delete()
-                .eq('id', id);
-
-            if (error) {
-                alert('حدث خطأ أثناء الحذف: ' + error.message);
-            } else {
-                fetchMessages();
-            }
-        }
-
-        function escapeHtml(text) {
-            return String(text).replace(/[&<>"']/g, function (m) {
-                return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
-            });
-        }
-
         // ترجمة الواجهة
         const translationDict = [
             { ar: 'الرئيسية', en: 'Home' }, { ar: 'من نحن', en: 'About Us' }, { ar: 'تواصل معنا', en: 'Contact Us' }, { ar: 'التنزيلات', en: 'Downloads' },
@@ -386,6 +292,7 @@
         });
     </script>
   <script type="module" src="/src/web/site.ts"></script>
+<script type="module" src="/src/web/admin-panel.ts"></script>
 </body>
 
 </html>

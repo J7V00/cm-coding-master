@@ -1,6 +1,7 @@
 import "../styles/theme.css";
 import "../styles/editor.css";
 import "../styles/github.css";
+import "../styles/ai-assistant.css";
 import { installDesktop } from "../shared/desktop";
 import { installGitHub } from "../shared/github";
 import { applyTheme, getTheme, toggleTheme } from "../shared/theme";
@@ -15,10 +16,27 @@ import {
   normalizePath,
   parentFolder,
 } from "../shared/paths";
+import { initAiAssistant } from "../shared/ai-assistant";
 import { createCmEditor, type CmEditor } from "./cm-editor";
+import {
+  applyEditorSettings,
+  extensionOn,
+  formatDocument,
+  loadSettings,
+  openCommandPalette,
+  renderExtensions,
+  renderRun,
+  renderSearch,
+  renderSettings,
+  renderSource,
+  renderTerminal,
+  viewTitle,
+  type IdeHost,
+} from "./ide";
 
 installDesktop();
 installGitHub();
+initAiAssistant();
 
 const desktop = window.CMDesktop!;
 const panelBody = document.getElementById("panelBody")!;
@@ -45,6 +63,8 @@ let currentFile = "index.html";
 let openFiles = ["index.html"];
 let cm: CmEditor;
 const SHA_KEY = "cm-github-file-shas";
+const dirty = new Set<string>();
+const diskBaseline: Record<string, string> = {};
 
 function iconClass(file: string) {
   const ext = extension(file);
@@ -67,6 +87,22 @@ function iconText(file: string) {
 async function persist() {
   state.folders = [...folders];
   await saveProject(state);
+}
+
+function ideHost(): IdeHost {
+  return {
+    files: () => state.files,
+    currentFile: () => currentFile,
+    getValue: () => cm.getValue(),
+    openFile,
+    run,
+    save,
+    newFile: () => void newFile(activeFolder),
+    projectRoot: () => state.projectRoot,
+    projectRootPath: () => state.projectRootPath,
+    isDesktop: () => desktop.isTauri(),
+    runCommand: (command, cwd) => desktop.runCommand(command, cwd),
+  };
 }
 
 function addFolderAndParents(path: string) {
@@ -137,7 +173,7 @@ function renderTabs() {
   tabs.innerHTML = openFiles
     .map(
       (file) =>
-        `<button class="tab ${file === currentFile ? "active" : ""}" data-file="${escapeAttr(file)}" type="button"><span class="tab-icon ${iconClass(file)}">${iconText(file)}</span><span>${escapeHtml(baseName(file))}</span><span class="tab-close">×</span></button>`,
+        `<button class="tab ${file === currentFile ? "active" : ""}" data-file="${escapeAttr(file)}" type="button"><span class="tab-icon ${iconClass(file)}">${iconText(file)}</span><span>${escapeHtml(baseName(file))}${dirty.has(file) ? " •" : ""}</span><span class="tab-close">×</span></button>`,
     )
     .join("");
 
@@ -155,9 +191,10 @@ function renderTabs() {
 function openFile(file: string) {
   file = normalizePath(file);
   if (!(file in state.files)) state.files[file] = "";
-  if (currentFile) state.files[currentFile] = cm.getValue();
+  if (currentFile && cm) state.files[currentFile] = cm.getValue();
   currentFile = file;
   if (!openFiles.includes(file)) openFiles.push(file);
+  if (!(file in diskBaseline)) diskBaseline[file] = state.files[file] || "";
   cm.setFile(file, state.files[file] || "");
   breadcrumb.textContent = file.replace(/\//g, " / ");
   projectName.textContent = state.projectRoot;
@@ -176,21 +213,36 @@ function closeTab(file: string) {
 }
 
 async function save() {
-  state.files[currentFile] = cm.getValue();
+  const content = cm.getValue();
+  state.files[currentFile] = content;
+  let diskSaved = false;
   try {
-    if (desktop.isTauri() && state.nativePaths[currentFile]) {
-      await desktop.writeText(state.nativePaths[currentFile], cm.getValue());
+    if (desktop.isTauri()) {
+      let path = state.nativePaths[currentFile];
+      if (!path && state.projectRootPath) {
+        path = await desktop.join(state.projectRootPath, currentFile);
+        state.nativePaths[currentFile] = path;
+      }
+      if (path) {
+        await desktop.writeText(path, content);
+        diskSaved = true;
+        diskBaseline[currentFile] = content;
+      }
     }
   } catch (error) {
-    panelBody.innerHTML = `<p class="problem-row">${escapeHtml((error as Error).message || "Could not save the file.")}</p>`;
+    panelBody.innerHTML = `<p class="problem-row">${escapeHtml((error as Error).message || "Could not save the file to disk.")}</p>`;
     return;
   }
+  dirty.delete(currentFile);
   await persist();
   renderExplorer();
   renderTabs();
-  const lint = lintCode(cm.getValue(), language(currentFile));
-  panelBody.innerHTML = `<div>$ coding-master save</div><p class="${lint.lines.length ? "problem-row" : "success-row"}">${
-    lint.lines.length ? `Saved with ${lint.lines.length} problem(s).` : `Saved ${escapeHtml(currentFile)}.`
+  const lint = lintCode(content, language(currentFile));
+  const where = diskSaved ? "on disk" : "in workspace storage";
+  panelBody.innerHTML = `<div>$ code-master save</div><p class="${lint.lines.length ? "problem-row" : "success-row"}">${
+    lint.lines.length
+      ? `Saved ${escapeHtml(currentFile)} ${where} with ${lint.lines.length} problem(s).`
+      : `Saved ${escapeHtml(currentFile)} ${where}.`
   }</p>`;
 }
 
@@ -532,13 +584,20 @@ function bindUi() {
     location.href = "welcome.html";
   });
 
+  document.getElementById("commandBtn")?.addEventListener("click", () => openCommandPalette(ideHost(), panelBody));
+
   document.querySelectorAll<HTMLButtonElement>(".activity[data-view]").forEach((button) => {
     button.addEventListener("click", () => {
       document.querySelectorAll(".activity[data-view]").forEach((item) => item.classList.remove("active"));
       button.classList.add("active");
       const view = button.dataset.view || "explorer";
-      document.getElementById("sideTitle")!.textContent = view === "explorer" ? "EXPLORER" : view.toUpperCase();
+      document.getElementById("sideTitle")!.textContent = viewTitle(view);
+      const host = ideHost();
       if (view === "github") {
+        if (!extensionOn("github")) {
+          sideContent.innerHTML = `<div class="sidebar-note"><b>GitHub</b><span>Enable the GitHub extension first.</span></div>`;
+          return;
+        }
         void repositoriesView();
         return;
       }
@@ -546,7 +605,25 @@ function bindUi() {
         renderExplorer();
         return;
       }
-      sideContent.innerHTML = `<div class="sidebar-note"><b>${view.toUpperCase()}</b><span>Workspace tools are ready.</span></div>`;
+      if (view === "search") {
+        renderSearch(host, sideContent);
+        return;
+      }
+      if (view === "source") {
+        renderSource(host, sideContent);
+        return;
+      }
+      if (view === "run") {
+        renderRun(host, sideContent);
+        return;
+      }
+      if (view === "extensions") {
+        renderExtensions(sideContent);
+        return;
+      }
+      if (view === "settings") {
+        renderSettings(sideContent);
+      }
     });
   });
 
@@ -554,14 +631,22 @@ function bindUi() {
     button.addEventListener("click", () => {
       document.querySelectorAll(".panel-tab").forEach((item) => item.classList.remove("active"));
       button.classList.add("active");
+      if (button.dataset.panel === "terminal") {
+        renderTerminal(ideHost(), panelBody);
+        return;
+      }
       if (button.dataset.panel === "problems") {
+        if (!extensionOn("lint")) {
+          panelBody.innerHTML = `<p class="ide-muted">Enable the Problems extension.</p>`;
+          return;
+        }
         const lint = lintCode(cm.getValue(), language(currentFile));
         panelBody.innerHTML = lint.messages.length
           ? lint.messages.map((message) => `<p class="problem-row">• ${escapeHtml(message)}</p>`).join("")
           : `<p class="success-row">No problems found.</p>`;
         return;
       }
-      panelBody.innerHTML = `<div>${(button.dataset.panel || "").toUpperCase()}</div><p>Ready.</p>`;
+      panelBody.innerHTML = `<div>OUTPUT</div><p>Preview and save messages appear here.</p>`;
     });
   });
 
@@ -580,6 +665,16 @@ function bindUi() {
     if (mod && event.key.toLowerCase() === "n") {
       event.preventDefault();
       void newFile();
+    }
+    if (mod && event.key.toLowerCase() === "k") {
+      event.preventDefault();
+      openCommandPalette(ideHost(), panelBody);
+    }
+    if (mod && event.shiftKey && event.key.toLowerCase() === "f" && extensionOn("format")) {
+      event.preventDefault();
+      const next = formatDocument(cm.getValue(), loadSettings().tabSize);
+      cm.setValue(next);
+      state.files[currentFile] = next;
     }
   });
 
@@ -614,7 +709,11 @@ async function boot() {
     value: state.files[currentFile] || "",
     onChange: (value) => {
       state.files[currentFile] = value;
+      if ((diskBaseline[currentFile] ?? "") !== value) dirty.add(currentFile);
+      else dirty.delete(currentFile);
+      renderTabs();
       updateStatus();
+      if (!loadSettings().autosave) return;
       window.clearTimeout(persistTimer);
       persistTimer = window.setTimeout(() => {
         void persist();
@@ -623,7 +722,9 @@ async function boot() {
     onCursor: updateStatus,
   });
 
+  applyEditorSettings();
   bindUi();
+  renderTerminal(ideHost(), panelBody);
   renderExplorer();
   renderTabs();
   openFile(currentFile);
